@@ -13,13 +13,12 @@ const TimeSelector = ({ selectedTime, onTimeSelect, selectedDate, onConfirmBooki
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-2">2. Choose a Time</h3>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col">
       {selectedDate && (
         <p className="text-sm text-gray-600 mb-6">{formatDate(selectedDate)}</p>
       )}
       
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6">
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-6 flex-1">
         {timeSlots.map((time) => (
           <button
             key={time}
@@ -40,7 +39,7 @@ const TimeSelector = ({ selectedTime, onTimeSelect, selectedDate, onConfirmBooki
       {onConfirmBooking && (
         <button
           onClick={onConfirmBooking}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors mt-auto"
         >
           Confirm Booking
         </button>
