@@ -62,15 +62,16 @@ const ManageAppointmentsPage = () => {
 
         {/* Main Content - Book New Tab */}
         {activeTab === 'book' && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8 items-stretch">
             {/* Section 1: Select a Date */}
-            <div className="lg:col-span-1">
+            <div className="flex flex-col">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">1. Select a Date</h2>
               <Calendar selectedDate={selectedDate} onDateSelect={setSelectedDate} />
             </div>
 
             {/* Section 2: Choose a Time */}
-            <div className="lg:col-span-1">
+            <div className="flex flex-col">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">2. Choose a Time</h2>
               <TimeSelector
                 selectedTime={selectedTime}
                 onTimeSelect={setSelectedTime}
@@ -80,7 +81,8 @@ const ManageAppointmentsPage = () => {
             </div>
 
             {/* Section 3: Provide Details */}
-            <div className="lg:col-span-1">
+            <div className="flex flex-col">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">3. Provide Details</h2>
               <AppointmentForm
                 reason={reason}
                 onReasonChange={setReason}
