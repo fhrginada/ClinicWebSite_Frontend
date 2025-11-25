@@ -8,17 +8,19 @@ const Tabs = ({ activeTab, onTabChange }) => {
   ];
 
   return (
-    <div className="border-b border-gray-200 mb-8">
-      <div className="flex space-x-8">
+    <div className="border-b border-white/30 mb-10">
+      <div className="flex space-x-6" role="tablist" aria-label="Appointment management tabs">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`pb-4 px-1 font-medium transition-colors ${
+            className={`relative pb-4 px-1 font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500 ${
               activeTab === tab.id
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'text-primary-600 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-primary-500'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
+            aria-selected={activeTab === tab.id}
+            role="tab"
           >
             {tab.label}
           </button>

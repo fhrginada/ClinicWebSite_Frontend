@@ -13,9 +13,9 @@ const TimeSelector = ({ selectedTime, onTimeSelect, selectedDate, onConfirmBooki
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col">
+    <div className="rounded-3xl border border-white/35 bg-white/20 backdrop-blur-lg shadow-glass p-6 h-full flex flex-col">
       {selectedDate && (
-        <p className="text-sm text-gray-600 mb-6">{formatDate(selectedDate)}</p>
+        <p className="text-sm text-slate-600/90 mb-6">{formatDate(selectedDate)}</p>
       )}
       
       <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-6 flex-1">
@@ -24,12 +24,14 @@ const TimeSelector = ({ selectedTime, onTimeSelect, selectedDate, onConfirmBooki
             key={time}
             onClick={() => onTimeSelect(time)}
             className={`
-              px-4 py-2 rounded-lg font-medium text-sm transition-colors
-              ${selectedTime === time
-                ? 'bg-blue-600 text-white hover:bg-blue-700'
-                : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+              px-4 py-2 rounded-xl font-semibold text-sm transition-colors border
+              ${
+                selectedTime === time
+                  ? 'bg-primary-600/90 text-white border-primary-500 shadow-glass'
+                  : 'bg-white/10 text-slate-800/90 border-white/25 hover:border-white/50 hover:bg-white/20'
               }
             `}
+            aria-pressed={selectedTime === time}
           >
             {time}
           </button>
@@ -39,7 +41,7 @@ const TimeSelector = ({ selectedTime, onTimeSelect, selectedDate, onConfirmBooki
       {onConfirmBooking && (
         <button
           onClick={onConfirmBooking}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors mt-auto"
+          className="w-full bg-primary-600/95 text-white py-3 rounded-xl font-semibold hover:bg-primary-600 transition-colors mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 shadow-glass"
         >
           Confirm Booking
         </button>
