@@ -60,24 +60,26 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
   const days = getDaysInMonth(currentMonth);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full">
+    <div className="rounded-3xl border border-white/35 bg-white/20 backdrop-blur-lg shadow-glass p-6 h-full">
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={handlePrevMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 rounded-xl transition-colors border border-transparent hover:border-white/40 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+          aria-label="Go to previous month"
         >
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-semibold text-slate-900">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </h3>
         <button
           onClick={handleNextMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 rounded-xl transition-colors border border-transparent hover:border-white/40 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+          aria-label="Go to next month"
         >
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -85,7 +87,7 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
 
       <div className="grid grid-cols-7 gap-2 mb-2">
         {daysOfWeek.map((day, index) => (
-          <div key={index} className="text-center text-sm font-medium text-gray-600 py-2">
+          <div key={index} className="text-center text-sm font-semibold text-slate-600/90 py-2">
             {day}
           </div>
         ))}
@@ -98,15 +100,17 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
             onClick={() => handleDateClick(day)}
             disabled={!day}
             className={`
-              aspect-square flex items-center justify-center text-sm font-medium rounded-lg transition-colors
-              ${!day ? 'cursor-default' : 'cursor-pointer hover:bg-gray-100'}
-              ${isSelected(day)
-                ? 'bg-blue-600 text-white hover:bg-blue-700'
-                : day
-                ? 'text-gray-900'
-                : 'text-transparent'
+              aspect-square flex items-center justify-center text-sm font-semibold rounded-xl transition-colors border
+              ${!day ? 'cursor-default border-transparent' : 'cursor-pointer hover:border-white/50 hover:bg-white/20'}
+              ${
+                isSelected(day)
+                  ? 'border-primary-500 bg-primary-600/90 text-white shadow-glass'
+                  : day
+                  ? 'text-slate-900 border-white/20 bg-white/10'
+                  : 'text-transparent border-transparent'
               }
             `}
+            aria-pressed={isSelected(day)}
           >
             {day || ''}
           </button>

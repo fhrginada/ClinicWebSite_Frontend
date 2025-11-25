@@ -26,17 +26,17 @@ const AppointmentForm = ({
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-full flex flex-col">
+    <div className="rounded-3xl border border-white/35 bg-white/20 backdrop-blur-lg shadow-glass p-6 h-full flex flex-col">
       <div className="space-y-6">
         {/* Reason for Visit */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
             Reason for Visit
           </label>
           <select
             value={reason}
             onChange={(e) => onReasonChange(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-primary-400 focus:border-primary-400 outline-none"
           >
             {reasons.map((r) => (
               <option key={r} value={r}>
@@ -48,13 +48,13 @@ const AppointmentForm = ({
 
         {/* Select a Doctor */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
             Select a Doctor
           </label>
           <select
             value={doctor}
             onChange={(e) => onDoctorChange(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-primary-400 focus:border-primary-400 outline-none"
           >
             {doctors.map((doc) => (
               <option key={doc.id} value={`${doc.name} (${doc.specialty})`}>
@@ -66,7 +66,7 @@ const AppointmentForm = ({
 
         {/* Additional Notes */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
             Additional Notes (Optional)
           </label>
           <textarea
@@ -74,7 +74,7 @@ const AppointmentForm = ({
             onChange={(e) => onNotesChange(e.target.value)}
             placeholder="Please provide any relevant information..."
             rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-primary-400 focus:border-primary-400 outline-none resize-none placeholder:text-slate-500"
           />
         </div>
       </div>
