@@ -52,9 +52,6 @@ const ManageAppointmentsPage = () => {
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-6">
           {/* Page Header */}
           <div className="mb-8 text-center lg:text-left">
-            <p className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-white/40 backdrop-blur-sm border border-white/60 text-slate-600 mb-4">
-              Manage Appointments
-            </p>
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
               Manage Your Appointments
             </h1>

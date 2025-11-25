@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Logo from '../assets/Logo.png';
 
 const Navbar = () => {
   const [isCompact, setIsCompact] = useState(false);
@@ -25,13 +26,9 @@ const Navbar = () => {
       >
         <div className="flex justify-between items-center h-full">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-glass text-white">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </div>
-            <span className="text-xl font-semibold text-clinic-blue-dark">HealthClinic</span>
+          <div className="flex items-center space-x-3">
+            <img src={Logo} alt="Intelliclinic logo" className="h-10 w-auto object-contain" />
+            <span className="text-xl font-semibold text-clinic-blue-dark">Intelliclinic</span>
           </div>
 
           {/* Navigation Links */}
