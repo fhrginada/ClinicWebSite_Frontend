@@ -1,7 +1,8 @@
 import HealthClinicPage from "./HealthClinicPage";
+import Home from "./Home";
 
 function App() {
-  return <HealthClinicPage />;
+  return <Home/>;
 }
 
 export default App;
