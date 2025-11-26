@@ -1,9 +1,7 @@
-import React from 'react';
-import ManageAppointmentsPage from './pages/ManageAppointmentsPage';
+import HealthClinicPage from "./HealthClinicPage";
 
 function App() {
-  return <ManageAppointmentsPage />;
+  return <HealthClinicPage />;
 }
 
 export default App;
-
