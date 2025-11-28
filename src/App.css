@@ -1,0 +1,194 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+section {
+  padding: 60px 80px;
+}
+
+
+.hero {
+  height: 250px;
+  background-image: url("https://via.placeholder.com/1200x480?text=Hero+Image+Coming+Soon");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  color: white;
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.hero p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+
+.legacy {
+  text-align: center;
+}
+
+.legacy h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.timeline {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.timeline .item {
+  width: 300px;
+  padding: 20px;
+  border-left: 3px solid #007bff;
+}
+
+.timeline h4 {
+  margin-bottom: 5px;
+}
+
+.timeline span {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.timeline p {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.doctors {
+  text-align: center;
+}
+
+.doctors h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  width: 260px;
+  padding: 20px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.card .role {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.card button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.team {
+  text-align: center;
+}
+
+.team-list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.team-item {
+  width: 180px;
+}
+
+.team-item img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.team-item h4 {
+  font-weight: bold;
+}
+
+.team-item p {
+  color: #555;
+}
+
+
+.cta {
+  background: #4091fb;
+  padding: 50px 20px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 60px auto;
+  width: 80%;
+}
+
+.cta h2 {
+  color: white;
+  font-size: 30px;
+}
+
+.cta p {
+  color: white;
+  margin: 10px 0 20px;
+}
+
+.cta button {
+  padding: 12px 25px;
+  background: white;
+  border: none;
+  color: #333;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
