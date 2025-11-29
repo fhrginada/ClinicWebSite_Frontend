@@ -1,56 +1,60 @@
 import React from "react";
 import "./AboutUs.css";
 
-const AboutUs = () => {
-  return (
-    <div className="about-container">
+import Dr1 from "../assets/Dr1.jpg";
+import Dr2 from "../assets/Dr2.jpg";
+import Dr3 from "../assets/Dr3.jpg";
+import Nurse from "../assets/Nurse.jpg";
+import LabTech from "../assets/Lab_Technician.jpg";
+import PatientC from "../assets/Patient_Coordinator.jpg";
+import PhysicalTherapist from "../assets/Physical_Therapist.jpg";
 
-     
-      <div className="about-hero">
-        <img
-          src="/hero.jpg"
-          alt="Clinic"
-          className="hero-img"
-        />
-        <div className="hero-text">
+
+function AboutUs() {
+  return (
+    <div className="about-page">
+
+      <section className="hero">
+        <div className="overlay"></div>
+        <div className="hero-content">
           <h1>Our Commitment to Your Health</h1>
           <p>
-            Dedicated to providing compassionate, comprehensive, and
-            patient-centric care for every member of our community.
+            Dedicated to providing compassionate, comprehensive, and patient-centric
+            care for every member of our community.
           </p>
         </div>
-      </div>
+      </section>
 
      
       <section className="legacy">
         <h2>A Legacy of Care</h2>
 
-        <div className="legacy-items">
-
-          <div className="legacy-card">
-            <h3>Clinic Founded – 2005</h3>
+        <div className="timeline">
+          <div className="item">
+            <h4>Clinic Founded</h4>
+            <span>2005</span>
             <p>
               HealthClinic was established with a mission to provide accessible,
               high-quality healthcare to the local community.
             </p>
           </div>
 
-          <div className="legacy-card">
-            <h3>Expanded Services – 2012</h3>
+          <div className="item">
+            <h4>Expanded Services</h4>
+            <span>2012</span>
             <p>
-              We expanded our facilities to include cardiology,
-              pediatrics, and more, expanding our team.
+              We expanded our facilities to specialized departments for cardiology
+              and pediatrics, welcoming new experts to our team.
             </p>
           </div>
 
-          <div className="legacy-card">
-            <h3>Community Health Award – 2020</h3>
+          <div className="item">
+            <h4>Community Health Award</h4>
+            <span>2021</span>
             <p>
-              Recognized for our dedication to community wellness and
-              innovative care programs.
+              Recognized for our dedication to community wellness and innovative care programs.
             </p>
           </div>
-
         </div>
       </section>
 
@@ -58,53 +62,76 @@ const AboutUs = () => {
       <section className="doctors">
         <h2>Meet Our Expert Doctors</h2>
 
-        <div className="doctor-grid">
-
-          <div className="doctor-card">
-            <img src="/doctor1.png" alt="Dr Evelyn Reed" />
+        <div className="cards">
+          
+          <div className="card">
+            <img src={Dr1} alt="Doctor" />
             <h3>Dr. Evelyn Reed</h3>
-            <p>Cardiologist with 15+ years of experience.</p>
+            <p className="role">Cardiologist</p>
+            <p>Leading expert with over 15 years in cardiovascular care.</p>
             <button>Learn More</button>
           </div>
 
-          <div className="doctor-card">
-            <img src="/doctor2.png" alt="Dr Ben Carter" />
+          <div className="card">
+            <img src={Dr2} alt="Doctor" />
             <h3>Dr. Ben Carter</h3>
-            <p>Pediatric specialist providing compassionate care.</p>
+            <p className="role">Pediatrician</p>
+            <p>Dedicated to compassionate care for children.</p>
             <button>Learn More</button>
           </div>
 
-          <div className="doctor-card">
-            <img src="/doctor3.png" alt="Dr Olivia Chen" />
+          <div className="card">
+            <img src={Dr3} alt="" />
             <h3>Dr. Olivia Chen</h3>
-            <p>Dermatologist with expertise in advanced skincare.</p>
+            <p className="role">Dermatologist</p>
+            <p>Specializes in medical and cosmetic dermatology.</p>
             <button>Learn More</button>
           </div>
 
         </div>
       </section>
 
-      
+     
       <section className="team">
         <h2>Our Caring Team</h2>
 
-        <div className="team-grid">
-          <div className="team-card"><img src="/team1.png" /><p>Maria Rodriguez – Head Nurse</p></div>
-          <div className="team-card"><img src="/team2.png" /><p>David Kim – Lab Technician</p></div>
-          <div className="team-card"><img src="/team3.png" /><p>Jessica Williams – Patient Coordinator</p></div>
-          <div className="team-card"><img src="/team4.png" /><p>Tom Chen – Physical Therapist</p></div>
+        <div className="team-list">
+          <div className="team-item">
+            <img src={Nurse} alt="" />
+            <h4>Maria Rodriguez</h4>
+            <p>Head Nurse</p>
+          </div>
+
+          <div className="team-item">
+            <img src={LabTech} alt="" />
+            <h4>David Kim</h4>
+            <p>Lab Technician</p>
+          </div>
+
+          <div className="team-item">
+            <img src={PatientC} alt="" />
+            <h4>Jessica Williams</h4>
+            <p>Patient Coordinator</p>
+          </div>
+
+          <div className="team-item">
+            <img src={PhysicalTherapist} alt="" />
+            <h4>Tom Chen</h4>
+            <p>Physical Therapist</p>
+          </div>
         </div>
       </section>
 
-    
-      <div className="cta">
+      <section className="cta">
         <h2>Ready to Meet Us?</h2>
-        <p>Schedule your appointment today...</p>
+        <p>
+          Schedule your appointment today and take the first step towards better health.
+        </p>
         <button>Schedule Your Appointment</button>
-      </div>
+      </section>
 
     </div>
   );
-};
+}
 
 export default AboutUs;
