@@ -65,19 +65,19 @@ export default function Sidebar() {
         {isExpanded && (
           <button
             onClick={() => setIsExpanded(false)}
-            className="w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors"
+            className="w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white transition-colors"
             aria-label="Collapse sidebar"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={16} className="text-white" />
           </button>
         )}
         {!isExpanded && (
           <button
             onClick={() => setIsExpanded(true)}
-            className="w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors absolute top-6 right-2"
+            className="w-8 h-8 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white transition-colors absolute top-6 right-2"
             aria-label="Expand sidebar"
           >
-            <ChevronLeft size={16} className="rotate-180" />
+            <ChevronLeft size={16} className="rotate-180 text-white" />
           </button>
         )}
       </div>
@@ -136,16 +136,16 @@ export default function Sidebar() {
             {/* Action Buttons */}
             <div className="flex justify-center gap-2">
               <button
-                className="w-10 h-10 rounded-lg bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-lg bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white transition-colors"
                 aria-label="Settings"
               >
-                <Settings size={18} />
+                <Settings size={18} className="text-white" />
               </button>
               <button
-                className="w-10 h-10 rounded-lg bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-lg bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white transition-colors"
                 aria-label="Logout"
               >
-                <LogOut size={18} />
+                <LogOut size={18} className="text-white" />
               </button>
             </div>
           </div>

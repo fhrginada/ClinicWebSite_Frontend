@@ -115,7 +115,7 @@ export default function DoctorProfileClient({ doctor: initialDoctor }: DoctorPro
           {!isEditing ? (
             <button
               onClick={handleEdit}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
             >
               <Edit2 className="w-4 h-4" />
               Edit Profile
@@ -124,14 +124,14 @@ export default function DoctorProfileClient({ doctor: initialDoctor }: DoctorPro
             <div className="flex gap-3">
               <button
                 onClick={handleCancel}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors flex items-center gap-2"
+                className="px-6 py-3 bg-white text-blue-600 border border-blue-300 rounded-xl shadow-md font-medium hover:bg-blue-50 transition-colors flex items-center gap-2"
               >
                 <X className="w-4 h-4" />
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center gap-2"
+                className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
               >
                 <Save className="w-4 h-4" />
                 Save Changes
