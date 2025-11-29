@@ -74,10 +74,10 @@ export default function PatientPortal() {
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="px-8 py-4 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition">
+                  <button className="px-6 py-3 bg-white text-blue-600 border border-blue-300 rounded-xl shadow-md font-semibold hover:bg-blue-50 transition">
                     Reschedule
                   </button>
-                  <button className="px-8 py-4 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition">
+                  <button className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md font-semibold hover:bg-blue-700 transition">
                     Get Directions
                   </button>
                 </div>

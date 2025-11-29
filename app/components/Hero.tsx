@@ -14,7 +14,7 @@ const Hero = () => {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=2070')`,
+            backgroundImage: `url('/assets/what-is-the-difference-between-an-internist-pa-and-family-physician.webp')`,
           }}
         >
           {/* Dark Overlay */}

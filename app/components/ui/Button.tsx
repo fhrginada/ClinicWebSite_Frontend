@@ -22,9 +22,9 @@ export const Button: React.FC<ButtonProps> = ({
   const baseStyles = 'font-semibold rounded-xl transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500';
   
   const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl',
-    secondary: 'bg-blue-100 text-blue-900 hover:bg-blue-200',
-    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50'
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 shadow-md',
+    secondary: 'bg-white text-blue-600 border border-blue-300 hover:bg-blue-50',
+    outline: 'bg-white text-blue-600 border border-blue-300 hover:bg-blue-50'
   };
   
   const sizes = {

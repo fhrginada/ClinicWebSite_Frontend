@@ -66,10 +66,10 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={handlePrevMonth}
-          className="p-2 rounded-xl transition-colors border border-transparent hover:border-white/40 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+          className="p-2 rounded-xl transition-colors border border-gray-300 bg-white hover:border-blue-600 hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           aria-label="Go to previous month"
         >
-          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -78,10 +78,10 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
         </h3>
         <button
           onClick={handleNextMonth}
-          className="p-2 rounded-xl transition-colors border border-transparent hover:border-white/40 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+          className="p-2 rounded-xl transition-colors border border-gray-300 bg-white hover:border-blue-600 hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           aria-label="Go to next month"
         >
-          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -103,12 +103,12 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
             disabled={!day}
             className={`
               aspect-square flex items-center justify-center text-sm font-semibold rounded-xl transition-colors border
-              ${!day ? 'cursor-default border-transparent' : 'cursor-pointer hover:border-white/50 hover:bg-white/20'}
+              ${!day ? 'cursor-default border-transparent' : 'cursor-pointer hover:border-blue-600 hover:bg-blue-50'}
               ${
                 isSelected(day)
-                  ? 'border-primary-500 bg-primary-600/90 text-white shadow-glass'
+                  ? 'border-blue-600 bg-blue-600 text-white shadow-md'
                   : day
-                  ? 'text-slate-900 border-white/20 bg-white/10'
+                  ? 'text-gray-800 border-gray-300 bg-white'
                   : 'text-transparent border-transparent'
               }
             `}

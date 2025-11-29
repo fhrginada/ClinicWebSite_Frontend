@@ -38,7 +38,7 @@ const AppointmentForm = ({
           <select
             value={reason}
             onChange={(e) => onReasonChange(e.target.value)}
-            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-primary-400 focus:border-primary-400 outline-none"
+            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
           >
             {reasons.map((r) => (
               <option key={r} value={r}>
@@ -56,7 +56,7 @@ const AppointmentForm = ({
           <select
             value={doctor}
             onChange={(e) => onDoctorChange(e.target.value)}
-            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-primary-400 focus:border-primary-400 outline-none"
+            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
           >
             {doctors.map((doc) => (
               <option key={doc.id} value={`${doc.name} (${doc.specialty})`}>
@@ -76,7 +76,7 @@ const AppointmentForm = ({
             onChange={(e) => onNotesChange(e.target.value)}
             placeholder="Please provide any relevant information..."
             rows={4}
-            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-primary-400 focus:border-primary-400 outline-none resize-none placeholder:text-slate-500"
+            className="w-full px-4 py-2 border border-white/30 rounded-xl bg-white/10 text-slate-800/90 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none resize-none placeholder:text-slate-500"
           />
         </div>
       </div>

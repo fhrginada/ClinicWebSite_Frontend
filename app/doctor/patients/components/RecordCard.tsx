@@ -77,7 +77,7 @@ export default function RecordCard({ record, onViewFull }: RecordCardProps) {
       {onViewFull && (
         <button
           onClick={() => onViewFull(record.id)}
-          className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+          className="w-full mt-4 px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           View Full Record
         </button>
