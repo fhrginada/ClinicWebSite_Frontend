@@ -1,0 +1,75 @@
+.input1{
+
+    margin: 50px;
+    padding-left: 8px;
+    width: 500px;
+    height: 30px;
+    border-radius: 20px;
+    display: block;
+    
+
+}
+
+
+.Register{
+    
+    position: absolute;
+    top:25%;
+    left: 35%;
+    height: 500px;
+    border: 5px solid;
+    border-color: white;
+    border-radius: 20px;
+    z-index: 1;
+    box-shadow: 0 0 15px 3px white;
+    
+    
+
+;
+    
+    
+
+}
+
+.fakebody{
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(/assets/portrait-confident-young-doctor-white-background-smiling-31030985.webp);
+    background-size: cover;
+    background-position: center;
+    
+
+}
+
+.fakebody::after{
+    content: "";
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 105%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    border-radius: 2%;
+    pointer-events: none; 
+}
+
+
+
+#btn{
+    
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    position: absolute;
+    left: 73%;
+    top: 70%;
+    color:black;
+    background-color: white;
+    
+    
+}
+
