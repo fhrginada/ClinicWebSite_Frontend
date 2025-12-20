@@ -1,0 +1,20 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/doctor/appointments/page": "app/doctor/appointments/page.js",
+  "/doctor/page": "app/doctor/page.js",
+  "/doctor/patients/page": "app/doctor/patients/page.js",
+  "/doctor/profile/page": "app/doctor/profile/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/patient/appointments/page": "app/patient/appointments/page.js",
+  "/patient/consultations/page": "app/patient/consultations/page.js",
+  "/patient/medical-history/page": "app/patient/medical-history/page.js",
+  "/patient/notifications/page": "app/patient/notifications/page.js",
+  "/patient/page": "app/patient/page.js",
+  "/patient/profile/page": "app/patient/profile/page.js",
+  "/patient/settings/page": "app/patient/settings/page.js",
+  "/services/page": "app/services/page.js",
+  "/signup/page": "app/signup/page.js"
+}

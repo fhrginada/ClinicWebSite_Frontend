@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/appointment/page": "/appointment",
+  "/contact/page": "/contact",
+  "/doctor/page": "/doctor",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/patient-records/page": "/patient-records"
+}
