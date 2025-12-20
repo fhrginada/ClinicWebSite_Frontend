@@ -16,9 +16,9 @@ const Tabs = ({ activeTab, onTabChange }) => {
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`relative pb-4 px-1 font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500 ${
+            className={`relative pb-4 px-1 font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500 ${
               activeTab === tab.id
-                ? 'text-primary-600 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-primary-500'
+                ? 'text-blue-600 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-blue-500'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
             aria-selected={activeTab === tab.id}

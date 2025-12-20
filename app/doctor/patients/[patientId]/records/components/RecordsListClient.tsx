@@ -197,8 +197,8 @@ export default function RecordsListClient({
                         onClick={() => setCurrentPage(page)}
                         className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                           currentPage === page
-                            ? 'bg-blue-600 text-white'
-                            : 'text-gray-700 hover:bg-gray-100'
+                            ? 'bg-blue-600 text-white shadow-md'
+                            : 'bg-white text-blue-600 border border-blue-300 hover:bg-blue-50'
                         }`}
                       >
                         {page}

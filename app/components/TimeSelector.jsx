@@ -29,8 +29,8 @@ const TimeSelector = ({ selectedTime, onTimeSelect, selectedDate, onConfirmBooki
               px-4 py-2 rounded-xl font-semibold text-sm transition-colors border
               ${
                 selectedTime === time
-                  ? 'bg-primary-600/90 text-white border-primary-500 shadow-glass'
-                  : 'bg-white/10 text-slate-800/90 border-white/25 hover:border-white/50 hover:bg-white/20'
+                  ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                  : 'bg-white text-blue-600 border border-blue-300 hover:bg-blue-50'
               }
             `}
             aria-pressed={selectedTime === time}
@@ -43,7 +43,7 @@ const TimeSelector = ({ selectedTime, onTimeSelect, selectedDate, onConfirmBooki
       {onConfirmBooking && (
         <button
           onClick={onConfirmBooking}
-          className="w-full bg-primary-600/95 text-white py-3 rounded-xl font-semibold hover:bg-primary-600 transition-colors mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 shadow-glass"
+          className="w-full bg-blue-600 text-white py-3 rounded-xl px-6 shadow-md font-semibold hover:bg-blue-700 transition-colors mt-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
         >
           Confirm Booking
         </button>
