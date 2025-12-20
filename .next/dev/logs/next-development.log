@@ -1,19 +1,1410 @@
-[00:00:01.599] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.807] Server  LOG      ✓ Ready in 1337ms
-[00:00:04.935] Server  LOG      ○ Compiling / ...
-[00:00:06.366] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:14.913] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:35.435] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:41.476] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:16.357] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:23.989] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:49.308] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:50.736] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:59.265] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:07.182] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:07.440] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:02:10.705] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:13.847] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:14.019] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:02:19.998] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:21.107] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.736] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:03.021] Server  LOG      ✓ Ready in 2.4s
+[00:00:14.965] Server  LOG      ○ Compiling / ...
+[00:00:16.940] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:39.203] Server  ERROR    ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1594824476968-48dfc9d126d3?q=80&w=2070" 404
+[00:00:39.659] Browser WARN    Image with src "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:39.772] Browser WARN    Image with src "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:41.941] Browser WARN    Image with src "https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=2070" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:10.101] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:18.220] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:29.445] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:38.798] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:40.119] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:41.509] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:52.627] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:52.897] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:02:00.586] Server  ERROR    ⨯ ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:00.715] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:02:01.889] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:02:01.996] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:02:02.653] Server  ERROR    ⨯ ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:02:02.721] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:13.354] Server  ERROR    ⨯ ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:13.548] Browser ERROR   uncaughtError: Error: ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:13.757] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:13.757] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:23.320] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:23.573] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:23.573] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:23.573] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:11:28.316] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:28.489] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:28.489] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:11:28.489] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:38.903] Browser ERROR   ./app/doctor/appointments/page.tsx:6:1
+Module not found: Can't resolve '@/components/doctor/AppointmentTable'
+  4 | import Sidebar from '@/components/doctor/Sidebar';
+  5 | import Topbar from '@/components/doctor/Topbar';
+> 6 | import AppointmentTable from '@/components/doctor/AppointmentTable';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // Mock data generator for next 7 days
+  9 | const generateMockAppointments = () => {
+
+Import map: aliased to relative './app/components/doctor/AppointmentTable' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:30.854] Server  LOG      ✓ Compiled in 77ms
+[00:12:31.034] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.036] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.039] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.041] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.042] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:3:1
+Module not found: Can't resolve './Filters'
+  1 | 'use client';
+  2 |
+> 3 | import Filters from './Filters';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import AppointmentRow from './AppointmentRow';
+  5 |
+  6 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.045] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:3:1
+Module not found: Can't resolve './Filters'
+  1 | 'use client';
+  2 |
+> 3 | import Filters from './Filters';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import AppointmentRow from './AppointmentRow';
+  5 |
+  6 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.048] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:3:1
+Module not found: Can't resolve './Filters'
+  1 | 'use client';
+  2 |
+> 3 | import Filters from './Filters';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import AppointmentRow from './AppointmentRow';
+  5 |
+  6 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.050] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:3:1
+Module not found: Can't resolve './Filters'
+  1 | 'use client';
+  2 |
+> 3 | import Filters from './Filters';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import AppointmentRow from './AppointmentRow';
+  5 |
+  6 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:31.900] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:31.900] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:3:1
+Module not found: Can't resolve './Filters'
+  1 | 'use client';
+  2 |
+> 3 | import Filters from './Filters';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import AppointmentRow from './AppointmentRow';
+  5 |
+  6 | interface Appointment {
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:33.894] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:33.894] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:3:1
+Module not found: Can't resolve './Filters'
+  1 | 'use client';
+  2 |
+> 3 | import Filters from './Filters';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import AppointmentRow from './AppointmentRow';
+  5 |
+  6 | interface Appointment {
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:34.907] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:34.908] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:3:1
+Module not found: Can't resolve './Filters'
+  1 | 'use client';
+  2 |
+> 3 | import Filters from './Filters';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import AppointmentRow from './AppointmentRow';
+  5 |
+  6 | interface Appointment {
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:35.690] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:35.692] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:35.693] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:35.695] Server  ERROR    ⨯ ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:35.899] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:36.901] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:39.908] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:46.905] Browser ERROR   ./app/components/doctor/AppointmentTable.tsx:4:1
+Module not found: Can't resolve './AppointmentRow'
+  2 |
+  3 | import Filters from './Filters';
+> 4 | import AppointmentRow from './AppointmentRow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | interface Appointment {
+  7 |   id: string;
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:54.482] Server  LOG      ✓ Compiled in 78ms
+[00:12:54.693] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:5:1
+Module not found: Can't resolve './EditAppointmentModal'
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+  4 | import StatusBadge from './StatusBadge';
+> 5 | import EditAppointmentModal from './EditAppointmentModal';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { useState } from 'react';
+  7 |
+  8 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.699] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:5:1
+Module not found: Can't resolve './EditAppointmentModal'
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+  4 | import StatusBadge from './StatusBadge';
+> 5 | import EditAppointmentModal from './EditAppointmentModal';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { useState } from 'react';
+  7 |
+  8 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.702] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:5:1
+Module not found: Can't resolve './EditAppointmentModal'
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+  4 | import StatusBadge from './StatusBadge';
+> 5 | import EditAppointmentModal from './EditAppointmentModal';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { useState } from 'react';
+  7 |
+  8 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.704] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:5:1
+Module not found: Can't resolve './EditAppointmentModal'
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+  4 | import StatusBadge from './StatusBadge';
+> 5 | import EditAppointmentModal from './EditAppointmentModal';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { useState } from 'react';
+  7 |
+  8 | interface Appointment {
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.706] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.708] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.710] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.714] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:54.932] Browser ERROR   ./app/components/doctor/AppointmentRow.tsx:5:1
+Module not found: Can't resolve './EditAppointmentModal'
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+  4 | import StatusBadge from './StatusBadge';
+> 5 | import EditAppointmentModal from './EditAppointmentModal';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { useState } from 'react';
+  7 |
+  8 | interface Appointment {
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:54.932] Browser ERROR   ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:58.906] Browser ERROR   ./app/components/doctor/AppointmentRow.tsx:5:1
+Module not found: Can't resolve './EditAppointmentModal'
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+  4 | import StatusBadge from './StatusBadge';
+> 5 | import EditAppointmentModal from './EditAppointmentModal';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { useState } from 'react';
+  7 |
+  8 | interface Appointment {
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:58.907] Browser ERROR   ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:13:11.585] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:13:11.587] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:13:11.589] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:13:11.591] Server  ERROR    ⨯ ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:13:11.903] Browser ERROR   ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:13:11.903] Browser ERROR   ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:13:13.906] Browser ERROR   ./app/components/doctor/AppointmentRow.tsx:4:1
+Module not found: Can't resolve './StatusBadge'
+  2 |
+  3 | import { CheckCircle2, XCircle, CheckCircle, Edit } from 'lucide-react';
+> 4 | import StatusBadge from './StatusBadge';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EditAppointmentModal from './EditAppointmentModal';
+  6 | import { useState } from 'react';
+  7 |
+
+Import traces:
+  Client Component Browser:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component Browser]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Client Component Browser]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/doctor/AppointmentRow.tsx [Client Component SSR]
+    ./app/components/doctor/AppointmentTable.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Client Component SSR]
+    ./app/doctor/appointments/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:13:17.749] Server  LOG      ✓ Compiled in 55ms
+[00:15:35.190] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:37.781] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:37.964] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:15:43.369] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:45.256] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:45.443] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:34:30.772] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:34:50.501] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:34:50.755] Browser WARN    Image with src "/assets/Logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
