@@ -2,12 +2,33 @@ import { Suspense } from 'react';
 import Sidebar from '@/components/doctor/Sidebar';
 import Topbar from '@/components/doctor/Topbar';
 import PatientsListClient from './components/PatientsListClient';
-import { dummyPatients } from './data';
+import { getAllPatients, Patient } from '@/src/services/patient.service';
+import { Patient as LocalPatient } from './types';
 
-async function getPatients() {
-  // Simulate API call delay
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return dummyPatients;
+async function getPatients(): Promise<LocalPatient[]> {
+  try {
+    const patients = await getAllPatients();
+    // Transform API response to match local Patient type
+    return patients.map((p: Patient) => ({
+      id: p.id,
+      name: p.name,
+      age: p.age,
+      gender: p.gender,
+      lastVisitDate: p.lastVisitDate,
+      status: p.status,
+      phone: p.phone,
+      email: p.email,
+      medicalId: p.medicalId,
+      conditions: p.conditions || [],
+      allergies: p.allergies || [],
+      assignedDoctor: p.assignedDoctor,
+      avatar: p.avatar,
+    }));
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+    // Return empty array on error - UI will show "No patients found"
+    return [];
+  }
 }
 
 export default async function PatientsPage() {
