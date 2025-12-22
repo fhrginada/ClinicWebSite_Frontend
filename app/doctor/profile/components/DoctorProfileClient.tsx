@@ -56,11 +56,17 @@ export default function DoctorProfileClient({ doctor: initialDoctor }: DoctorPro
     setEditedData(doctor);
   };
 
-  const handleSave = () => {
-    setDoctor({ ...editedData, profilePicture: profileImage });
-    setIsEditing(false);
-    // In a real app, you would make an API call here to save the data
-    console.log('Saving doctor data:', { ...editedData, profilePicture: profileImage });
+  const handleSave = async () => {
+    try {
+      // TODO: Implement API call to update doctor data
+      // For now, just update local state
+      setDoctor({ ...editedData, profilePicture: profileImage });
+      setIsEditing(false);
+      console.log('Saving doctor data:', { ...editedData, profilePicture: profileImage });
+    } catch (error) {
+      console.error('Error saving doctor data:', error);
+      alert('Failed to save changes. Please try again.');
+    }
   };
 
   const handleInputChange = (field: string, value: string | number | string[]) => {

@@ -2,12 +2,32 @@ import { notFound } from 'next/navigation';
 import Sidebar from '@/components/doctor/Sidebar';
 import Topbar from '@/components/doctor/Topbar';
 import PatientProfileClient from './components/PatientProfileClient';
-import { dummyPatients } from '../data';
+import { getPatientById, Patient } from '@/src/services/patient.service';
+import { Patient as LocalPatient } from '../types';
 
-async function getPatient(patientId: string) {
-  // Simulate API call delay
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return dummyPatients.find((p) => p.id === patientId);
+async function getPatient(patientId: string): Promise<LocalPatient | null> {
+  try {
+    const patient = await getPatientById(patientId);
+    // Transform API response to match local Patient type
+    return {
+      id: patient.id,
+      name: patient.name,
+      age: patient.age,
+      gender: patient.gender,
+      lastVisitDate: patient.lastVisitDate,
+      status: patient.status,
+      phone: patient.phone,
+      email: patient.email,
+      medicalId: patient.medicalId,
+      conditions: patient.conditions || [],
+      allergies: patient.allergies || [],
+      assignedDoctor: patient.assignedDoctor,
+      avatar: patient.avatar,
+    };
+  } catch (error) {
+    console.error(`Error fetching patient ${patientId}:`, error);
+    return null;
+  }
 }
 
 export default async function PatientProfilePage({

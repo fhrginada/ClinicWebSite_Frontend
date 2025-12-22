@@ -1,80 +1,77 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Sidebar from '@/components/doctor/Sidebar';
 import Topbar from '@/components/doctor/Topbar';
 import AppointmentTable from '@/components/doctor/AppointmentTable';
+import { getAllAppointments, updateAppointmentStatus, Appointment as ApiAppointment } from '@/src/services/appointment.service';
 
-// Mock data generator for next 7 days
-const generateMockAppointments = () => {
-  const appointments = [];
-  const today = new Date();
-  const statuses: ('Pending' | 'Confirmed' | 'Completed' | 'Cancelled')[] = ['Pending', 'Confirmed', 'Completed', 'Cancelled'];
-  const times = ['09:00', '10:30', '11:15', '13:00', '14:30', '15:45', '16:00'];
-  const patientNames = [
-    'Maria Rodriguez',
-    'John Smith',
-    'Emily Chen',
-    'Robert Johnson',
-    'Sarah Williams',
-    'Michael Brown',
-    'Jessica Davis',
-    'David Wilson',
-    'Lisa Anderson',
-    'James Martinez'
-  ];
-  const reasons = [
-    'General Checkup',
-    'Follow-up Visit',
-    'Blood Test',
-    'Consultation',
-    'Vaccination',
-    'X-Ray Review',
-    'Prescription Refill',
-    'Annual Physical'
-  ];
+interface Appointment {
+  id: string;
+  patientName: string;
+  patientId: string;
+  date: string;
+  time: string;
+  status: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled';
+  reason: string;
+}
 
-  let appointmentId = 1;
-  
-  // Generate appointments for next 7 days
-  for (let day = 0; day < 7; day++) {
-    const currentDate = new Date(today);
-    currentDate.setDate(today.getDate() + day);
-    
-    // Generate 2-4 appointments per day
-    const appointmentsPerDay = Math.floor(Math.random() * 3) + 2;
-    
-    for (let i = 0; i < appointmentsPerDay; i++) {
-      const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-      const randomTime = times[Math.floor(Math.random() * times.length)];
-      const randomPatient = patientNames[Math.floor(Math.random() * patientNames.length)];
-      const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
-      
-      appointments.push({
-        id: `APT-${String(appointmentId).padStart(4, '0')}`,
-        patientName: randomPatient,
-        patientId: `P${String(1000 + appointmentId).padStart(4, '0')}`,
-        date: currentDate.toISOString().split('T')[0],
-        time: randomTime,
-        status: randomStatus,
-        reason: randomReason
-      });
-      
-      appointmentId++;
-    }
-  }
-  
-  return appointments.sort((a, b) => {
-    const dateCompare = a.date.localeCompare(b.date);
-    if (dateCompare !== 0) return dateCompare;
-    return a.time.localeCompare(b.time);
-  });
-};
+// Helper to transform API appointment to component format
+const transformAppointment = (apt: ApiAppointment): Appointment => ({
+  id: apt.id,
+  patientName: apt.patientName,
+  patientId: apt.patientId,
+  date: apt.date,
+  time: apt.time,
+  status: apt.status as 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled',
+  reason: apt.reason || 'General Consultation', // Default reason if not provided by API
+});
 
 export default function AppointmentsPage() {
-  const [appointments, setAppointments] = useState(generateMockAppointments());
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const allAppointments = await getAllAppointments();
+        
+        // Filter appointments for next 7 days
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const sevenDaysLater = new Date(today);
+        sevenDaysLater.setDate(today.getDate() + 7);
+        
+        const filteredAppointments = allAppointments
+          .filter((apt: ApiAppointment) => {
+            const aptDate = new Date(apt.date);
+            aptDate.setHours(0, 0, 0, 0);
+            return aptDate >= today && aptDate <= sevenDaysLater;
+          })
+          .map(transformAppointment)
+          .sort((a, b) => {
+            const dateCompare = a.date.localeCompare(b.date);
+            if (dateCompare !== 0) return dateCompare;
+            return a.time.localeCompare(b.time);
+          });
+
+        setAppointments(filteredAppointments);
+      } catch (err) {
+        console.error('Error fetching appointments:', err);
+        setError('Failed to load appointments. Please try again later.');
+        // Keep empty array - will show "No appointments found"
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
 
   // Filter appointments by date (next 7 days)
   const today = new Date();
@@ -103,12 +100,30 @@ export default function AppointmentsPage() {
     });
   }, [filteredByDate, searchQuery, statusFilter]);
 
-  const handleStatusChange = (appointmentId: string, newStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled') => {
-    setAppointments(prev => 
-      prev.map(apt => 
-        apt.id === appointmentId ? { ...apt, status: newStatus } : apt
-      )
-    );
+  const handleStatusChange = async (appointmentId: string, newStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled') => {
+    try {
+      // Optimistically update UI
+      setAppointments(prev => 
+        prev.map(apt => 
+          apt.id === appointmentId ? { ...apt, status: newStatus } : apt
+        )
+      );
+
+      // Update on backend
+      await updateAppointmentStatus({
+        appointmentId,
+        status: newStatus,
+      });
+    } catch (error) {
+      console.error('Error updating appointment status:', error);
+      // Revert optimistic update on error
+      setAppointments(prev => 
+        prev.map(apt => 
+          apt.id === appointmentId ? { ...apt, status: apt.status } : apt
+        )
+      );
+      alert('Failed to update appointment status. Please try again.');
+    }
   };
 
   const handleEditAppointment = (appointmentId: string, updatedData: { date: string; time: string; reason: string }) => {
@@ -136,16 +151,30 @@ export default function AppointmentsPage() {
             <p className="text-sm text-gray-500">Next 7 days</p>
           </div>
 
-          {/* Appointment Table */}
-          <AppointmentTable
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
+              {error}
+            </div>
+          )}
+
+          {/* Loading State */}
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+          ) : (
+            /* Appointment Table */
+            <AppointmentTable
             appointments={filteredAppointments}
             searchQuery={searchQuery}
             statusFilter={statusFilter}
             onSearchChange={setSearchQuery}
             onStatusFilterChange={setStatusFilter}
             onStatusChange={handleStatusChange}
-            onEditAppointment={handleEditAppointment}
-          />
+              onEditAppointment={handleEditAppointment}
+            />
+          )}
         </div>
       </main>
     </div>

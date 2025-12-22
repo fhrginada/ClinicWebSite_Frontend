@@ -1,30 +1,52 @@
 import Sidebar from '@/components/doctor/Sidebar';
 import Topbar from '@/components/doctor/Topbar';
 import DoctorProfileClient from './components/DoctorProfileClient';
+import { getDoctorById, Doctor } from '@/src/services/doctor.service';
+import { getCurrentDoctorId } from '@/src/utils/doctor';
 
-// Mock doctor data - in a real app, this would come from an API or database
-async function getDoctorData() {
-  // Simulate API call delay
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return {
-    id: '1',
-    name: 'Ahmed Nabel',
-    email: 'ahmed.nabel@clinic.com',
-    phone: '+20 123 456 7890',
-    specialization: 'Cardiology',
-    licenseNumber: 'MD-12345',
-    bio: 'Experienced cardiologist with over 15 years of practice. Specialized in preventive cardiology and heart disease management.',
-    address: '123 Medical Center, Cairo, Egypt',
-    dateOfBirth: '1980-05-15',
-    gender: 'Male',
-    yearsOfExperience: 15,
-    education: [
-      { degree: 'M.D.', institution: 'Cairo University', year: '2005' },
-      { degree: 'Residency', institution: 'National Heart Institute', year: '2010' },
-    ],
-    languages: ['Arabic', 'English'],
-    profilePicture: null, // Will be handled via upload
-  };
+async function getDoctorData(): Promise<Doctor & { id: string }> {
+  try {
+    const doctorId = getCurrentDoctorId();
+    const doctor = await getDoctorById(doctorId);
+    
+    // Transform API response to match component expectations
+    return {
+      ...doctor,
+      id: doctor.id.toString(),
+      name: doctor.name || 'Unknown Doctor',
+      email: doctor.email || '',
+      phone: doctor.phone || '',
+      specialization: doctor.specialization || '',
+      licenseNumber: doctor.licenseNumber || '',
+      bio: doctor.bio || '',
+      address: doctor.address || '',
+      dateOfBirth: doctor.dateOfBirth || '',
+      gender: doctor.gender || '',
+      yearsOfExperience: doctor.yearsOfExperience || 0,
+      education: doctor.education || [],
+      languages: doctor.languages || [],
+      profilePicture: doctor.profilePicture || null,
+    };
+  } catch (error) {
+    console.error('Error fetching doctor data:', error);
+    // Return fallback data if API fails
+    return {
+      id: '1',
+      name: 'Doctor',
+      email: '',
+      phone: '',
+      specialization: '',
+      licenseNumber: '',
+      bio: 'Unable to load doctor information. Please try again later.',
+      address: '',
+      dateOfBirth: '',
+      gender: '',
+      yearsOfExperience: 0,
+      education: [],
+      languages: [],
+      profilePicture: null,
+    };
+  }
 }
 
 export default async function DoctorProfilePage() {
