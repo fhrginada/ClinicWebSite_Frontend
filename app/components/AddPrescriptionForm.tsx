@@ -2,14 +2,20 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Plus, Trash2, Pill, AlertCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Plus, Trash2, Pill, AlertCircle, FileText } from 'lucide-react';
+import { createPrescription, CreatePrescriptionPayload } from '@/src/services/prescription.service';
 
 export default function AddPrescriptionForm() {
+  const router = useRouter();
   const [patientName, setPatientName] = useState('');
   const [patientId, setPatientId] = useState('');
   const [medications, setMedications] = useState([
     { name: '', dosage: '', frequency: '', duration: '' }
   ]);
+  const [notes, setNotes] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const addMedication = () => {
     setMedications([...medications, { name: '', dosage: '', frequency: '', duration: '' }]);
@@ -25,13 +31,54 @@ export default function AddPrescriptionForm() {
     setMedications(updated);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Prescription saved successfully!');
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      // Filter out empty medications
+      const validMedications = medications.filter(
+        med => med.name.trim() && med.dosage.trim() && med.frequency.trim()
+      );
+
+      if (validMedications.length === 0) {
+        setError('Please add at least one medication');
+        setIsSubmitting(false);
+        return;
+      }
+
+      const payload: CreatePrescriptionPayload = {
+        patientId: patientId.trim(),
+        patientName: patientName.trim(),
+        medications: validMedications.map(med => ({
+          name: med.name.trim(),
+          dosage: med.dosage.trim(),
+          frequency: med.frequency.trim(),
+          duration: med.duration.trim() || undefined,
+        })),
+        notes: notes.trim() || undefined,
+      };
+
+      await createPrescription(payload);
+      
+      // Redirect to prescriptions list on success
+      router.push('/doctor/prescriptions');
+    } catch (err) {
+      console.error('Error creating prescription:', err);
+      setError('Failed to save prescription. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-8">
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
+          {error}
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="space-y-8">
 
         {/* Patient Info */}
@@ -100,19 +147,48 @@ export default function AddPrescriptionForm() {
           </div>
         </div>
 
+        {/* Notes Section */}
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
+            <FileText className="w-6 h-6 text-blue-600" />
+            Additional Notes
+          </h2>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Add any additional notes or instructions..."
+            rows={4}
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+        </div>
+
         {/* Buttons */}
         <div className="flex justify-end gap-4 pt-6">
-          <Link href="/prescriptions">
-            <button type="button" className="px-8 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
+          <Link href="/doctor/prescriptions">
+            <button 
+              type="button" 
+              disabled={isSubmitting}
+              className="px-8 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition disabled:opacity-50"
+            >
               Cancel
             </button>
           </Link>
           <button
             type="submit"
-            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition flex items-center gap-2"
+            disabled={isSubmitting}
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Pill className="w-5 h-5" />
-            Save Prescription
+            {isSubmitting ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                Saving...
+              </>
+            ) : (
+              <>
+                <Pill className="w-5 h-5" />
+                Save Prescription
+              </>
+            )}
           </button>
         </div>
       </form>

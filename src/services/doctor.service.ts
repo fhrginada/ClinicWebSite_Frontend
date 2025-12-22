@@ -41,6 +41,19 @@ export async function getDoctorById(id: number): Promise<Doctor> {
 }
 
 /**
+ * Get all doctors
+ */
+export async function getAllDoctors(): Promise<Doctor[]> {
+  try {
+    const response = await api.get<Doctor[]>('/api/doctors');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching doctors:', error);
+    throw error;
+  }
+}
+
+/**
  * Get doctor availability
  * @param id - Doctor ID
  * @param startDate - Optional start date (ISO string). Defaults to today
