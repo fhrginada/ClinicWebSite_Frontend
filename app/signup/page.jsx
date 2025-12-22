@@ -1,49 +1,68 @@
-import "./register.css";
-import "./bootstrap.min.css";
+"use client";
 
-export default function Register() {
+import "./register.css";
+import { useState } from "react";
+import api from "../../api/api";
+
+export default function Signup() {
+  const [form, setForm] = useState({
+    fullName: "",
+    gender: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+  });
+
+  const handleRegister = async () => {
+    try {
+      await api.post("/users/register", form);
+      alert("Account created successfully");
+      window.location.href = "/login";
+    } catch (err) {
+      alert("Register failed");
+    }
+  };
+
   return (
     <>
-      <div className="Register">
-        <form>
-          <input 
-            type="text" 
-            placeholder="Username" 
-            className="input1" 
-            id="user_name" 
-          />
+      <div className="form_container">
+        <input
+          placeholder="Full Name"
+          onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+        />
 
-          <input 
-            type="password" 
-            placeholder="Password" 
-            className="input1" 
-            id="pass" 
-          />
+        <input
+          placeholder="Gender"
+          onChange={(e) => setForm({ ...form, gender: e.target.value })}
+        />
 
-          <input 
-            type="email" 
-            placeholder="Email" 
-            className="input1" 
-            id="email" 
-          />
+        <input
+          placeholder="Phone Number"
+          onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
+        />
 
-          <input 
-            type="tel" 
-            placeholder="Phone number"
-            className="input1" 
-            id="tel" 
-          />
+        <input
+          placeholder="Email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
 
-          <input 
-            type="button" 
-            value="Register"
-            className="btn"
-            id="btn" 
-          />
-        </form>
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
+
+        <button onClick={handleRegister}>Sign Up</button>
+
+        <p>
+          Already have an account?{" "}
+          <a href="/login">Login</a>
+        </p>
       </div>
-        <div className="fakebody">.</div>
+
+
     </>
   );
 }
+
 
