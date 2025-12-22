@@ -46,6 +46,19 @@ export async function getAllPatients(): Promise<Patient[]> {
 }
 
 /**
+ * Get patients with optional query parameters
+ */
+export async function getPatients(params?: Record<string, any>): Promise<Patient[]> {
+  try {
+    const response = await api.get<Patient[]>('/api/Patients', { params });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+    throw error;
+  }
+}
+
+/**
  * Get patient by ID
  */
 export async function getPatientById(id: string): Promise<Patient> {
