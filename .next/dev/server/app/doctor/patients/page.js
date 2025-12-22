@@ -1,6 +1,6 @@
 var R=require("../../../chunks/ssr/[turbopack]_runtime.js")("server/app/doctor/patients/page.js")
-R.c("server/chunks/ssr/node_modules_next_dist_a7f3feaa._.js")
-R.c("server/chunks/ssr/[root-of-the-server]__3441c15a._.js")
+R.c("server/chunks/ssr/node_modules_3d336e90._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__431ca513._.js")
 R.c("server/chunks/ssr/node_modules_473cc24e._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__e8a2741f._.js")
 R.c("server/chunks/ssr/app_b9b1292a._.js")

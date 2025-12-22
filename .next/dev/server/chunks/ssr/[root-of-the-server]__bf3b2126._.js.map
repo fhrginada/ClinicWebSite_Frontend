@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 22, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/MG/SW_Frontend/app/doctor/page.tsx"],"sourcesContent":["import Sidebar from '@/components/doctor/Sidebar';\r\nimport Topbar from '@/components/doctor/Topbar';\r\nimport PrescriptionCard from '@/components/doctor/PrescriptionCard';\r\nimport TaskList from '@/components/doctor/TaskList';\r\nimport TodayAppointmentTable from '@/components/doctor/TodayAppointmentTable';\r\n\r\nexport default function DoctorDashboard() {\r\n  return (\r\n    <div className=\"min-h-screen bg-gray-50\">\r\n      <Sidebar />\r\n      \r\n      <main className=\"ml-72 p-6\">\r\n        <Topbar />\r\n        \r\n        <div className=\"grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6\">\r\n          {/* Prescription Card */}\r\n          <PrescriptionCard />\r\n          \r\n          {/* Tasks Card */}\r\n          <TaskList />\r\n        </div>\r\n        \r\n        {/* Appointments Table */}\r\n        <TodayAppointmentTable />\r\n      </main>\r\n    </div>\r\n  );\r\n}\r\n\r\n"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAMe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;;0BACb,8OAAC;;;;;0BAED,8OAAC;gBAAK,WAAU;;kCACd,8OAAC;;;;;kCAED,8OAAC;wBAAI,WAAU;;0CAEb,8OAAC;;;;;0CAGD,8OAAC;;;;;;;;;;;kCAIH,8OAAC;;;;;;;;;;;;;;;;;AAIT"}}]
-}
