@@ -42,6 +42,11 @@ export default function Signup() {
         />
 
         <input
+          placeholder="Address"
+          onChange={(e) => setForm({ ...form, address: e.target.value })}
+        />
+
+        <input
           placeholder="Email"
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
