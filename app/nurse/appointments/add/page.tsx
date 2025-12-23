@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '@/components/nurse/Sidebar';
 import Topbar from '@/components/nurse/Topbar';
-import { createAppointment, CreateAppointmentPayload } from '@/src/services/appointment.service';
 import { getAllDoctors, Doctor } from '@/src/services/doctor.service';
 
 export default function AddAppointmentPage() {
@@ -57,43 +56,7 @@ export default function AddAppointmentPage() {
     setSubmitSuccess(false);
 
     try {
-      // Validate required fields
-      if (!formData.patientId || !formData.date || !formData.time || !formData.doctorId || !formData.reason) {
-        setSubmitError('Please fill in all required fields.');
-        setIsSubmitting(false);
-        return;
-      }
-
-      const payload: CreateAppointmentPayload = {
-        patientId: formData.patientId,
-        doctorId: parseInt(formData.doctorId),
-        date: formData.date,
-        time: formData.time,
-        reason: formData.reason,
-        notes: formData.notes || undefined,
-      };
-
-      await createAppointment(payload);
-      
-      // Success - show feedback
-      setSubmitSuccess(true);
-      
-      // Reset form
-      setFormData({
-        patientName: '',
-        patientId: '',
-        date: '',
-        time: '',
-        reason: '',
-        doctorName: '',
-        doctorId: '',
-        notes: '',
-      });
-
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
+      setSubmitError('Nurses cannot create appointments. Please ask the patient to book via /appointment-booking.');
     } catch (error: any) {
       console.error('Error creating appointment:', error);
       setSubmitError(
@@ -271,6 +234,7 @@ export default function AddAppointmentPage() {
                     time: '',
                     reason: '',
                     doctorName: '',
+                    doctorId: '',
                     notes: '',
                   });
                 }}

@@ -1,46 +1,55 @@
 "use client";
-
-import "./Login.css";
 import { useState } from "react";
-import api from "../../api/api";
+import { useAuth } from "@/src/context/AuthContext";
+import "./Login.css";
+import api from "@/src/api/api"; 
 
 export default function Login() {
+  const { login } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setIsSubmitting(true);
+
     try {
+      
+      await login({ email, password });
+
+      
       const res = await api.post("/users/login", {
-        email: email,
-        password: password,
+        email,
+        password,
       });
 
-  
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       localStorage.setItem("role", res.data.role);
 
-    
       const userRole = res.data.role;
 
       if (userRole === "Doctor") {
-          window.location.href = "/doctor-dashboard";
+        window.location.href = "/doctor-dashboard";
       } else if (userRole === "Nurse") {
-          window.location.href = "/nurse-dashboard";
+        window.location.href = "/nurse-dashboard";
       } else if (userRole === "Patient") {
-          window.location.href = "/patient-dashboard";
+        window.location.href = "/patient-dashboard";
       } else if (userRole === "Admin") {
-          window.location.href = "/admin-dashboard";
+        window.location.href = "/admin-dashboard";
       } else {
-          
-          window.location.href = "/";
+        window.location.href = "/";
       }
-
     } catch (err) {
-      setError("Email or password is incorrect");
+      const message = err?.message || "Email or password is incorrect";
+      setError(message);
+      setIsSubmitting(false);
     }
-};
+  };
 
   return (
     <>
@@ -49,15 +58,17 @@ export default function Login() {
       </div>
 
       <div className="form_container">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={onSubmit}>
           <div className="user_div">
             <label htmlFor="user_field" style={{ color: "white" }}>
               Email
             </label>
             <input
               id="user_field"
-              type="text"
+              type="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -68,16 +79,18 @@ export default function Login() {
             <input
               id="pass_field"
               type="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
-          <div className="submit_btn">
+          <div className="submit_btn" style={{ backgroundColor: "aqua" }}>
             <input
-              type="button"
+              type="submit"
               id="submit"
-              value="Submit"
-              onClick={handleLogin}
+              value={isSubmitting ? "Signing in..." : "Submit"}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -96,5 +109,3 @@ export default function Login() {
     </>
   );
 }
-
-

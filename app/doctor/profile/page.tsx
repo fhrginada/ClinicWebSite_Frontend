@@ -4,7 +4,24 @@ import DoctorProfileClient from './components/DoctorProfileClient';
 import { getDoctorById, Doctor } from '@/src/services/doctor.service';
 import { getCurrentDoctorId } from '@/src/utils/doctor';
 
-async function getDoctorData(): Promise<Doctor & { id: string }> {
+type DoctorData = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  specialization: string;
+  licenseNumber: string;
+  bio: string;
+  address: string;
+  dateOfBirth: string;
+  gender: string;
+  yearsOfExperience: number;
+  education: Array<{ degree: string; institution: string; year: string }>;
+  languages: string[];
+  profilePicture: string | null;
+};
+
+async function getDoctorData(): Promise<DoctorData> {
   try {
     const doctorId = getCurrentDoctorId();
     const doctor = await getDoctorById(doctorId);

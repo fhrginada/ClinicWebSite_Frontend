@@ -19,11 +19,14 @@ export interface Doctor {
 
 export interface DoctorAvailability {
   doctorId: number;
-  startDate: string;
-  endDate: string;
+  doctorName: string;
+  specialty: string;
   availableSlots: Array<{
     date: string;
-    timeSlots: string[];
+    dayOfWeek: string;
+    startTime: string;
+    endTime: string;
+    isAvailable: boolean;
   }>;
 }
 
@@ -31,26 +34,16 @@ export interface DoctorAvailability {
  * Get doctor by ID
  */
 export async function getDoctorById(id: number): Promise<Doctor> {
-  try {
-    const response = await api.get<Doctor>(`/api/doctors/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching doctor ${id}:`, error);
-    throw error;
-  }
+  const response = await api.get<Doctor>(`/api/doctors/${id}`);
+  return response.data;
 }
 
 /**
  * Get all doctors
  */
 export async function getAllDoctors(): Promise<Doctor[]> {
-  try {
-    const response = await api.get<Doctor[]>('/api/doctors');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching doctors:', error);
-    throw error;
-  }
+  const response = await api.get<Doctor[]>('/api/doctors');
+  return response.data;
 }
 
 /**
@@ -64,23 +57,17 @@ export async function getDoctorAvailability(
   startDate?: string,
   days?: number
 ): Promise<DoctorAvailability> {
-  try {
-    const params: Record<string, string> = {};
-    if (startDate) {
-      params.startDate = startDate;
-    }
-    if (days) {
-      params.days = days.toString();
-    }
-
-    const response = await api.get<DoctorAvailability>(
-      `/api/doctors/${id}/availability`,
-      { params }
-    );
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching availability for doctor ${id}:`, error);
-    throw error;
+  const params: Record<string, string> = {};
+  if (startDate) {
+    params.startDate = startDate;
   }
+  if (days) {
+    params.days = days.toString();
+  }
+
+  const response = await api.get<DoctorAvailability>(`/api/doctors/${id}/availability`, {
+    params,
+  });
+  return response.data;
 }
 

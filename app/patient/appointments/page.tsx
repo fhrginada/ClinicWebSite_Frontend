@@ -1,114 +1,67 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
 import StatusBadge from '@/components/doctor/StatusBadge';
 import { Search, Filter } from 'lucide-react';
+import { getMyAppointments, type AppointmentResponse } from '@/src/services/appointment.service';
 
-interface Appointment {
-  id: string;
-  date: string;
-  time: string;
-  doctorName: string;
-  doctorSpecialization: string;
-  reason: string;
-  status: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled';
-}
-
-// Mock data generator
-const generateMockAppointments = (): Appointment[] => {
-  const appointments: Appointment[] = [];
-  const today = new Date();
-  const doctors = [
-    { name: 'Dr. Ahmed Nabel', specialization: 'Cardiology' },
-    { name: 'Dr. Sarah Williams', specialization: 'General Medicine' },
-    { name: 'Dr. Michael Brown', specialization: 'Dermatology' },
-    { name: 'Dr. Emily Chen', specialization: 'Pediatrics' },
-  ];
-  const statuses: ('Pending' | 'Confirmed' | 'Completed' | 'Cancelled')[] = ['Pending', 'Confirmed', 'Completed', 'Cancelled'];
-  const times = ['09:00', '10:30', '11:15', '13:00', '14:30', '15:45', '16:00'];
-  const reasons = [
-    'General Checkup',
-    'Follow-up Visit',
-    'Blood Test',
-    'Consultation',
-    'Vaccination',
-    'X-Ray Review',
-    'Prescription Refill',
-    'Annual Physical'
-  ];
-
-  // Generate past appointments (last 30 days)
-  for (let day = 30; day >= 0; day--) {
-    const appointmentDate = new Date(today);
-    appointmentDate.setDate(today.getDate() - day);
-    
-    if (Math.random() > 0.7) { // 30% chance of appointment per day
-      const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
-      const randomTime = times[Math.floor(Math.random() * times.length)];
-      const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
-      const randomStatus = day < 0 ? 'Completed' : statuses[Math.floor(Math.random() * statuses.length)];
-      
-      appointments.push({
-        id: `APT-${String(1000 + appointments.length).padStart(4, '0')}`,
-        date: appointmentDate.toISOString().split('T')[0],
-        time: randomTime,
-        doctorName: randomDoctor.name,
-        doctorSpecialization: randomDoctor.specialization,
-        reason: randomReason,
-        status: randomStatus as 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled',
-      });
-    }
-  }
-
-  // Generate future appointments (next 30 days)
-  for (let day = 1; day <= 30; day++) {
-    const appointmentDate = new Date(today);
-    appointmentDate.setDate(today.getDate() + day);
-    
-    if (Math.random() > 0.8) { // 20% chance of appointment per day
-      const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
-      const randomTime = times[Math.floor(Math.random() * times.length)];
-      const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
-      const randomStatus = day <= 7 ? (Math.random() > 0.5 ? 'Confirmed' : 'Pending') : 'Pending';
-      
-      appointments.push({
-        id: `APT-${String(1000 + appointments.length).padStart(4, '0')}`,
-        date: appointmentDate.toISOString().split('T')[0],
-        time: randomTime,
-        doctorName: randomDoctor.name,
-        doctorSpecialization: randomDoctor.specialization,
-        reason: randomReason,
-        status: randomStatus as 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled',
-      });
-    }
-  }
-
-  return appointments.sort((a, b) => {
-    const dateCompare = a.date.localeCompare(b.date);
-    if (dateCompare !== 0) return dateCompare;
-    return a.time.localeCompare(b.time);
-  });
-};
+type AppointmentRow = Pick<
+  AppointmentResponse,
+  'id' | 'appointmentDate' | 'timeSlot' | 'doctorName' | 'doctorSpecialization' | 'reasonForVisit' | 'status'
+>;
 
 export default function AppointmentsPage() {
-  const [appointments] = useState<Appointment[]>(generateMockAppointments());
+  const [appointments, setAppointments] = useState<AppointmentRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
   const [dateFilter, setDateFilter] = useState<string>('All');
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        setLoading(true);
+        setLoadError(null);
+        const data = await getMyAppointments();
+        if (cancelled) return;
+        setAppointments(
+          data.map((a) => ({
+            id: a.id,
+            appointmentDate: a.appointmentDate,
+            timeSlot: a.timeSlot,
+            doctorName: a.doctorName,
+            doctorSpecialization: a.doctorSpecialization,
+            reasonForVisit: a.reasonForVisit,
+            status: a.status,
+          }))
+        );
+      } catch (e: any) {
+        if (cancelled) return;
+        setLoadError(e?.response?.data?.message ?? 'Failed to load appointments.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const filteredAppointments = useMemo(() => {
     return appointments.filter(apt => {
       const matchesSearch = 
         apt.doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        apt.reason.toLowerCase().includes(searchQuery.toLowerCase());
+        (apt.reasonForVisit ?? '').toLowerCase().includes(searchQuery.toLowerCase());
       
       const matchesStatus = statusFilter === 'All' || apt.status === statusFilter;
       
       const matchesDate = (() => {
         if (dateFilter === 'All') return true;
-        const aptDate = new Date(apt.date);
+        const aptDate = new Date(apt.appointmentDate);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         
@@ -141,6 +94,15 @@ export default function AppointmentsPage() {
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const hour12 = hour % 12 || 12;
     return `${hour12}:${minutes} ${ampm}`;
+  };
+
+  const formatTimeSlot = (slot: string) => {
+    const parts = slot.split(' - ').map((s) => s.trim());
+    if (parts.length === 2) {
+      return `${formatTime(parts[0])} - ${formatTime(parts[1])}`;
+    }
+    if (parts.length === 1 && parts[0].includes(':')) return formatTime(parts[0]);
+    return slot;
   };
 
   return (
@@ -223,7 +185,19 @@ export default function AppointmentsPage() {
                 </tr>
               </thead>
               <tbody>
-                {filteredAppointments.length === 0 ? (
+                {loading ? (
+                  <tr>
+                    <td colSpan={6} className="text-center py-12 text-gray-500">
+                      Loading appointments...
+                    </td>
+                  </tr>
+                ) : loadError ? (
+                  <tr>
+                    <td colSpan={6} className="text-center py-12 text-gray-500">
+                      {loadError}
+                    </td>
+                  </tr>
+                ) : filteredAppointments.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="text-center py-12 text-gray-500">
                       <div className="flex flex-col items-center gap-2">
@@ -238,10 +212,10 @@ export default function AppointmentsPage() {
                   filteredAppointments.map((appointment) => (
                     <tr key={appointment.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                       <td className="py-4 px-4 text-sm text-gray-900 font-medium">
-                        {formatDate(appointment.date)}
+                        {formatDate(appointment.appointmentDate)}
                       </td>
                       <td className="py-4 px-4 text-sm text-gray-600">
-                        {formatTime(appointment.time)}
+                        {formatTimeSlot(appointment.timeSlot)}
                       </td>
                       <td className="py-4 px-4 text-sm text-gray-900 font-medium">
                         {appointment.doctorName}
@@ -250,10 +224,10 @@ export default function AppointmentsPage() {
                         {appointment.doctorSpecialization}
                       </td>
                       <td className="py-4 px-4 text-sm text-gray-600">
-                        {appointment.reason}
+                        {appointment.reasonForVisit}
                       </td>
                       <td className="py-4 px-4">
-                        <StatusBadge status={appointment.status} />
+                        <StatusBadge status={appointment.status as any} />
                       </td>
                     </tr>
                   ))

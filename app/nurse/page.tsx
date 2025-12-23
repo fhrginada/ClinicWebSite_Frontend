@@ -4,10 +4,10 @@ import { useState, useEffect, useMemo } from 'react';
 import Sidebar from '@/components/nurse/Sidebar';
 import Topbar from '@/components/nurse/Topbar';
 import TodayAppointmentTable from '@/components/nurse/TodayAppointmentTable';
-import { getAllAppointments, Appointment } from '@/src/services/appointment.service';
+import { getAllAppointments, AppointmentResponse } from '@/src/services/appointment.service';
 
 export default function NurseDashboard() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,13 +35,13 @@ export default function NurseDashboard() {
     today.setHours(0, 0, 0, 0);
     
     const todayAppointments = appointments.filter(apt => {
-      const aptDate = new Date(apt.date);
+      const aptDate = new Date(apt.appointmentDate);
       aptDate.setHours(0, 0, 0, 0);
       return aptDate.getTime() === today.getTime();
     });
 
     const upcomingAppointments = appointments.filter(apt => {
-      const aptDate = new Date(apt.date);
+      const aptDate = new Date(apt.appointmentDate);
       aptDate.setHours(0, 0, 0, 0);
       return aptDate.getTime() > today.getTime() && apt.status !== 'Completed' && apt.status !== 'Cancelled';
     });

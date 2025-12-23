@@ -6,7 +6,7 @@ import EditAppointmentModal from './EditAppointmentModal';
 import { useState } from 'react';
 
 interface Appointment {
-  id: string;
+  id: number;
   patientName: string;
   patientId: string;
   date: string;
@@ -17,8 +17,8 @@ interface Appointment {
 
 interface AppointmentRowProps {
   appointment: Appointment;
-  onStatusChange: (appointmentId: string, newStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled') => void;
-  onEditAppointment: (appointmentId: string, data: { date: string; time: string; reason: string }) => void;
+  onStatusChange: (appointmentId: number, newStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled') => void;
+  onEditAppointment: (appointmentId: number, data: { date: string; time: string; reason: string }) => void;
 }
 
 export default function AppointmentRow({
