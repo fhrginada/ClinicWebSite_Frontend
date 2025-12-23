@@ -4,10 +4,14 @@ import { useState, useMemo, useEffect } from 'react';
 import Sidebar from '@/components/doctor/Sidebar';
 import Topbar from '@/components/doctor/Topbar';
 import AppointmentTable from '@/components/doctor/AppointmentTable';
-import { getAllAppointments, updateAppointmentStatus, Appointment as ApiAppointment } from '@/src/services/appointment.service';
+import {
+  getMyDoctorAppointments,
+  updateAppointmentStatus,
+  AppointmentResponse as ApiAppointment,
+} from '@/src/services/appointment.service';
 
 interface Appointment {
-  id: string;
+  id: number;
   patientName: string;
   patientId: string;
   date: string;
@@ -20,11 +24,11 @@ interface Appointment {
 const transformAppointment = (apt: ApiAppointment): Appointment => ({
   id: apt.id,
   patientName: apt.patientName,
-  patientId: apt.patientId,
-  date: apt.date,
-  time: apt.time,
+  patientId: String(apt.patientId),
+  date: apt.appointmentDate?.split('T')[0] ?? '',
+  time: (apt.timeSlot || '').split('-')[0].trim(),
   status: apt.status as 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled',
-  reason: apt.reason || 'General Consultation', // Default reason if not provided by API
+  reason: apt.reasonForVisit || 'General Consultation',
 });
 
 export default function AppointmentsPage() {
@@ -39,7 +43,7 @@ export default function AppointmentsPage() {
       setIsLoading(true);
       setError(null);
       try {
-        const allAppointments = await getAllAppointments();
+        const allAppointments = await getMyDoctorAppointments();
         
         // Filter appointments for next 7 days
         const today = new Date();
@@ -49,7 +53,7 @@ export default function AppointmentsPage() {
         
         const filteredAppointments = allAppointments
           .filter((apt: ApiAppointment) => {
-            const aptDate = new Date(apt.date);
+            const aptDate = new Date(apt.appointmentDate);
             aptDate.setHours(0, 0, 0, 0);
             return aptDate >= today && aptDate <= sevenDaysLater;
           })
@@ -100,7 +104,7 @@ export default function AppointmentsPage() {
     });
   }, [filteredByDate, searchQuery, statusFilter]);
 
-  const handleStatusChange = async (appointmentId: string, newStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled') => {
+  const handleStatusChange = async (appointmentId: number, newStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled') => {
     try {
       // Optimistically update UI
       setAppointments(prev => 
@@ -126,7 +130,10 @@ export default function AppointmentsPage() {
     }
   };
 
-  const handleEditAppointment = (appointmentId: string, updatedData: { date: string; time: string; reason: string }) => {
+  const handleEditAppointment = (
+    appointmentId: number,
+    updatedData: { date: string; time: string; reason: string }
+  ) => {
     setAppointments(prev =>
       prev.map(apt =>
         apt.id === appointmentId

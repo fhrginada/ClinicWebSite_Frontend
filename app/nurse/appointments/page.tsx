@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Sidebar from '@/components/nurse/Sidebar';
 import Topbar from '@/components/nurse/Topbar';
 import { Search, Filter, Download } from 'lucide-react';
-import { getAllAppointments, Appointment } from '@/src/services/appointment.service';
+import { getAllAppointments, AppointmentResponse } from '@/src/services/appointment.service';
 
 const statusColors = {
   Pending: 'bg-yellow-50 text-yellow-700 border-yellow-200',
@@ -14,7 +14,7 @@ const statusColors = {
 };
 
 export default function AppointmentsPage() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,7 +44,7 @@ export default function AppointmentsPage() {
     return appointments.filter(apt => {
       const matchesSearch = 
         apt.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        apt.patientId.toLowerCase().includes(searchQuery.toLowerCase());
+        String(apt.patientId).includes(searchQuery);
       
       const matchesStatus = statusFilter === 'All' || apt.status === statusFilter;
       
@@ -169,9 +169,9 @@ export default function AppointmentsPage() {
                   ) : (
                     filteredAppointments.map((appointment) => (
                       <tr key={appointment.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                        <td className="py-4 px-4 text-sm text-gray-900">{appointment.time}</td>
+                        <td className="py-4 px-4 text-sm text-gray-900">{appointment.timeSlot}</td>
                         <td className="py-4 px-4 text-sm text-gray-900">
-                          {new Date(appointment.date).toLocaleDateString('en-US', {
+                          {new Date(appointment.appointmentDate).toLocaleDateString('en-US', {
                             month: 'short',
                             day: 'numeric',
                             year: 'numeric',
@@ -179,9 +179,14 @@ export default function AppointmentsPage() {
                         </td>
                         <td className="py-4 px-4 text-sm text-gray-900 font-medium">{appointment.patientName}</td>
                         <td className="py-4 px-4 text-sm text-gray-600">{appointment.patientId}</td>
-                        <td className="py-4 px-4 text-sm text-gray-600">{appointment.reason || 'N/A'}</td>
+                        <td className="py-4 px-4 text-sm text-gray-600">{appointment.reasonForVisit || 'N/A'}</td>
                         <td className="py-4 px-4">
-                          <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${statusColors[appointment.status]}`}>
+                          <span
+                            className={`inline-flex px-3 py-1 rounded-full text-xs font-medium border ${
+                              statusColors[appointment.status as keyof typeof statusColors] ??
+                              'bg-gray-50 text-gray-700 border-gray-200'
+                            }`}
+                          >
                             {appointment.status}
                           </span>
                         </td>

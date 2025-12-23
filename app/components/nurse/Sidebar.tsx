@@ -25,7 +25,7 @@ const navigationItems = [
 ];
 
 export default function Sidebar() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '';
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
