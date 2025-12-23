@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useAuth } from "@/src/context/AuthContext";
 import "./register.css";
@@ -81,10 +80,16 @@ export default function Register() {
             id="btn" 
             disabled={isSubmitting}
           />
+
+          <p style={{ marginTop: 12 }}>
+            Already have an account? <a href="/login">Login</a>
+          </p>
         </form>
       </div>
-        <div className="fakebody">.</div>
+
+
     </>
   );
 }
+
 
