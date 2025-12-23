@@ -16,14 +16,31 @@ export default function Login() {
         password: password,
       });
 
+  
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("refreshToken", res.data.refreshToken);
+      localStorage.setItem("role", res.data.role);
 
-      alert("Login successful");
+    
+      const userRole = res.data.role;
+
+      if (userRole === "Doctor") {
+          window.location.href = "/doctor-dashboard";
+      } else if (userRole === "Nurse") {
+          window.location.href = "/nurse-dashboard";
+      } else if (userRole === "Patient") {
+          window.location.href = "/patient-dashboard";
+      } else if (userRole === "Admin") {
+          window.location.href = "/admin-dashboard";
+      } else {
+          
+          window.location.href = "/";
+      }
+
     } catch (err) {
       setError("Email or password is incorrect");
     }
-  };
+};
 
   return (
     <>

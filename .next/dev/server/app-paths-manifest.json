@@ -1,17 +1,5 @@
-<<<<<<< HEAD
-{}
-=======
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/doctor/page": "app/doctor/page.js",
-  "/doctor/prescriptions/new/page": "app/doctor/prescriptions/new/page.js",
-  "/doctor/prescriptions/page": "app/doctor/prescriptions/page.js",
-  "/doctor/profile/page": "app/doctor/profile/page.js",
-  "/nurse/appointments/add/page": "app/nurse/appointments/add/page.js",
-  "/nurse/appointments/page": "app/nurse/appointments/page.js",
-  "/nurse/notifications/page": "app/nurse/notifications/page.js",
-  "/nurse/page": "app/nurse/page.js",
-  "/nurse/profile/page": "app/nurse/profile/page.js",
-  "/page": "app/page.js"
+  "/admin/settings/page": "app/admin/settings/page.js",
+  "/login/page": "app/login/page.js",
+  "/signup/page": "app/signup/page.js"
 }
->>>>>>> origin/main

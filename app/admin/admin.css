@@ -1,0 +1,28 @@
+.admin_container {
+    padding: 40px;
+    color: white;
+    min-height: 100vh;
+}
+
+.admin_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.admin_table th, .admin_table td {
+    border: 1px solid #444;
+    padding: 12px;
+    text-align: left;
+}
+
+.admin_table th {
+    background-color: #333;
+}
+
+.edit_link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}

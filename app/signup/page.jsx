@@ -10,6 +10,7 @@ export default function Signup() {
     gender: "",
     phoneNumber: "",
     email: "",
+    address: "",
     password: "",
   });
 
