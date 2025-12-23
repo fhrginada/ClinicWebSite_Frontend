@@ -1,27 +1,27 @@
 "use client";
-
-import "./Login.css";
 import { useState } from "react";
-import api from "../../api/api";
+import { useAuth } from "@/src/context/AuthContext";
+import "./Login.css";
 
 export default function Login() {
+  const { login } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setIsSubmitting(true);
+
     try {
-      const res = await api.post("/users/login", {
-        email: email,
-        password: password,
-      });
-
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("refreshToken", res.data.refreshToken);
-
-      alert("Login successful");
+      await login({ email, password });
     } catch (err) {
-      setError("Email or password is incorrect");
+      const message = err?.message || "Email or password is incorrect";
+      setError(message);
+      setIsSubmitting(false);
     }
   };
 
@@ -32,15 +32,17 @@ export default function Login() {
       </div>
 
       <div className="form_container">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={onSubmit}>
           <div className="user_div">
             <label htmlFor="user_field" style={{ color: "white" }}>
               Email
             </label>
             <input
               id="user_field"
-              type="text"
+              type="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -51,16 +53,18 @@ export default function Login() {
             <input
               id="pass_field"
               type="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
-          <div className="submit_btn">
+          <div className="submit_btn" style={{ backgroundColor: "aqua" }}>
             <input
-              type="button"
+              type="submit"
               id="submit"
-              value="Submit"
-              onClick={handleLogin}
+              value={isSubmitting ? "Signing in..." : "Submit"}
+              disabled={isSubmitting}
             />
           </div>
 

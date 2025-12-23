@@ -1,68 +1,90 @@
 "use client";
-
-import "./register.css";
 import { useState } from "react";
-import api from "../../api/api";
+import { useAuth } from "@/src/context/AuthContext";
+import "./register.css";
+import "./bootstrap.min.css";
 
-export default function Signup() {
-  const [form, setForm] = useState({
-    fullName: "",
-    gender: "",
-    phoneNumber: "",
-    email: "",
-    password: "",
-  });
+export default function Register() {
+  const { register } = useAuth();
 
-  const handleRegister = async () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setIsSubmitting(true);
     try {
-      await api.post("/users/register", form);
-      alert("Account created successfully");
-      window.location.href = "/login";
+      await register({ fullName, email, phoneNumber, password });
     } catch (err) {
-      alert("Register failed");
+      const message = err?.message || "Registration failed.";
+      setError(message);
+      setIsSubmitting(false);
     }
   };
 
   return (
     <>
-      <div className="form_container">
-        <input
-          placeholder="Full Name"
-          onChange={(e) => setForm({ ...form, fullName: e.target.value })}
-        />
+      <div className="Register">
+        <form onSubmit={onSubmit}>
+          <input 
+            type="text" 
+            placeholder="Full name" 
+            className="input1" 
+            id="full_name" 
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
 
-        <input
-          placeholder="Gender"
-          onChange={(e) => setForm({ ...form, gender: e.target.value })}
-        />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            className="input1" 
+            id="pass" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <input
-          placeholder="Phone Number"
-          onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
-        />
+          <input 
+            type="email" 
+            placeholder="Email" 
+            className="input1" 
+            id="email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <input
-          placeholder="Address"
-          onChange={(e) => setForm({ ...form, address: e.target.value })}
-        />
+          <input 
+            type="tel" 
+            placeholder="Phone number"
+            className="input1" 
+            id="tel" 
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
 
-        <input
-          placeholder="Email"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
+          {error && (
+            <div style={{ color: "#fff", marginTop: "10px" }}>{error}</div>
+          )}
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
+          <input 
+            type="submit" 
+            value={isSubmitting ? "Registering..." : "Register"}
+            className="btn"
+            id="btn" 
+            disabled={isSubmitting}
+          />
 
-        <button onClick={handleRegister}>Sign Up</button>
-
-        <p>
-          Already have an account?{" "}
-          <a href="/login">Login</a>
-        </p>
+          <p style={{ marginTop: 12 }}>
+            Already have an account? <a href="/login">Login</a>
+          </p>
+        </form>
       </div>
 
 

@@ -3,13 +3,13 @@
 # Dependencies
 /node_modules
 /.pnp
-.pnp.* 
+.pnp.*
+.pnp.js
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-.pnp.js
 
 # Testing
 /coverage
@@ -25,6 +25,8 @@
 # Misc
 .DS_Store
 *.pem
+
+# Env files
 .env*
 .env.local
 .env.development.local
@@ -37,15 +39,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# IDE
-.vscode
-.idea
-*.swp
-*.swo
-
 # Vercel
 .vercel
 
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

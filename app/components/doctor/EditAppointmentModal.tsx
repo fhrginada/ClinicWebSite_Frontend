@@ -7,12 +7,12 @@ interface EditAppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
   appointment: {
-    id: string;
+    id: number;
     date: string;
     time: string;
     reason: string;
   } | null;
-  onSave: (appointmentId: string, data: { date: string; time: string; reason: string }) => void;
+  onSave: (appointmentId: number, data: { date: string; time: string; reason: string }) => void;
 }
 
 export default function EditAppointmentModal({

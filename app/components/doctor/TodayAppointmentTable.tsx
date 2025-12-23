@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { Search, Filter, Download, CheckCircle2, XCircle, Clock } from 'lucide-react';
-import { getAllAppointments, Appointment as ApiAppointment } from '@/src/services/appointment.service';
+import {
+  getMyDoctorAppointments,
+  AppointmentResponse as ApiAppointment,
+} from '@/src/services/appointment.service';
 
 interface Appointment {
-  id: string;
+  id: number;
   time: string;
   patientName: string;
   patientId: string;
@@ -81,17 +84,17 @@ export default function TodayAppointmentTable() {
       setIsLoading(true);
       setError(null);
       try {
-        const allAppointments = await getAllAppointments();
+        const allAppointments = await getMyDoctorAppointments();
         const today = new Date().toISOString().split('T')[0];
         
         // Filter appointments for today and transform to component format
         const todayAppointments: Appointment[] = allAppointments
-          .filter((apt: ApiAppointment) => apt.date === today)
+          .filter((apt: ApiAppointment) => apt.appointmentDate?.split('T')[0] === today)
           .map((apt: ApiAppointment) => ({
             id: apt.id,
-            time: formatTime(apt.time),
+            time: formatTime((apt.timeSlot || '').split('-')[0].trim()),
             patientName: apt.patientName,
-            patientId: apt.patientId,
+            patientId: String(apt.patientId),
             status: mapStatus(apt.status),
           }))
           .sort((a, b) => a.time.localeCompare(b.time));
