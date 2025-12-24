@@ -1,13 +1,10 @@
 "use client";
-import { useState } from "react";
-import { useAuth } from "@/src/context/AuthContext";
+
 import "./register.css";
-import "./bootstrap.min.css";
+import { useState } from "react";
+import api from "../../api/api";
 
 export default function Signup() {
-  const { register } = useAuth();
-
-  
   const [form, setForm] = useState({
     fullName: "",
     gender: "",
@@ -17,86 +14,66 @@ export default function Signup() {
     password: "",
   });
 
-  
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
+  const handleRegister = async () => {
     try {
-      
-      await register({ fullName, email, phoneNumber, password });
+      await api.post("/users/register", form);
+      alert("Account created successfully");
+      window.location.href = "/login";
     } catch (err) {
-      const message = err?.message || "Registration failed.";
-      setError(message);
-      setIsSubmitting(false);
+      alert("Register failed");
+      console.error(err);
     }
   };
 
   return (
     <>
+      <div className="fakebody"></div>
       <div className="Register">
-        <form onSubmit={onSubmit}>
-          <input 
-            type="text" 
-            placeholder="Full name" 
-            className="input1" 
-            id="full_name" 
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
+        <h2>Sign Up</h2>
+        <input
+          className="input1"
+          placeholder="Full Name"
+          onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+        />
 
-          <input 
-            type="password" 
-            placeholder="Password" 
-            className="input1" 
-            id="pass" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <input
+          className="input1"
+          placeholder="Gender"
+          onChange={(e) => setForm({ ...form, gender: e.target.value })}
+        />
 
-          <input 
-            type="email" 
-            placeholder="Email" 
-            className="input1" 
-            id="email" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <input
+          className="input1"
+          placeholder="Phone Number"
+          onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
+        />
 
-          <input 
-            type="tel" 
-            placeholder="Phone number"
-            className="input1" 
-            id="tel" 
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
+        <input
+          className="input1"
+          placeholder="Address"
+          onChange={(e) => setForm({ ...form, address: e.target.value })}
+        />
 
-          {error && (
-            <div style={{ color: "#fff", marginTop: "10px" }}>{error}</div>
-          )}
+        <input
+          className="input1"
+          placeholder="Email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
 
-          <input 
-            type="submit" 
-            value={isSubmitting ? "Registering..." : "Register"}
-            className="btn"
-            id="btn" 
-            disabled={isSubmitting}
-          />
+        <input
+          className="input1"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
 
-          <p style={{ marginTop: 12 }}>
-            Already have an account? <a href="/login">Login</a>
-          </p>
-        </form>
+        <button id="btn" onClick={handleRegister}>
+          Sign Up
+        </button>
+
+        <p className="login-link">
+          Already have an account? <a href="/login">Login</a>
+        </p>
       </div>
     </>
   );

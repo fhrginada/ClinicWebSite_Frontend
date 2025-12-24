@@ -1,75 +1,88 @@
-.input1{
-
-    margin: 50px;
-    padding-left: 8px;
-    width: 500px;
-    height: 30px;
-    border-radius: 20px;
-    display: block;
-    
-
+/* Fake background */
+.fakebody {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/assets/portrait-confident-young-doctor-white-background-smiling-31030985.webp);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
 }
 
-
-.Register{
-    
-    position: absolute;
-    top:25%;
-    left: 35%;
-    height: 500px;
-    border: 5px solid;
-    border-color: white;
-    border-radius: 20px;
-    z-index: 1;
-    box-shadow: 0 0 15px 3px white;
-    
-    
-
-;
-    
-    
-
+.fakebody::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
 }
 
-.fakebody{
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(/assets/portrait-confident-young-doctor-white-background-smiling-31030985.webp);
-    background-size: cover;
-    background-position: center;
-    
-
+/* Register window */
+.Register {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 30px 20px;
+  border-radius: 20px;
+  border: 2px solid white;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.fakebody::after{
-    content: "";
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 105%;
-    background-color: rgba(0, 0, 0, 0.8); 
-    border-radius: 2%;
-    pointer-events: none; 
+.Register h2 {
+  color: white;
+  margin-bottom: 20px;
 }
 
-
-
-#btn{
-    
-    width: 100px;
-    height: 30px;
-    border-radius: 20px;
-    position: absolute;
-    left: 73%;
-    top: 70%;
-    color:black;
-    background-color: white;
-    
-    
+.input1 {
+  margin: 10px 0;
+  padding-left: 10px;
+  width: 90%;
+  height: 35px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }
 
+/* Sign Up button */
+#btn {
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+#btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.login-link {
+  color: white;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #fff;
+  text-decoration: underline;
+}
