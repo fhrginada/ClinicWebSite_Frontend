@@ -1,4 +1,6 @@
-import api from './api';
+/**
+ * MOCK MODE - Frontend only
+ */
 
 export interface Nurse {
   id: number;
@@ -21,45 +23,48 @@ export interface NotificationPayload {
   appointmentId?: string;
 }
 
+// Mock nurse data
+const mockNurses: Nurse[] = [
+  {
+    id: 1,
+    name: 'Nurse Jane Doe',
+    email: 'jane.doe@intelliclinic.com',
+    phone: '+1-555-0301',
+    specialization: 'General Nursing',
+  },
+];
+
 /**
- * Send notification to doctor
+ * Send notification to doctor - MOCK
  */
 export async function notifyDoctor(payload: NotificationPayload): Promise<void> {
-  try {
-    // Assuming notification endpoint exists or mocking it cleanly
-    await api.post('/api/notifications', payload);
-  } catch (error) {
-    // If endpoint doesn't exist, log but don't fail
-    // In a real app, this would be implemented
-    console.warn('Notification endpoint may not be implemented:', error);
-    // For now, we'll simulate success
-    return Promise.resolve();
-  }
+  await new Promise(resolve => setTimeout(resolve, 200));
+  console.log('📬 MOCK: Notification sent to doctor:', payload);
 }
 
 /**
- * Get nurse by ID
+ * Get nurse by ID - MOCK
  */
 export async function getNurseById(id: number): Promise<Nurse> {
-  try {
-    const response = await api.get<Nurse>(`/api/Nurse/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching nurse ${id}:`, error);
-    throw error;
+  await new Promise(resolve => setTimeout(resolve, 150));
+  const nurse = mockNurses.find(n => n.id === id);
+  if (!nurse) {
+    throw new Error(`Nurse with ID ${id} not found`);
   }
+  return nurse;
 }
 
 /**
- * Update nurse information
+ * Update nurse information - MOCK
  */
 export async function updateNurse(id: number, payload: Partial<Nurse>): Promise<Nurse> {
-  try {
-    const response = await api.put<Nurse>(`/api/Nurse/${id}`, payload);
-    return response.data;
-  } catch (error) {
-    console.error(`Error updating nurse ${id}:`, error);
-    throw error;
+  await new Promise(resolve => setTimeout(resolve, 200));
+  const nurse = mockNurses.find(n => n.id === id);
+  if (!nurse) {
+    throw new Error(`Nurse with ID ${id} not found`);
   }
+  Object.assign(nurse, payload);
+  console.log('👩‍⚕️ MOCK: Nurse updated:', id);
+  return nurse;
 }
 
