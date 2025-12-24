@@ -7,32 +7,31 @@ import { fadeInUp, staggerContainer } from '../lib/animations';
 
 const LeadPractitioner = () => {
   const doctors = [
-    {
-      name: 'Dr. Evelyn Reed',
-      specialty: 'Family Medicine',
-      description: 'Over 15 years of experience in comprehensive healthcare and preventive care.',
-      image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070',
-    },
-    {
-      name: 'Dr. Michael Chen',
-      specialty: 'Cardiology',
-      description: 'Specialized in heart health and cardiovascular disease prevention.',
-      image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070',
-    },
-    {
-      name: 'Dr. Sarah Johnson',
-      specialty: 'Pediatrics',
-      description: 'Dedicated to providing compassionate care for children and adolescents.',
-      image: 'https://images.unsplash.com/photo-1594824476968-48dfc9d126d3?q=80&w=2070',
-    },
-    {
-      name: 'Dr. James Wilson',
-      specialty: 'Internal Medicine',
-      description: 'Expert in diagnosing and treating complex medical conditions.',
-      image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=2070',
-    },
-  ];
-
+  {
+    name: 'Dr. Evelyn Reed',
+    specialty: 'Family Medicine',
+    description: 'Over 15 years of experience in comprehensive healthcare and preventive care.',
+    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070',
+  },
+  {
+    name: 'Dr. Michael Chen',
+    specialty: 'Cardiology',
+    description: 'Specialized in heart health and cardiovascular disease prevention.',
+    image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070',
+  },
+  {
+    name: 'Dr. Sarah Johnson',
+    specialty: 'Pediatrics',
+    description: 'Dedicated to providing compassionate care for children and adolescents.',
+    image: 'https://media.istockphoto.com/id/688085878/photo/cheerful-pediatrician-with-adorable-baby-girl.jpg?s=612x612&w=0&k=20&c=LZUZpgsrPnuudFl9UCNKLPBKona4vUg2wiHAnxH9Cg8=', // جديدة حلوة جدًا!
+  },
+  {
+    name: 'Dr. James Wilson',
+    specialty: 'Internal Medicine',
+    description: 'Expert in diagnosing and treating complex medical conditions.',
+    image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=2070',
+  },
+];
   return (
     <section id="team" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

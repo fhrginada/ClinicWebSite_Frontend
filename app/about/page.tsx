@@ -10,7 +10,7 @@ export default function AboutUs() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      
+
       <div className="about-page">
         {/* Hero Section */}
         <section className="hero relative bg-gradient-to-b from-blue-600 to-blue-800 text-white py-24 overflow-hidden">
@@ -64,78 +64,86 @@ export default function AboutUs() {
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="text-4xl font-bold text-gray-900 text-center mb-16">Meet Our Expert Doctors</h2>
 
-            <div className="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div className="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Dr. Evelyn Reed */}
+              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300">
                 <div className="relative h-64 w-full">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070" 
-                    alt="Dr. Evelyn Reed" 
+                  <Image
+                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
+                    alt="Dr. Evelyn Reed"
                     fill
                     className="object-cover"
+                    unoptimized
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-6 text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Dr. Evelyn Reed</h3>
-                  <p className="role text-blue-600 font-semibold mb-4">Family Medicine</p>
-                  <p className="text-gray-700 mb-6">Over 15 years of experience in comprehensive healthcare and preventive care.</p>
-                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition-colors">
+                  <p className="text-blue-600 font-semibold mb-4">Family Medicine</p>
+                  <p className="text-gray-700 text-sm mb-6">Over 15 years of experience in comprehensive healthcare and preventive care.</p>
+                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition">
                     Learn More
                   </button>
                 </div>
               </div>
 
-              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              {/* Dr. Michael Chen */}
+              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300">
                 <div className="relative h-64 w-full">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070" 
-                    alt="Dr. Michael Chen" 
+                  <Image
+                    src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
+                    alt="Dr. Michael Chen"
                     fill
                     className="object-cover"
+                    unoptimized
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-6 text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Dr. Michael Chen</h3>
-                  <p className="role text-blue-600 font-semibold mb-4">Cardiology</p>
-                  <p className="text-gray-700 mb-6">Specialized in heart health and cardiovascular disease prevention.</p>
-                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition-colors">
+                  <p className="text-blue-600 font-semibold mb-4">Cardiology</p>
+                  <p className="text-gray-700 text-sm mb-6">Specialized in heart health and cardiovascular disease prevention.</p>
+                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition">
                     Learn More
                   </button>
                 </div>
               </div>
 
-              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              {/* Dr. Sarah Johnson - صورة جديدة حلوة وشغالة 100% */}
+              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300">
                 <div className="relative h-64 w-full">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1594824476968-48dfc9d126d3?q=80&w=2070" 
-                    alt="Dr. Sarah Johnson" 
+                  <Image
+                    src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
+                    alt="Dr. Sarah Johnson"
                     fill
                     className="object-cover"
+                    unoptimized
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-6 text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Dr. Sarah Johnson</h3>
-                  <p className="role text-blue-600 font-semibold mb-4">Pediatrics</p>
-                  <p className="text-gray-700 mb-6">Dedicated to providing compassionate care for children and adolescents.</p>
-                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition-colors">
+                  <p className="text-blue-600 font-semibold mb-4">Pediatrics</p>
+                  <p className="text-gray-700 text-sm mb-6">Dedicated to providing compassionate care for children and adolescents.</p>
+                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition">
                     Learn More
                   </button>
                 </div>
               </div>
 
-              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              {/* Dr. James Wilson */}
+              <div className="card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300">
                 <div className="relative h-64 w-full">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=2070" 
-                    alt="Dr. James Wilson" 
+                  <Image
+                    src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
+                    alt="Dr. James Wilson"
                     fill
                     className="object-cover"
+                    unoptimized
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-6 text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Dr. James Wilson</h3>
-                  <p className="role text-blue-600 font-semibold mb-4">Internal Medicine</p>
-                  <p className="text-gray-700 mb-6">Expert in diagnosing and treating complex medical conditions.</p>
-                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition-colors">
+                  <p className="text-blue-600 font-semibold mb-4">Internal Medicine</p>
+                  <p className="text-gray-700 text-sm mb-6">Expert in diagnosing and treating complex medical conditions.</p>
+                  <button className="w-full bg-blue-600 text-white rounded-xl px-6 py-3 font-semibold hover:bg-blue-700 transition">
                     Learn More
                   </button>
                 </div>
