@@ -6,8 +6,11 @@ import { headers } from "next/headers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ClinicName",
-  description: "Your trusted healthcare provider",
+  title: {
+    default: "HealthClinic",
+    template: "%s | HealthClinic",
+  },
+  description: "Compassionate & Comprehensive Healthcare For You",
 };
 
 export default async function RootLayout({
