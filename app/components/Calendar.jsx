@@ -1,9 +1,26 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Calendar = ({ selectedDate, onDateSelect }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2024, 0, 1)); // January 2024
+  // Initialize with selected date or current month
+  const getInitialMonth = () => {
+    if (selectedDate) {
+      return new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+    }
+    return new Date();
+  };
+  const [currentMonth, setCurrentMonth] = useState(getInitialMonth);
+  
+  // Update current month when selectedDate changes
+  useEffect(() => {
+    if (selectedDate) {
+      const newMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+      if (newMonth.getTime() !== currentMonth.getTime()) {
+        setCurrentMonth(newMonth);
+      }
+    }
+  }, [selectedDate, currentMonth]);
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -46,7 +63,13 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
   const handleDateClick = (day) => {
     if (day) {
       const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-      onDateSelect(date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      date.setHours(0, 0, 0, 0);
+      // Only allow selecting today or future dates
+      if (date >= today) {
+        onDateSelect(date);
+      }
     }
   };
 
@@ -59,10 +82,19 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
     );
   };
 
+  const isDisabled = (day) => {
+    if (!day) return true;
+    const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+    return date < today;
+  };
+
   const days = getDaysInMonth(currentMonth);
 
   return (
-    <div className="rounded-3xl border border-white/35 bg-white/20 backdrop-blur-lg shadow-glass p-6 h-full">
+    <div className="p-6 h-full">
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={handlePrevMonth}
@@ -96,27 +128,32 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
       </div>
 
       <div className="grid grid-cols-7 gap-2">
-        {days.map((day, index) => (
-          <button
-            key={index}
-            onClick={() => handleDateClick(day)}
-            disabled={!day}
-            className={`
-              aspect-square flex items-center justify-center text-sm font-semibold rounded-xl transition-colors border
-              ${!day ? 'cursor-default border-transparent' : 'cursor-pointer hover:border-blue-600 hover:bg-blue-50'}
-              ${
-                isSelected(day)
-                  ? 'border-blue-600 bg-blue-600 text-white shadow-md'
-                  : day
-                  ? 'text-gray-800 border-gray-300 bg-white'
-                  : 'text-transparent border-transparent'
-              }
-            `}
-            aria-pressed={isSelected(day)}
-          >
-            {day || ''}
-          </button>
-        ))}
+        {days.map((day, index) => {
+          const disabled = isDisabled(day);
+          return (
+            <button
+              key={index}
+              onClick={() => handleDateClick(day)}
+              disabled={!day || disabled}
+              className={`
+                aspect-square flex items-center justify-center text-sm font-semibold rounded-xl transition-colors border
+                ${!day ? 'cursor-default border-transparent' : disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:border-blue-600 hover:bg-blue-50'}
+                ${
+                  isSelected(day)
+                    ? 'border-blue-600 bg-blue-600 text-white shadow-md'
+                    : day && !disabled
+                    ? 'text-gray-800 border-gray-300 bg-white'
+                    : day && disabled
+                    ? 'text-gray-400 border-gray-200 bg-gray-50'
+                    : 'text-transparent border-transparent'
+                }
+              `}
+              aria-pressed={isSelected(day)}
+            >
+              {day || ''}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,14 +1,28 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/doctor/Sidebar';
 import Topbar from '@/components/doctor/Topbar';
 import PrescriptionCard from '@/components/doctor/PrescriptionCard';
 import TaskList from '@/components/doctor/TaskList';
 import TodayAppointmentTable from '@/components/doctor/TodayAppointmentTable';
 import { getPatientsDashboard } from '@/src/services/patient.service';
+import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function DoctorDashboard() {
+  const router = useRouter();
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // Auth guard - check role from localStorage
+  useEffect(() => {
+    const auth = getMockAuth();
+    if (!auth.isAuthenticated || auth.role !== 'Doctor') {
+      router.replace('/login');
+      return;
+    }
+    setIsAuthorized(true);
+  }, [router]);
   const [isLoading, setIsLoading] = useState(true);
   const [dashboardError, setDashboardError] = useState<string | null>(null);
   const [patientsStats, setPatientsStats] = useState<{
@@ -46,6 +60,11 @@ export default function DoctorDashboard() {
 
     fetchDashboardData();
   }, []);
+
+  // Don't render until authorized
+  if (!isAuthorized) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

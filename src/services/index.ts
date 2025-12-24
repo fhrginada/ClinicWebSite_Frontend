@@ -1,9 +1,11 @@
 /**
  * Main services export file
  * This file exports all API services for easy access throughout the application
+ * 
+ * MOCK MODE: API exports disabled
  */
 
-export { default as api } from './api';
+// export { default as api } from './api'; // Disabled in mock mode
 export * from './appointment.service';
 export * from './doctor.service';
 export * from './medical-history.service';

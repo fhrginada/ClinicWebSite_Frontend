@@ -1,4 +1,9 @@
-import api from './api';
+/**
+ * MOCK MODE - Frontend only
+ * All functions return mock data
+ */
+
+import { mockDoctors, generateMockAvailability, type MockDoctor } from '@/src/mocks/mockData';
 
 export interface Doctor {
   id: number;
@@ -31,23 +36,48 @@ export interface DoctorAvailability {
 }
 
 /**
- * Get doctor by ID
+ * Get doctor by ID - MOCK
  */
 export async function getDoctorById(id: number): Promise<Doctor> {
-  const response = await api.get<Doctor>(`/api/doctors/${id}`);
-  return response.data;
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  const doctor = mockDoctors.find(d => d.id === id);
+  if (!doctor) {
+    throw new Error(`Doctor with ID ${id} not found`);
+  }
+  
+  return {
+    id: doctor.id,
+    name: doctor.name,
+    email: doctor.email,
+    phone: doctor.phone,
+    specialization: doctor.specialization || doctor.specialty,
+    bio: doctor.bio,
+    yearsOfExperience: doctor.yearsOfExperience,
+  } as Doctor;
 }
 
 /**
- * Get all doctors
+ * Get all doctors - MOCK
  */
 export async function getAllDoctors(): Promise<Doctor[]> {
-  const response = await api.get<Doctor[]>('/api/doctors');
-  return response.data;
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 150));
+  
+  return mockDoctors.map(doctor => ({
+    id: doctor.id,
+    name: doctor.name,
+    email: doctor.email,
+    phone: doctor.phone,
+    specialization: doctor.specialization || doctor.specialty,
+    bio: doctor.bio,
+    yearsOfExperience: doctor.yearsOfExperience,
+  })) as Doctor[];
 }
 
 /**
- * Get doctor availability
+ * Get doctor availability - MOCK
  * @param id - Doctor ID
  * @param startDate - Optional start date (ISO string). Defaults to today
  * @param days - Optional number of days to fetch. Defaults to 7
@@ -57,17 +87,21 @@ export async function getDoctorAvailability(
   startDate?: string,
   days?: number
 ): Promise<DoctorAvailability> {
-  const params: Record<string, string> = {};
-  if (startDate) {
-    params.startDate = startDate;
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 200));
+  
+  const doctor = mockDoctors.find(d => d.id === id);
+  if (!doctor) {
+    throw new Error(`Doctor with ID ${id} not found`);
   }
-  if (days) {
-    params.days = days.toString();
-  }
-
-  const response = await api.get<DoctorAvailability>(`/api/doctors/${id}/availability`, {
-    params,
-  });
-  return response.data;
+  
+  const slots = generateMockAvailability(id, startDate, days || 7);
+  
+  return {
+    doctorId: doctor.id,
+    doctorName: doctor.name,
+    specialty: doctor.specialty,
+    availableSlots: slots,
+  };
 }
 

@@ -2,26 +2,50 @@
 
 import "./Login.css";
 import { useState } from "react";
-import api from "../../api/api";
+import { useRouter, useSearchParams } from "next/navigation";
+import { validateMockCredentials, setMockAuth } from "../../src/auth/mockAuth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handleLogin = async () => {
-    try {
-      const res = await api.post("/users/login", {
-        email: email,
-        password: password,
-      });
+  const handleLogin = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    
+    setError("");
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("refreshToken", res.data.refreshToken);
+    // TEMPORARY MOCK AUTHENTICATION - Frontend only
+    const role = validateMockCredentials(email, password);
 
-      alert("Login successful");
-    } catch (err) {
-      setError("Email or password is incorrect");
+    if (role) {
+      // Set mock auth state in localStorage
+      setMockAuth(role);
+
+      // Redirect based on role
+      let redirectPath = "/";
+      if (role === "Doctor") {
+        redirectPath = "/doctor";
+      } else if (role === "Nurse") {
+        redirectPath = "/nurse";
+      } else if (role === "Patient") {
+        redirectPath = "/patient";
+      }
+
+      // Check if there's a redirect query parameter
+      const redirectParam = searchParams?.get("redirect");
+      if (redirectParam) {
+        redirectPath = decodeURIComponent(redirectParam);
+      }
+
+      // Use push instead of replace for better navigation
+      router.push(redirectPath);
+    } else {
+      setError("Invalid credentials. Use password: doctor123, nurse123, or patient123");
     }
   };
 
@@ -34,7 +58,7 @@ export default function Login() {
 
       {/* Login form */}
       <div className="form_container">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handleLogin}>
           <div className="user_div">
             <label htmlFor="user_field" style={{ color: "white" }}>
               Email
@@ -42,6 +66,7 @@ export default function Login() {
             <input
               id="user_field"
               type="text"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -53,16 +78,21 @@ export default function Login() {
             <input
               id="pass_field"
               type="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleLogin(e);
+                }
+              }}
             />
           </div>
 
           <div className="submit_btn">
             <input
-              type="button"
+              type="submit"
               id="submit"
               value="Sign in"
-              onClick={handleLogin}
             />
           </div>
 

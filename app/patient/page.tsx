@@ -1,14 +1,35 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
 import { Calendar, MessageSquare, Bell, CheckCircle2 } from 'lucide-react';
+import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function PatientDashboard() {
+  const router = useRouter();
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // Auth guard - check role from localStorage
+  useEffect(() => {
+    const auth = getMockAuth();
+    if (!auth.isAuthenticated || auth.role !== 'Patient') {
+      router.replace('/login');
+      return;
+    }
+    setIsAuthorized(true);
+  }, [router]);
+
   // Mock data
   const upcomingAppointments = 3;
   const activeConsultations = 2;
   const unreadNotifications = 5;
+
+  // Don't render until authorized
+  if (!isAuthorized) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

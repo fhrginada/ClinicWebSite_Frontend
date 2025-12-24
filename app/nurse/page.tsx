@@ -1,17 +1,33 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/nurse/Sidebar';
 import Topbar from '@/components/nurse/Topbar';
 import TodayAppointmentTable from '@/components/nurse/TodayAppointmentTable';
 import { getAllAppointments, AppointmentResponse } from '@/src/services/appointment.service';
+import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function NurseDashboard() {
+  const router = useRouter();
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [appointments, setAppointments] = useState<AppointmentResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Auth guard - check role from localStorage
   useEffect(() => {
+    const auth = getMockAuth();
+    if (!auth.isAuthenticated || auth.role !== 'Nurse') {
+      router.replace('/login');
+      return;
+    }
+    setIsAuthorized(true);
+  }, [router]);
+
+  useEffect(() => {
+    if (!isAuthorized) return;
+    
     const fetchAppointments = async () => {
       setIsLoading(true);
       setError(null);
@@ -28,7 +44,7 @@ export default function NurseDashboard() {
     };
 
     fetchAppointments();
-  }, []);
+  }, [isAuthorized]);
 
   const stats = useMemo(() => {
     const today = new Date();
@@ -52,6 +68,11 @@ export default function NurseDashboard() {
       upcomingAppointments: upcomingAppointments.length,
     };
   }, [appointments]);
+
+  // Don't render until authorized
+  if (!isAuthorized) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

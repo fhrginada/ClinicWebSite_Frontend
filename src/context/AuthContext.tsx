@@ -2,10 +2,9 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import axios from 'axios';
-import api from '@/src/services/api';
 import { clearToken, getToken, setToken } from '@/src/auth/tokenStore';
 import { ClinicRole, getRolesFromJwt, isTokenExpired } from '@/src/auth/jwt';
+import { getMockAuth, getMockRoles, clearMockAuth } from '@/src/auth/mockAuth';
 
 type AuthState = {
   token: string | null;
@@ -33,43 +32,21 @@ type AuthContextValue = AuthState & {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 function toApiErrorMessage(error: unknown): string {
-  if (axios.isAxiosError(error)) {
-    const data = error.response?.data as any;
-
-    if (typeof data === 'string' && data.trim()) return data;
-
-    if (Array.isArray(data)) {
-      const messages = data
-        .map((x) => (typeof x?.description === 'string' ? x.description : x?.code))
-        .filter((x): x is string => typeof x === 'string' && x.trim().length > 0);
-      if (messages.length) return messages.join(' ');
-    }
-
-    if (data && typeof data === 'object') {
-      const title = typeof data.title === 'string' ? data.title : undefined;
-      const errors = data.errors;
-      if (errors && typeof errors === 'object') {
-        const flattened: string[] = [];
-        for (const key of Object.keys(errors)) {
-          const arr = errors[key];
-          if (Array.isArray(arr)) {
-            for (const msg of arr) {
-              if (typeof msg === 'string' && msg.trim()) flattened.push(msg);
-            }
-          }
-        }
-        if (flattened.length) return flattened.join(' ');
-      }
-      if (title) return title;
-    }
-
-    return error.message || 'Request failed';
-  }
-
   return error instanceof Error ? error.message : 'Request failed';
 }
 
 function computeState(token: string | null): AuthState {
+  // TEMPORARY: Check for mock authentication first
+  const mockAuth = getMockAuth();
+  if (mockAuth.isAuthenticated && mockAuth.role) {
+    return {
+      token: null, // No real token for mock auth
+      roles: [mockAuth.role],
+      isAuthenticated: true,
+    };
+  }
+
+  // Fall back to JWT token authentication
   if (!token) return { token: null, roles: [], isAuthenticated: false };
   if (isTokenExpired(token)) return { token: null, roles: [], isAuthenticated: false };
   return {
@@ -84,35 +61,52 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
 
   const [token, setTokenState] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0); // Force re-computation when mock auth changes
 
   useEffect(() => {
     const existing = getToken();
     setTokenState(existing);
+
+    // TEMPORARY: Listen for storage changes to detect mock auth updates
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'clinic.mockAuth' || e.key === 'clinic.mockRole') {
+        setRefreshKey((prev) => prev + 1); // Force state recomputation
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  const state = useMemo(() => computeState(token), [token]);
+  const state = useMemo(() => computeState(token), [token, refreshKey]);
 
   const login = async (input: LoginInput) => {
-    const res = await api.post<{ token: string; refreshToken: string }>('/api/Users/login', input);
-    const jwt = res.data.token;
-    setToken(jwt);
-    setTokenState(jwt);
-
+    // MOCK MODE - No API call
+    console.log('🔐 MOCK: Login attempt:', input.email);
+    
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    // For mock mode, we rely on mock auth from login page
+    // This function is kept for compatibility but doesn't make API calls
     const redirect = searchParams?.get('redirect');
     router.replace(redirect ? decodeURIComponent(redirect) : '/');
   };
 
   const register = async (input: RegisterInput) => {
-    try {
-      await api.post('/api/Users/register', input);
-      await login({ email: input.email, password: input.password });
-    } catch (err) {
-      throw new Error(toApiErrorMessage(err));
-    }
+    // MOCK MODE - No API call
+    console.log('📝 MOCK: Registration attempt:', input.email);
+    
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 400));
+    
+    // Auto-login after registration (mock)
+    await login({ email: input.email, password: input.password });
   };
 
   const logout = (redirectToLogin = true) => {
     clearToken();
+    clearMockAuth(); // TEMPORARY: Clear mock auth too
     setTokenState(null);
     if (redirectToLogin) router.replace('/login');
   };
