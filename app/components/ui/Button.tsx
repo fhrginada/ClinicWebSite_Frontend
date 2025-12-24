@@ -3,7 +3,28 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type NativeButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  | 'onAnimationStart'
+  | 'onDrag'
+  | 'onDragEnd'
+  | 'onDragEnter'
+  | 'onDragExit'
+  | 'onDragLeave'
+  | 'onDragOver'
+  | 'onDragStart'
+  | 'onDragStartCapture'
+  | 'onDragCapture'
+  | 'onDragEndCapture'
+  | 'onDragEnterCapture'
+  | 'onDragExitCapture'
+  | 'onDragLeaveCapture'
+  | 'onDragOverCapture'
+  | 'onDrop'
+  | 'onDropCapture'
+>;
+
+interface ButtonProps extends NativeButtonProps {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;

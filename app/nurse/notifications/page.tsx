@@ -4,8 +4,30 @@ import { useState, useMemo, useEffect } from 'react';
 import Sidebar from '@/components/nurse/Sidebar';
 import Topbar from '@/components/nurse/Topbar';
 import { Bell, Calendar, CheckCircle2, XCircle, AlertCircle, Info, Search } from 'lucide-react';
-import { getUserNotifications, markAsRead, Notification } from '@/src/services/notification.service';
-import { getCurrentNurseId } from '@/src/utils/nurse';
+import {
+  getMyNotifications,
+  markAsRead,
+  Notification as ApiNotification,
+} from '@/src/services/notification.service';
+
+type NotificationType = 'appointment' | 'reminder' | 'alert' | 'info';
+
+type Notification = {
+  id: number;
+  title: string;
+  message: string;
+  read: boolean;
+  date: string;
+  type: NotificationType;
+};
+
+function inferNotificationType(title: string, message: string): NotificationType {
+  const text = `${title} ${message}`.toLowerCase();
+  if (text.includes('appointment') || text.includes('schedule') || text.includes('booking')) return 'appointment';
+  if (text.includes('reminder')) return 'reminder';
+  if (text.includes('cancel') || text.includes('urgent') || text.includes('failed')) return 'alert';
+  return 'info';
+}
 
 const getNotificationIcon = (type: string) => {
   switch (type) {
@@ -45,9 +67,17 @@ export default function NotificationsPage() {
       setIsLoading(true);
       setError(null);
       try {
-        const nurseId = getCurrentNurseId();
-        const data = await getUserNotifications(nurseId.toString());
-        setNotifications(data);
+        const data = await getMyNotifications();
+        setNotifications(
+          data.map((n: ApiNotification) => ({
+            id: n.notificationId,
+            title: n.title,
+            message: n.message,
+            read: n.isRead,
+            date: n.createdAt,
+            type: inferNotificationType(n.title, n.message),
+          }))
+        );
       } catch (err) {
         console.error('Error loading notifications:', err);
         setError('Failed to load notifications. Please try again later.');
@@ -82,7 +112,7 @@ export default function NotificationsPage() {
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const handleMarkAsRead = async (id: string) => {
+  const handleMarkAsRead = async (id: number) => {
     try {
       await markAsRead(id);
       // Update local state optimistically

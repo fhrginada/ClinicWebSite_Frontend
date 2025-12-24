@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
 import { Calendar, User, FileText, Filter, Search } from 'lucide-react';
+import { getMyMedicalHistory, type MedicalHistory } from '@/src/services/medical-history.service';
 
 interface MedicalRecord {
-  id: string;
+  id: number;
   visitDate: string;
   visitType: 'Checkup' | 'Follow-up' | 'Emergency';
   diagnosis: string;
@@ -22,74 +23,19 @@ interface MedicalRecord {
   };
 }
 
-// Mock data generator
-const generateMockRecords = (): MedicalRecord[] => {
-  const records: MedicalRecord[] = [];
-  const today = new Date();
-  const doctors = [
-    { name: 'Dr. Ahmed Nabel', specialization: 'Cardiology' },
-    { name: 'Dr. Sarah Williams', specialization: 'General Medicine' },
-    { name: 'Dr. Michael Brown', specialization: 'Dermatology' },
-    { name: 'Dr. Emily Chen', specialization: 'Pediatrics' },
-  ];
-  const visitTypes: ('Checkup' | 'Follow-up' | 'Emergency')[] = ['Checkup', 'Follow-up', 'Emergency'];
-  const diagnoses = [
-    'Hypertension',
-    'Type 2 Diabetes',
-    'Common Cold',
-    'Seasonal Allergy',
-    'Migraine',
-    'Acute Bronchitis',
-    'Gastroenteritis',
-    'Upper Respiratory Infection',
-  ];
-  const notes = [
-    'Patient reports mild symptoms. Recommended rest and hydration.',
-    'Follow-up required in 2 weeks. Monitor blood pressure regularly.',
-    'Symptoms improving. Continue current medication regimen.',
-    'Patient responding well to treatment. No concerns noted.',
-    'Routine checkup completed. All vitals within normal range.',
-  ];
-
-  // Generate records for the past 12 months
-  for (let month = 0; month < 12; month++) {
-    const recordDate = new Date(today);
-    recordDate.setMonth(today.getMonth() - month);
-    
-    // Generate 1-3 records per month
-    const recordsPerMonth = Math.floor(Math.random() * 3) + 1;
-    
-    for (let i = 0; i < recordsPerMonth; i++) {
-      const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
-      const randomVisitType = visitTypes[Math.floor(Math.random() * visitTypes.length)];
-      const randomDiagnosis = diagnoses[Math.floor(Math.random() * diagnoses.length)];
-      const randomNote = notes[Math.floor(Math.random() * notes.length)];
-      
-      const dayOffset = Math.floor(Math.random() * 28);
-      const visitDate = new Date(recordDate);
-      visitDate.setDate(recordDate.getDate() - dayOffset);
-      
-      records.push({
-        id: `REC-${String(1000 + records.length).padStart(4, '0')}`,
-        visitDate: visitDate.toISOString().split('T')[0],
-        visitType: randomVisitType,
-        diagnosis: randomDiagnosis,
-        notes: randomNote,
-        doctorName: randomDoctor.name,
-        doctorSpecialization: randomDoctor.specialization,
-        prescription: {
-          medications: Math.random() > 0.3 ? [
-            { name: 'Aspirin', dosage: '100mg', frequency: 'Once daily' },
-            { name: 'Metformin', dosage: '500mg', frequency: 'Twice daily' },
-          ].slice(0, Math.floor(Math.random() * 2) + 1) : [],
-        },
-      });
-    }
-  }
-
-  return records.sort((a, b) => 
-    new Date(b.visitDate).getTime() - new Date(a.visitDate).getTime()
-  );
+const toMedicalRecord = (m: MedicalHistory): MedicalRecord => {
+  const visitType: MedicalRecord['visitType'] = m.followUpDate ? 'Follow-up' : 'Checkup';
+  const doctorName = m.doctorId ? `Doctor #${m.doctorId}` : '—';
+  return {
+    id: m.id,
+    visitDate: m.dateRecorded,
+    visitType,
+    diagnosis: m.diagnosis ?? '—',
+    notes: m.treatment ?? '—',
+    doctorName,
+    doctorSpecialization: '',
+    prescription: { medications: [] },
+  };
 };
 
 const getVisitTypeBadgeClass = (type: string) => {
@@ -106,13 +52,36 @@ const getVisitTypeBadgeClass = (type: string) => {
 };
 
 export default function MedicalHistoryPage() {
-  const [records] = useState<MedicalRecord[]>(generateMockRecords());
+  const [records, setRecords] = useState<MedicalRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
   const [visitTypeFilter, setVisitTypeFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 6;
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        setLoading(true);
+        setLoadError(null);
+        const response = await getMyMedicalHistory(1, 500);
+        if (cancelled) return;
+        setRecords(response.items.map(toMedicalRecord));
+      } catch (e: any) {
+        if (cancelled) return;
+        setLoadError(e?.response?.data?.message ?? 'Failed to load medical history.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const filteredRecords = useMemo(() => {
     let filtered = [...records];
@@ -277,7 +246,15 @@ export default function MedicalHistoryPage() {
           </div>
 
           {/* Records Grid */}
-          {paginatedRecords.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500">Loading medical records...</p>
+            </div>
+          ) : loadError ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500">{loadError}</p>
+            </div>
+          ) : paginatedRecords.length > 0 ? (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 {paginatedRecords.map((record) => {
@@ -321,7 +298,9 @@ export default function MedicalHistoryPage() {
                         <div className="flex items-center gap-2">
                           <User className="w-4 h-4 text-gray-400" />
                           <span className="text-sm text-gray-600">
-                            {record.doctorName} - {record.doctorSpecialization}
+                            {record.doctorSpecialization
+                              ? `${record.doctorName} - ${record.doctorSpecialization}`
+                              : record.doctorName}
                           </span>
                         </div>
 
