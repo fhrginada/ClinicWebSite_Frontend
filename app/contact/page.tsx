@@ -10,7 +10,7 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">Get In Touch</h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            We're here to help. Reach out to us with any questions or to schedule an appointment.
+            We&apos;re here to help. Reach out to us with any questions or to schedule an appointment.
           </p>
         </div>
       </section>
@@ -115,7 +115,7 @@ export default function Contact() {
           </form>
 
           <p className="text-gray-700 mt-8 text-lg font-medium">
-            We'll get back to you within 24 hours. Your data is protected.
+            We&apos;ll get back to you within 24 hours. Your data is protected.
           </p>
         </div>
       </section>

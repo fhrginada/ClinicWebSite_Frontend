@@ -65,6 +65,7 @@ const LeadPractitioner = () => {
                 className="p-0 overflow-hidden h-full flex flex-col"
               >
                 <div className="relative w-full h-64 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={doctor.image}
                     alt={doctor.name}

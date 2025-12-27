@@ -3,7 +3,10 @@
  * Frontend-only solution for testing until backend is ready
  */
 
-import { ClinicRole } from './jwt';
+/**
+ * ClinicRole used by the mock auth (keeps this file self-contained)
+ */
+export type ClinicRole = 'Admin' | 'Doctor' | 'Nurse' | 'Patient';
 
 const MOCK_AUTH_KEY = 'clinic.mockAuth';
 const MOCK_ROLE_KEY = 'clinic.mockRole';

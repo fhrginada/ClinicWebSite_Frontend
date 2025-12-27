@@ -3,9 +3,10 @@
 import "./register.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../src/context/AuthContext";
 
 export default function Signup() {
-  const router = useRouter();
+
   const [form, setForm] = useState({
     fullName: "",
     gender: "",
@@ -14,22 +15,28 @@ export default function Signup() {
     address: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const router = useRouter();
+  const { register } = useAuth();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    setError("");
-
-    // Basic validation
-    if (!form.email || !form.password || !form.fullName) {
-      setError("Please fill in all required fields");
+  const handleRegister = async () => {
+    if (!form.email || !form.password) {
+      alert("Please fill in email and password");
       return;
+    }
+
+    try {
+      await register(form);
+      alert("Account created successfully");
+      router.push("/login");
+    } catch (err) {
+      alert("Register failed");
+      console.error(err);
     }
 
     // MOCK MODE - No backend API call
     // Just simulate registration and redirect to login
     console.log("📝 MOCK: Registration attempt:", form.email);
-    
+
     // In mock mode, just redirect to login
     // User can then login with one of the mock passwords
     alert("Account created successfully (Mock Mode). Please login with: doctor123, nurse123, or patient123");

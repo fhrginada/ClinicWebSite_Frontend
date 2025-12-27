@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import api from "../../../api/api";
 import "../admin.css"; 
 
 export default function SystemSettings() {
@@ -11,16 +10,21 @@ export default function SystemSettings() {
   });
 
   useEffect(() => {
-    
-    api.get("/settings").then(res => setSettings(res.data));
+    // Mock data - load from localStorage if available
+    const savedSettings = localStorage.getItem("systemSettings");
+    if (savedSettings) {
+      try {
+        setSettings(JSON.parse(savedSettings));
+      } catch {
+        // Use default values
+      }
+    }
   }, []);
 
   const handleUpdate = async () => {
-    try {
-      
-      await api.put("/settings", settings);
-      alert("Settings updated successfully");
-    } catch (err) { alert("Error updating settings"); }
+    // Mock implementation - save to localStorage
+    localStorage.setItem("systemSettings", JSON.stringify(settings));
+    alert("Settings updated successfully (demo mode)");
   };
 
   return (

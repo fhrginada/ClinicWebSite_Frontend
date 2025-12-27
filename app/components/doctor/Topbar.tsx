@@ -1,29 +1,11 @@
 'use client';
 
 import { Calendar, Bell } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { getDoctorById } from '@/src/services/doctor.service';
-import { getCurrentDoctorId } from '@/src/utils/doctor';
 
 export default function Topbar() {
-  const [doctorName, setDoctorName] = useState<string>('Doctor');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchDoctorName = async () => {
-      try {
-        const doctorId = getCurrentDoctorId();
-        const doctor = await getDoctorById(doctorId);
-        setDoctorName(doctor.name || 'Doctor');
-      } catch (error) {
-        console.error('Error fetching doctor name:', error);
-        // Keep default name on error
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchDoctorName();
-  }, []);
+  // Mock doctor name - no API call needed
+  const doctorName = 'Ahmed Nabel';
+  const isLoading = false;
 
   const currentDate = new Date();
   const dateOptions: Intl.DateTimeFormatOptions = { 

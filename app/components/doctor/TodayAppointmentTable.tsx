@@ -2,10 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Search, Filter, Download, CheckCircle2, XCircle, Clock } from 'lucide-react';
-import {
-  getMyDoctorAppointments,
-  AppointmentResponse as ApiAppointment,
-} from '@/src/services/appointment.service';
 
 interface Appointment {
   id: number;
@@ -15,35 +11,6 @@ interface Appointment {
   status: 'completed' | 'cancelled' | 'pending' | 'upcoming';
 }
 
-// Helper to map API status to component status
-const mapStatus = (status: string): 'completed' | 'cancelled' | 'pending' | 'upcoming' => {
-  switch (status.toLowerCase()) {
-    case 'completed':
-      return 'completed';
-    case 'cancelled':
-      return 'cancelled';
-    case 'pending':
-      return 'pending';
-    case 'confirmed':
-      return 'upcoming';
-    default:
-      return 'pending';
-  }
-};
-
-// Helper to format time from API
-const formatTime = (time: string): string => {
-  // If time is already formatted (e.g., "09:00 AM"), return as is
-  if (time.includes('AM') || time.includes('PM')) {
-    return time;
-  }
-  // If time is in 24-hour format (e.g., "09:00"), convert to 12-hour
-  const [hours, minutes] = time.split(':');
-  const hour = parseInt(hours, 10);
-  const ampm = hour >= 12 ? 'PM' : 'AM';
-  const hour12 = hour % 12 || 12;
-  return `${hour12}:${minutes} ${ampm}`;
-};
 
 const statusConfig = {
   completed: {
@@ -77,39 +44,39 @@ export default function TodayAppointmentTable() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTodayAppointments = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const allAppointments = await getMyDoctorAppointments();
-        const today = new Date().toISOString().split('T')[0];
-        
-        // Filter appointments for today and transform to component format
-        const todayAppointments: Appointment[] = allAppointments
-          .filter((apt: ApiAppointment) => apt.appointmentDate?.split('T')[0] === today)
-          .map((apt: ApiAppointment) => ({
-            id: apt.id,
-            time: formatTime((apt.timeSlot || '').split('-')[0].trim()),
-            patientName: apt.patientName,
-            patientId: String(apt.patientId),
-            status: mapStatus(apt.status),
-          }))
-          .sort((a, b) => a.time.localeCompare(b.time));
+    // Mock appointments data
+    const mockAppointments: Appointment[] = [
+      {
+        id: 1,
+        time: '09:00 AM',
+        patientName: 'John Smith',
+        patientId: '1',
+        status: 'upcoming',
+      },
+      {
+        id: 2,
+        time: '10:30 AM',
+        patientName: 'Sarah Johnson',
+        patientId: '2',
+        status: 'pending',
+      },
+      {
+        id: 3,
+        time: '02:00 PM',
+        patientName: 'Michael Chen',
+        patientId: '3',
+        status: 'upcoming',
+      },
+    ];
 
-        setAppointments(todayAppointments);
-      } catch (err) {
-        console.error('Error fetching appointments:', err);
-        setError('Failed to load today\'s appointments. Please try again later.');
-        // Keep empty array - will show "No appointments found"
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchTodayAppointments();
+    setIsLoading(true);
+    setTimeout(() => {
+      setAppointments(mockAppointments);
+      setIsLoading(false);
+    }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredAppointments = appointments.filter((appointment) => {
@@ -163,13 +130,6 @@ export default function TodayAppointmentTable() {
           </div>
         </div>
       </div>
-
-      {/* Error Message */}
-      {error && (
-        <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
-          {error}
-        </div>
-      )}
 
       {/* Loading State */}
       {isLoading ? (

@@ -4,22 +4,19 @@
  * This is a Next.js 13+ Client Component that:
  * - Uses 'use client' directive
  * - Has local state management with useState
- * - Sends POST request to /api/appointments
- * - Handles form submission and errors
+ * - Handles form submission with mock implementation (frontend-only)
  * - Shows loading and success states
  * 
  * Next.js best practices:
  * - Form validation before submission
  * - Error boundary with try-catch
- * - Loading state while API request is pending
+ * - Loading state while processing
  * - User feedback with toast/alert
  */
 
 'use client';
 
 import { useEffect, useMemo, useState, FormEvent, ChangeEvent } from 'react';
-import { createAppointment } from '@/src/services/appointment.service';
-import { getDoctorAvailability, type DoctorAvailability } from '@/src/services/doctor.service';
 
 interface CreateAppointmentFormProps {
   doctorId?: number;
@@ -41,48 +38,24 @@ export default function CreateAppointmentForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [availability, setAvailability] = useState<DoctorAvailability | null>(null);
-  const [loadingAvailability, setLoadingAvailability] = useState(false);
-
   useEffect(() => {
     setFormData((prev) => ({ ...prev, doctorId: doctorId || 0 }));
   }, [doctorId]);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      if (!formData.doctorId || !formData.date) {
-        setAvailability(null);
-        return;
-      }
-      try {
-        setLoadingAvailability(true);
-        const data = await getDoctorAvailability(formData.doctorId);
-        if (cancelled) return;
-        setAvailability(data);
-      } catch {
-        if (!cancelled) setAvailability(null);
-      } finally {
-        if (!cancelled) setLoadingAvailability(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [formData.doctorId, formData.date]);
-
+  // Mock available time slots
   const availableSlotsForDate = useMemo(() => {
-    if (!availability || !formData.date) return [];
-    const selected = new Date(formData.date);
-    const selectedKey = selected.toISOString().split('T')[0];
-    return availability.availableSlots
-      .filter((s) => {
-        const d = new Date(s.date);
-        const key = d.toISOString().split('T')[0];
-        return key === selectedKey && s.isAvailable;
-      })
-      .map((s) => `${s.startTime} - ${s.endTime}`);
-  }, [availability, formData.date]);
+    if (!formData.date) return [];
+    // Generate mock time slots for the selected date
+    const slots = [
+      '09:00 AM - 10:00 AM',
+      '10:00 AM - 11:00 AM',
+      '11:00 AM - 12:00 PM',
+      '02:00 PM - 03:00 PM',
+      '03:00 PM - 04:00 PM',
+      '04:00 PM - 05:00 PM',
+    ];
+    return slots;
+  }, [formData.date]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -120,14 +93,8 @@ export default function CreateAppointmentForm({
       return;
     }
 
-    try {
-      const appointmentDate = `${formData.date}T00:00:00`;
-      await createAppointment({
-        doctorId: formData.doctorId,
-        appointmentDate,
-        timeSlot: formData.timeSlot,
-        reasonForVisit: formData.reasonForVisit || undefined,
-      });
+    // Mock appointment creation - no API call
+    setTimeout(() => {
       setSuccess(true);
       setFormData({
         doctorId: doctorId || 0,
@@ -143,13 +110,8 @@ export default function CreateAppointmentForm({
 
       // Show success message for 5 seconds
       setTimeout(() => setSuccess(false), 5000);
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Failed to create appointment';
-      setError(errorMessage);
-    } finally {
       setLoading(false);
-    }
+    }, 500);
   };
 
   return (
@@ -226,14 +188,12 @@ export default function CreateAppointmentForm({
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            disabled={loading || !formData.date || !formData.doctorId || loadingAvailability}
+            disabled={loading || !formData.date || !formData.doctorId}
           >
             <option value="">
-              {loadingAvailability
-                ? 'Loading availability...'
-                : availableSlotsForDate.length === 0
-                  ? 'No available slots for selected date'
-                  : 'Select a time slot'}
+              {availableSlotsForDate.length === 0
+                ? 'No available slots for selected date'
+                : 'Select a time slot'}
             </option>
             {availableSlotsForDate.map((slot) => (
               <option key={slot} value={slot}>

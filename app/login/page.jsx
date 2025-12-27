@@ -3,7 +3,7 @@
 import "./Login.css";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { validateMockCredentials, setMockAuth } from "../../src/auth/mockAuth";
+import { useAuth } from "../../src/context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,41 +11,21 @@ export default function Login() {
   const [error, setError] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { login } = useAuth();
 
-  const handleLogin = (e) => {
-    if (e) {
-      e.preventDefault();
-    }
-    
+  const handleLogin = async () => {
     setError("");
 
-    // TEMPORARY MOCK AUTHENTICATION - Frontend only
-    const role = validateMockCredentials(email, password);
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      return;
+    }
 
-    if (role) {
-      // Set mock auth state in localStorage
-      setMockAuth(role);
-
-      // Redirect based on role
-      let redirectPath = "/";
-      if (role === "Doctor") {
-        redirectPath = "/doctor";
-      } else if (role === "Nurse") {
-        redirectPath = "/nurse";
-      } else if (role === "Patient") {
-        redirectPath = "/patient";
-      }
-
-      // Check if there's a redirect query parameter
-      const redirectParam = searchParams?.get("redirect");
-      if (redirectParam) {
-        redirectPath = decodeURIComponent(redirectParam);
-      }
-
-      // Use push instead of replace for better navigation
-      router.push(redirectPath);
-    } else {
-      setError("Invalid credentials. Use password: doctor123, nurse123, or patient123");
+    try {
+      await login({ email, password });
+      // Redirect is handled by AuthContext
+    } catch (err) {
+      setError("Login failed. Please try again.");
     }
   };
 
@@ -82,7 +62,7 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  handleLogin(e);
+                  handleLogin();
                 }
               }}
             />
