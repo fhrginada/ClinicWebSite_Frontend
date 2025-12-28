@@ -19,7 +19,7 @@ const initialTasks: Task[] = [
   },
   {
     id: '2',
-    text: "Review John Smith's MRI scan",
+    text: "Review John Smith&apos;s MRI scan",
     time: '10:30 AM',
     completed: false,
   },
@@ -44,7 +44,7 @@ export default function TaskList() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <CheckSquare2 size={20} className="text-gray-700" />
-          <h2 className="text-xl font-semibold text-gray-900">Today's Tasks</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Today&apos;s Tasks</h2>
         </div>
         <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
           View All &gt;

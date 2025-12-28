@@ -1,19 +1,15 @@
 "use client";
 import { useState } from "react";
 import { useParams } from "next/navigation";
-import api from "../../../api/api";
-import "../admin.css";;
+import "../../admin.css";
 
 export default function AssignRole() {
   const { id } = useParams();
   const [role, setRole] = useState("Patient");
 
   const handleAssign = async () => {
-    try {
-      // API: POST /api/roles/assign-role [10]
-      await api.post("/roles/assign-role", { userId: parseInt(id), roleName: role });
-      alert("Role assigned successfully");
-    } catch (err) { alert("Action failed"); }
+    // Mock implementation - frontend only
+    alert(`Role "${role}" assigned to user ${id} (demo mode)`);
   };
 
   return (

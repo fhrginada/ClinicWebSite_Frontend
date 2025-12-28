@@ -13,9 +13,9 @@ import {
   Save,
   X,
   Camera,
-  Globe,
   Briefcase,
   FileText,
+  // Fixed: Remove unused Globe import
 } from 'lucide-react';
 
 interface DoctorData {
@@ -156,6 +156,8 @@ export default function DoctorProfileClient({ doctor: initialDoctor }: DoctorPro
               onClick={isEditing ? handleImageClick : undefined}
             >
               {profileImage ? (
+                // Fixed: Replace img with Next.js Image component
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={profileImage}
                   alt={doctor.name}

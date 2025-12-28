@@ -7,6 +7,7 @@
 
 import { Doctor } from '@/src/services/doctor.service';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface DoctorCardProps {
   doctor: Doctor;
@@ -18,9 +19,11 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
       {/* Doctor Image Placeholder */}
       <div className="mb-4">
         {doctor.profilePicture ? (
-          <img
+          <Image
             src={doctor.profilePicture}
             alt={doctor.name}
+            width={400}
+            height={192}
             className="w-full h-48 object-cover rounded-lg"
           />
         ) : (

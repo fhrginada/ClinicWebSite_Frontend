@@ -1,10 +1,10 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+// Fixed: Remove unused useEffect import
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { clearToken, getToken, setToken } from '@/src/auth/tokenStore';
-import { ClinicRole, getRolesFromJwt, isTokenExpired } from '@/src/auth/jwt';
-import { getMockAuth, getMockRoles, clearMockAuth } from '@/src/auth/mockAuth';
+
+export type ClinicRole = 'Admin' | 'Doctor' | 'Nurse' | 'Patient';
 
 type AuthState = {
   token: string | null;
@@ -31,83 +31,94 @@ type AuthContextValue = AuthState & {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-function toApiErrorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : 'Request failed';
+const STORAGE_KEY = 'clinic.auth';
+
+function getStoredAuth(): { token: string; roles: ClinicRole[] } | null {
+  if (typeof window === 'undefined') return null;
+  const stored = window.localStorage.getItem(STORAGE_KEY);
+  if (stored) {
+    try {
+      return JSON.parse(stored);
+    } catch {
+      return null;
+    }
+  }
+  return null;
 }
 
-function computeState(token: string | null): AuthState {
-  // TEMPORARY: Check for mock authentication first
-  const mockAuth = getMockAuth();
-  if (mockAuth.isAuthenticated && mockAuth.role) {
-    return {
-      token: null, // No real token for mock auth
-      roles: [mockAuth.role],
-      isAuthenticated: true,
-    };
+function setStoredAuth(token: string | null, roles: ClinicRole[] = []) {
+  if (typeof window === 'undefined') return;
+  if (token) {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, roles }));
+  } else {
+    window.localStorage.removeItem(STORAGE_KEY);
   }
+}
 
-  // Fall back to JWT token authentication
+function computeState(token: string | null, roles: ClinicRole[]): AuthState {
   if (!token) return { token: null, roles: [], isAuthenticated: false };
-  if (isTokenExpired(token)) return { token: null, roles: [], isAuthenticated: false };
   return {
     token,
-    roles: getRolesFromJwt(token),
+    roles,
     isAuthenticated: true,
   };
+}
+
+// Mock authentication - accepts any email/password
+// In a real frontend-only app, you might want to use a different auth strategy
+function mockLogin(email: string): { token: string; roles: ClinicRole[] } {
+  // Simple mock: determine role from email or default to Patient
+  let role: ClinicRole = 'Patient';
+  const emailLower = email.toLowerCase();
+  if (emailLower.includes('admin') || emailLower.includes('@admin')) {
+    role = 'Admin';
+  } else if (emailLower.includes('doctor') || emailLower.includes('@doctor')) {
+    role = 'Doctor';
+  } else if (emailLower.includes('nurse') || emailLower.includes('@nurse')) {
+    role = 'Nurse';
+  }
+  
+  // Generate a simple mock token
+  const token = btoa(JSON.stringify({ email, role, exp: Date.now() + 86400000 }));
+  return { token, roles: [role] };
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [token, setTokenState] = useState<string | null>(null);
-  const [refreshKey, setRefreshKey] = useState(0); // Force re-computation when mock auth changes
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [token, setTokenState] = useState<string | null>(() => {
+    const stored = getStoredAuth();
+    return stored?.token ?? null;
+  });
+  const [roles, setRolesState] = useState<ClinicRole[]>(() => {
+    const stored = getStoredAuth();
+    return stored?.roles ?? [];
+  });
 
-  useEffect(() => {
-    const existing = getToken();
-    setTokenState(existing);
-
-    // TEMPORARY: Listen for storage changes to detect mock auth updates
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'clinic.mockAuth' || e.key === 'clinic.mockRole') {
-        setRefreshKey((prev) => prev + 1); // Force state recomputation
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-
-  const state = useMemo(() => computeState(token), [token, refreshKey]);
+  const state = useMemo(() => computeState(token, roles), [token, roles]);
 
   const login = async (input: LoginInput) => {
-    // MOCK MODE - No API call
-    console.log('🔐 MOCK: Login attempt:', input.email);
-    
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    // For mock mode, we rely on mock auth from login page
-    // This function is kept for compatibility but doesn't make API calls
+    // Mock authentication - accepts any credentials
+    const { token: newToken, roles: newRoles } = mockLogin(input.email);
+    setStoredAuth(newToken, newRoles);
+    setTokenState(newToken);
+    setRolesState(newRoles);
+
     const redirect = searchParams?.get('redirect');
     router.replace(redirect ? decodeURIComponent(redirect) : '/');
   };
 
   const register = async (input: RegisterInput) => {
-    // MOCK MODE - No API call
-    console.log('📝 MOCK: Registration attempt:', input.email);
-    
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 400));
-    
-    // Auto-login after registration (mock)
+    // Mock registration - just log in with the provided email
     await login({ email: input.email, password: input.password });
   };
 
   const logout = (redirectToLogin = true) => {
-    clearToken();
-    clearMockAuth(); // TEMPORARY: Clear mock auth too
+    setStoredAuth(null);
     setTokenState(null);
+    setRolesState([]);
     if (redirectToLogin) router.replace('/login');
   };
 

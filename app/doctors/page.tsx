@@ -12,26 +12,53 @@
  * - Handles errors gracefully
  */
 
-import { getAllDoctors, Doctor } from '@/src/services/doctor.service';
 import DoctorCard from './components/DoctorCard';
-import DoctorsList from './components/DoctorsList';
 
 export const metadata = {
   title: 'Doctors | Clinic',
   description: 'Browse our team of healthcare professionals',
 };
 
-async function DoctorsPage() {
-  let doctors: Doctor[] = [];
-  let error: string | null = null;
+// Mock doctor data
+interface Doctor {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  specialization?: string;
+  bio?: string;
+}
 
-  try {
-    doctors = await getAllDoctors();
-  } catch (err) {
-    error =
-      err instanceof Error ? err.message : 'Failed to fetch doctors list';
-    console.error('Error fetching doctors:', err);
-  }
+const mockDoctors: Doctor[] = [
+  {
+    id: 1,
+    name: 'Dr. Ahmed Nabel',
+    email: 'ahmed.nabel@clinic.com',
+    phone: '+1 234-567-8900',
+    specialization: 'General Medicine',
+    bio: 'Experienced general practitioner with over 15 years of experience.',
+  },
+  {
+    id: 2,
+    name: 'Dr. Sarah Johnson',
+    email: 'sarah.johnson@clinic.com',
+    phone: '+1 234-567-8901',
+    specialization: 'Cardiology',
+    bio: 'Board-certified cardiologist specializing in heart disease prevention.',
+  },
+  {
+    id: 3,
+    name: 'Dr. Michael Chen',
+    email: 'michael.chen@clinic.com',
+    phone: '+1 234-567-8902',
+    specialization: 'Pediatrics',
+    bio: 'Dedicated pediatrician with a passion for children\'s health.',
+  },
+];
+
+async function DoctorsPage() {
+  const doctors: Doctor[] = mockDoctors;
+  const error: string | null = null;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

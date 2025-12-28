@@ -1,20 +1,17 @@
 "use client";
 import { useState } from "react";
-import api from "../../../api/api";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
 
   const handleSubmit = async () => {
-    try {
-      // API: POST /api/users/forgot-password [2]
-      const res = await api.post("/users/forgot-password", email, {
-        headers: { "Content-Type": "application/json" }
-      });
-      alert(res.data.message || "Request processed, check your console for the token.");
-    } catch (err) {
-      alert("Error sending request");
+    if (!email) {
+      alert("Please enter your email");
+      return;
     }
+
+    // Mock implementation - frontend only
+    alert("Password reset token sent to your email (demo mode). In a real app, this would send an email.");
   };
 
   return (

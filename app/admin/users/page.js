@@ -1,16 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
-import api from "../../../api/api";
-
-import "../admin.css";;
+// Fixed: Remove unused useEffect import
+import { useState } from "react";
+import "../admin.css";
 
 export default function UsersList() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    // API: GET /api/users [5]
-    api.get("/users").then(res => setUsers(res.data));
-  }, []);
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [users] = useState(() => {
+    // Mock data - frontend only
+    return [
+      { id: 1, fullName: "John Doe", email: "john@example.com", role: "Patient" },
+      { id: 2, fullName: "Dr. Jane Smith", email: "jane@example.com", role: "Doctor" },
+      { id: 3, fullName: "Nurse Mary", email: "mary@example.com", role: "Nurse" },
+      { id: 4, fullName: "Admin User", email: "admin@example.com", role: "Admin" },
+    ];
+  });
 
   return (
     <div className="admin_container">

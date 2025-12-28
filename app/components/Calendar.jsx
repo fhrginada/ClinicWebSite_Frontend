@@ -1,26 +1,22 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 const Calendar = ({ selectedDate, onDateSelect }) => {
-  // Initialize with selected date or current month
-  const getInitialMonth = () => {
+  // Fixed: Use useMemo to derive currentMonth from selectedDate instead of setState in effect
+  const currentMonth = useMemo(() => {
     if (selectedDate) {
       return new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
     }
     return new Date();
-  };
-  const [currentMonth, setCurrentMonth] = useState(getInitialMonth);
+  }, [selectedDate]);
   
-  // Update current month when selectedDate changes
+  const [displayMonth, setDisplayMonth] = useState(currentMonth);
+  
+  // Update display month when currentMonth changes
   useEffect(() => {
-    if (selectedDate) {
-      const newMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
-      if (newMonth.getTime() !== currentMonth.getTime()) {
-        setCurrentMonth(newMonth);
-      }
-    }
-  }, [selectedDate, currentMonth]);
+    setDisplayMonth(currentMonth);
+  }, [currentMonth]);
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -53,16 +49,16 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
   };
 
   const handlePrevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+    setDisplayMonth(new Date(displayMonth.getFullYear(), displayMonth.getMonth() - 1, 1));
   };
 
   const handleNextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+    setDisplayMonth(new Date(displayMonth.getFullYear(), displayMonth.getMonth() + 1, 1));
   };
 
   const handleDateClick = (day) => {
     if (day) {
-      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+      const date = new Date(displayMonth.getFullYear(), displayMonth.getMonth(), day);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       date.setHours(0, 0, 0, 0);
@@ -77,21 +73,21 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
     if (!day || !selectedDate) return false;
     return (
       selectedDate.getDate() === day &&
-      selectedDate.getMonth() === currentMonth.getMonth() &&
-      selectedDate.getFullYear() === currentMonth.getFullYear()
+      selectedDate.getMonth() === displayMonth.getMonth() &&
+      selectedDate.getFullYear() === displayMonth.getFullYear()
     );
   };
 
   const isDisabled = (day) => {
     if (!day) return true;
-    const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    const date = new Date(displayMonth.getFullYear(), displayMonth.getMonth(), day);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     date.setHours(0, 0, 0, 0);
     return date < today;
   };
 
-  const days = getDaysInMonth(currentMonth);
+  const days = getDaysInMonth(displayMonth);
 
   return (
     <div className="p-6 h-full">
@@ -106,7 +102,7 @@ const Calendar = ({ selectedDate, onDateSelect }) => {
           </svg>
         </button>
         <h3 className="text-lg font-semibold text-slate-900">
-          {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+          {monthNames[displayMonth.getMonth()]} {displayMonth.getFullYear()}
         </h3>
         <button
           onClick={handleNextMonth}

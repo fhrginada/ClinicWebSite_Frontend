@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import api from "../../../api/api";
 import "../profile.css"; 
+import { useRouter } from "next/navigation";
 
 export default function ChangePassword() {
-  
+  const router = useRouter();
   const [formData, setFormData] = useState({
     CurrentPassword: "",
     NewPassword: "",
@@ -17,24 +17,19 @@ export default function ChangePassword() {
     e.preventDefault();
     setError("");
 
-   
     if (formData.NewPassword !== formData.confirmPassword) {
       setError("New password and confirmation do not match.");
       return;
     }
 
-    try {
-      await api.put("/users/change-password", {
-        CurrentPassword: formData.CurrentPassword,
-        NewPassword: formData.NewPassword
-      });
-
-      alert("Password changed successfully!");
-      window.location.href = "/profile"; 
-    } catch (err) {
-      
-      setError(err.response?.data?.message || "Failed to change password. Please check your current password.");
+    if (!formData.CurrentPassword || !formData.NewPassword) {
+      setError("Please fill in all fields.");
+      return;
     }
+
+    // Mock implementation - frontend only
+    alert("Password changed successfully! (demo mode)");
+    router.push("/profile");
   };
 
   return (

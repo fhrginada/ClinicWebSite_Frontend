@@ -1,107 +1,73 @@
-/**
- * MOCK MODE - Frontend only
- * All functions return mock data
- */
-
-import { mockDoctors, generateMockAvailability, type MockDoctor } from '@/src/mocks/mockData';
-
+// Mock doctor service - frontend only
 export interface Doctor {
   id: number;
   name: string;
   email: string;
   phone?: string;
   specialization?: string;
-  licenseNumber?: string;
   bio?: string;
-  address?: string;
-  dateOfBirth?: string;
-  gender?: string;
+  profilePicture?: string;
   yearsOfExperience?: number;
-  education?: Array<{ degree: string; institution: string; year: string }>;
-  languages?: string[];
-  profilePicture?: string | null;
+  licenseNumber?: string;
 }
 
 export interface DoctorAvailability {
   doctorId: number;
-  doctorName: string;
-  specialty: string;
+  date: string;
   availableSlots: Array<{
     date: string;
-    dayOfWeek: string;
     startTime: string;
     endTime: string;
     isAvailable: boolean;
   }>;
 }
 
-/**
- * Get doctor by ID - MOCK
- */
-export async function getDoctorById(id: number): Promise<Doctor> {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
-  const doctor = mockDoctors.find(d => d.id === id);
-  if (!doctor) {
-    throw new Error(`Doctor with ID ${id} not found`);
-  }
-  
-  return {
-    id: doctor.id,
-    name: doctor.name,
-    email: doctor.email,
-    phone: doctor.phone,
-    specialization: doctor.specialization || doctor.specialty,
-    bio: doctor.bio,
-    yearsOfExperience: doctor.yearsOfExperience,
-  } as Doctor;
-}
-
-/**
- * Get all doctors - MOCK
- */
 export async function getAllDoctors(): Promise<Doctor[]> {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 150));
-  
-  return mockDoctors.map(doctor => ({
-    id: doctor.id,
-    name: doctor.name,
-    email: doctor.email,
-    phone: doctor.phone,
-    specialization: doctor.specialization || doctor.specialty,
-    bio: doctor.bio,
-    yearsOfExperience: doctor.yearsOfExperience,
-  })) as Doctor[];
+  // Mock data - frontend only
+  return [
+    {
+      id: 1,
+      name: 'Dr. Ahmed Nabel',
+      email: 'ahmed.nabel@clinic.com',
+      phone: '+1 234-567-8900',
+      specialization: 'General Medicine',
+      bio: 'Experienced general practitioner with over 15 years of experience.',
+    },
+    {
+      id: 2,
+      name: 'Dr. Sarah Johnson',
+      email: 'sarah.johnson@clinic.com',
+      phone: '+1 234-567-8901',
+      specialization: 'Cardiology',
+      bio: 'Board-certified cardiologist specializing in heart disease prevention.',
+    },
+    {
+      id: 3,
+      name: 'Dr. Michael Chen',
+      email: 'michael.chen@clinic.com',
+      phone: '+1 234-567-8902',
+      specialization: 'Pediatrics',
+      bio: 'Dedicated pediatrician with a passion for children\'s health.',
+    },
+  ];
 }
 
-/**
- * Get doctor availability - MOCK
- * @param id - Doctor ID
- * @param startDate - Optional start date (ISO string). Defaults to today
- * @param days - Optional number of days to fetch. Defaults to 7
- */
-export async function getDoctorAvailability(
-  id: number,
-  startDate?: string,
-  days?: number
-): Promise<DoctorAvailability> {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 200));
-  
-  const doctor = mockDoctors.find(d => d.id === id);
-  if (!doctor) {
-    throw new Error(`Doctor with ID ${id} not found`);
-  }
-  
-  const slots = generateMockAvailability(id, startDate, days || 7);
-  
+export async function getDoctorAvailability(doctorId: number, date: string): Promise<DoctorAvailability> {
+  // Mock data - frontend only
+  const timeSlots = [
+    '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+    '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM'
+  ];
+
   return {
-    doctorId: doctor.id,
-    doctorName: doctor.name,
-    specialty: doctor.specialty,
-    availableSlots: slots,
+    doctorId,
+    date,
+    availableSlots: timeSlots.map(time => ({
+      date,
+      startTime: time,
+      endTime: time,
+      isAvailable: true,
+    })),
   };
 }
 

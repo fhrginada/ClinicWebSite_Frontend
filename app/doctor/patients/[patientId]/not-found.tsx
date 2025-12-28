@@ -23,7 +23,7 @@ export default function PatientNotFound() {
               Patient Not Found
             </h2>
             <p className="text-gray-600 mb-6 text-center max-w-md">
-              The patient you're looking for doesn't exist or has been removed.
+              The patient you&apos;re looking for doesn&apos;t exist or has been removed.
             </p>
             <Link
               href="/doctor/patients"

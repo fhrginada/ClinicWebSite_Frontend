@@ -24,15 +24,14 @@ interface MedicalRecord {
 }
 
 const toMedicalRecord = (m: MedicalHistory): MedicalRecord => {
-  const visitType: MedicalRecord['visitType'] = m.followUpDate ? 'Follow-up' : 'Checkup';
-  const doctorName = m.doctorId ? `Doctor #${m.doctorId}` : '—';
+  // Fixed: Map MedicalHistory properties correctly
   return {
     id: m.id,
-    visitDate: m.dateRecorded,
-    visitType,
+    visitDate: m.visitDate,
+    visitType: m.visitType as MedicalRecord['visitType'],
     diagnosis: m.diagnosis ?? '—',
-    notes: m.treatment ?? '—',
-    doctorName,
+    notes: m.notes ?? '—',
+    doctorName: '—', // MedicalHistory doesn't have doctorId
     doctorSpecialization: '',
     prescription: { medications: [] },
   };
@@ -68,12 +67,14 @@ export default function MedicalHistoryPage() {
       try {
         setLoading(true);
         setLoadError(null);
-        const response = await getMyMedicalHistory(1, 500);
+        // Fixed: getMyMedicalHistory returns array directly, not an object with items
+        const response = await getMyMedicalHistory();
         if (cancelled) return;
-        setRecords(response.items.map(toMedicalRecord));
-      } catch (e: any) {
+        setRecords(response.map(toMedicalRecord));
+      } catch (e: unknown) {
         if (cancelled) return;
-        setLoadError(e?.response?.data?.message ?? 'Failed to load medical history.');
+        const error = e as { response?: { data?: { message?: string } } };
+        setLoadError(error?.response?.data?.message ?? 'Failed to load medical history.');
       } finally {
         if (!cancelled) setLoading(false);
       }

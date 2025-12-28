@@ -17,12 +17,12 @@ export default function PatientsListClient({
   const [sortBy, setSortBy] = useState<SortOption>('name');
 
   const filteredAndSortedPatients = useMemo(() => {
-    let filtered = initialPatients.filter((patient) =>
+    const filtered = initialPatients.filter((patient) =>
       patient.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     // Sort patients
-    filtered.sort((a, b) => {
+    const sorted = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'name':
           return a.name.localeCompare(b.name);
@@ -38,7 +38,7 @@ export default function PatientsListClient({
       }
     });
 
-    return filtered;
+    return sorted;
   }, [initialPatients, searchQuery, sortBy]);
 
   if (initialPatients.length === 0) {

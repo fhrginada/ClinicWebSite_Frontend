@@ -1,19 +1,29 @@
 "use client";
-import { useState, useEffect } from "react";
-import api from "../../api/api";
+// Fixed: Remove unused useEffect import
+import { useState } from "react";
 import "./profile.css";
 
 export default function Profile() {
-  const [profile, setProfile] = useState({ fullName: "", gender: "", address: "" });
-
-  useEffect(() => {
-    // API: GET /api/users/profile [11]
-    api.get("/users/profile").then(res => setProfile(res.data));
-  }, []);
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [profile, setProfile] = useState(() => {
+    // Mock data - load from localStorage if available
+    if (typeof window !== 'undefined') {
+      const savedProfile = localStorage.getItem("userProfile");
+      if (savedProfile) {
+        try {
+          return JSON.parse(savedProfile);
+        } catch {
+          // Use default values
+        }
+      }
+    }
+    return { fullName: "", gender: "", address: "" };
+  });
 
   const handleSave = async () => {
-    await api.put("/users/profile", profile); // API: PUT /api/users/me [5]
-    alert("Profile updated");
+    // Mock implementation - save to localStorage
+    localStorage.setItem("userProfile", JSON.stringify(profile));
+    alert("Profile updated (demo mode)");
   };
 
   return (

@@ -1,19 +1,20 @@
 "use client";
 import { useState } from "react";
-import api from "../../../api/api";
+import { useRouter } from "next/navigation";
 
 export default function ResetPassword() {
   const [form, setForm] = useState({ email: "", token: "", newPassword: "" });
+  const router = useRouter();
 
-  const handleReset = async () => {         
-    try {
-      // API: POST /api/users/reset-password [3]
-      await api.post("/users/reset-password", form);
-      alert("Password successfully reset.");
-      window.location.href = "/login";
-    } catch (err) {
-      alert("Reset failed. Check your data.");
+  const handleReset = async () => {
+    if (!form.email || !form.token || !form.newPassword) {
+      alert("Please fill in all fields");
+      return;
     }
+
+    // Mock implementation - frontend only
+    alert("Password successfully reset (demo mode).");
+    router.push("/login");
   };
 
   return (

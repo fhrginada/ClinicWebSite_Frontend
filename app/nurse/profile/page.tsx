@@ -12,7 +12,7 @@ import {
   Award,
   Briefcase,
   FileText,
-  GraduationCap,
+  // Fixed: Remove unused GraduationCap import
   Edit2,
   Save,
   X,

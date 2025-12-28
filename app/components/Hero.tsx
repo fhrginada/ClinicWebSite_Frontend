@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from './ui/Button';
-import { fadeInUp, fadeIn } from '../lib/animations';
+import { fadeInUp } from '../lib/animations';
 
 const Hero = () => {
   return (

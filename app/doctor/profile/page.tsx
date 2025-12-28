@@ -1,8 +1,6 @@
 import Sidebar from '@/components/doctor/Sidebar';
 import Topbar from '@/components/doctor/Topbar';
 import DoctorProfileClient from './components/DoctorProfileClient';
-import { getDoctorById, Doctor } from '@/src/services/doctor.service';
-import { getCurrentDoctorId } from '@/src/utils/doctor';
 
 type DoctorData = {
   id: string;
@@ -21,49 +19,27 @@ type DoctorData = {
   profilePicture: string | null;
 };
 
-async function getDoctorData(): Promise<DoctorData> {
-  try {
-    const doctorId = getCurrentDoctorId();
-    const doctor = await getDoctorById(doctorId);
-    
-    // Transform API response to match component expectations
-    return {
-      ...doctor,
-      id: doctor.id.toString(),
-      name: doctor.name || 'Unknown Doctor',
-      email: doctor.email || '',
-      phone: doctor.phone || '',
-      specialization: doctor.specialization || '',
-      licenseNumber: doctor.licenseNumber || '',
-      bio: doctor.bio || '',
-      address: doctor.address || '',
-      dateOfBirth: doctor.dateOfBirth || '',
-      gender: doctor.gender || '',
-      yearsOfExperience: doctor.yearsOfExperience || 0,
-      education: doctor.education || [],
-      languages: doctor.languages || [],
-      profilePicture: doctor.profilePicture || null,
-    };
-  } catch (error) {
-    console.error('Error fetching doctor data:', error);
-    // Return fallback data if API fails
-    return {
-      id: '1',
-      name: 'Doctor',
-      email: '',
-      phone: '',
-      specialization: '',
-      licenseNumber: '',
-      bio: 'Unable to load doctor information. Please try again later.',
-      address: '',
-      dateOfBirth: '',
-      gender: '',
-      yearsOfExperience: 0,
-      education: [],
-      languages: [],
-      profilePicture: null,
-    };
-  }
+function getDoctorData(): DoctorData {
+  // Mock doctor data
+  return {
+    id: '1',
+    name: 'Dr. Ahmed Nabel',
+    email: 'ahmed.nabel@clinic.com',
+    phone: '+1 234-567-8900',
+    specialization: 'General Medicine',
+    licenseNumber: 'MD-12345',
+    bio: 'Experienced general practitioner with over 15 years of experience in patient care.',
+    address: '123 Medical Center Dr, City, State 12345',
+    dateOfBirth: '1980-01-15',
+    gender: 'Male',
+    yearsOfExperience: 15,
+    education: [
+      { degree: 'MD', institution: 'Medical University', year: '2005' },
+      { degree: 'Residency', institution: 'General Hospital', year: '2008' },
+    ],
+    languages: ['English', 'Arabic'],
+    profilePicture: null,
+  };
 }
 
 export default async function DoctorProfilePage() {

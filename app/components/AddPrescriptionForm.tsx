@@ -50,7 +50,6 @@ export default function AddPrescriptionForm() {
 
       const payload: CreatePrescriptionPayload = {
         patientId: patientId.trim(),
-        patientName: patientName.trim(),
         medications: validMedications.map(med => ({
           name: med.name.trim(),
           dosage: med.dosage.trim(),

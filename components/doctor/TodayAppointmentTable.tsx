@@ -70,7 +70,8 @@ const statusConfig = {
 };
 
 export default function TodayAppointmentTable() {
-  const [appointments, setAppointments] = useState<Appointment[]>(initialAppointments);
+  // Fixed: Remove unused setAppointments
+  const [appointments] = useState<Appointment[]>(initialAppointments);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -87,7 +88,7 @@ export default function TodayAppointmentTable() {
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Today's Appointments</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Today&apos;s Appointments</h2>
         
         {/* Search and Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-4">

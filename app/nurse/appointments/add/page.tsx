@@ -17,7 +17,8 @@ export default function AddAppointmentPage() {
     notes: '',
   });
   const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // Fixed: Remove unused setIsLoading
+  const [isLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -57,10 +58,12 @@ export default function AddAppointmentPage() {
 
     try {
       setSubmitError('Nurses cannot create appointments. Please ask the patient to book via /appointment-booking.');
-    } catch (error: any) {
+    } catch (error: unknown) {
+      // Fixed: Replace any with unknown type
       console.error('Error creating appointment:', error);
+      const err = error as { response?: { data?: { message?: string } } };
       setSubmitError(
-        error.response?.data?.message || 
+        err.response?.data?.message || 
         'Failed to create appointment. Please try again.'
       );
     } finally {

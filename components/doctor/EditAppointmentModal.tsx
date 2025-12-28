@@ -27,8 +27,11 @@ export default function EditAppointmentModal({
     reason: '',
   });
 
+  // Fixed: Sync appointment prop to formData when it changes
+  // Using useEffect is necessary here to sync external prop changes to internal state
   useEffect(() => {
     if (appointment) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         date: appointment.date,
         time: appointment.time,

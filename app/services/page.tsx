@@ -86,7 +86,7 @@ export default function ServicesPage() {
               Our Medical Services
             </h1>
             <p className="text-lg md:text-xl text-white max-w-3xl">
-              Providing comprehensive and compassionate care tailored to your health needs. We're dedicated to your well-being, offering a wide range of services from preventive care to specialized treatments.
+              Providing comprehensive and compassionate care tailored to your health needs. We&apos;re dedicated to your well-being, offering a wide range of services from preventive care to specialized treatments.
             </p>
           </div>
         </div>

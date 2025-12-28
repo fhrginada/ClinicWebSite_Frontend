@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
-import { Calendar, User, FileText, Pill, Search, Filter } from 'lucide-react';
+// Fixed: Remove unused Filter import
+import { Calendar, User, FileText, Pill, Search } from 'lucide-react';
 
 interface Consultation {
   id: string;

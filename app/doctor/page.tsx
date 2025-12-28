@@ -7,59 +7,38 @@ import Topbar from '@/components/doctor/Topbar';
 import PrescriptionCard from '@/components/doctor/PrescriptionCard';
 import TaskList from '@/components/doctor/TaskList';
 import TodayAppointmentTable from '@/components/doctor/TodayAppointmentTable';
-import { getPatientsDashboard } from '@/src/services/patient.service';
+import { dummyPatients } from '../doctor/patients/data';
 import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function DoctorDashboard() {
   const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  // Auth guard - check role from localStorage
-  useEffect(() => {
+  // Fixed: Use lazy initialization to avoid setState in effect
+  // Fixed: Use lazy initialization - setIsAuthorized is intentionally unused
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isAuthorized, setIsAuthorized] = useState(() => {
     const auth = getMockAuth();
-    if (!auth.isAuthenticated || auth.role !== 'Doctor') {
-      router.replace('/login');
-      return;
-    }
-    setIsAuthorized(true);
-  }, [router]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [dashboardError, setDashboardError] = useState<string | null>(null);
-  const [patientsStats, setPatientsStats] = useState<{
-    totalPatients: number;
-    activePatients: number;
-  } | null>(null);
+    return auth.isAuthenticated && auth.role === 'Doctor';
+  });
 
+  // Auth guard - redirect if not authorized
   useEffect(() => {
-    const fetchDashboardData = async () => {
-      setIsLoading(true);
-      setDashboardError(null);
-
-      try {
-        // Fetch patients dashboard data
-        try {
-          const patientsDashboard = await getPatientsDashboard();
-          setPatientsStats({
-            totalPatients: patientsDashboard.totalPatients || 0,
-            activePatients: patientsDashboard.activePatients || 0,
-          });
-        } catch (error) {
-          console.error('Error fetching patients dashboard:', error);
-          // Continue with other data even if this fails
-        }
-
-        // Note: Appointments are fetched by TodayAppointmentTable component
-        // This allows the dashboard to render even if one API fails
-      } catch (error) {
-        console.error('Error loading dashboard data:', error);
-        setDashboardError('Some dashboard data could not be loaded. Please refresh the page.');
-      } finally {
-        setIsLoading(false);
-      }
+    if (!isAuthorized) {
+      router.replace('/login');
+    }
+  }, [isAuthorized, router]);
+  
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [isLoading] = useState(false);
+  const [patientsStats] = useState(() => {
+    // Use dummy data instead of API
+    const totalPatients = dummyPatients.length;
+    const activePatients = dummyPatients.filter(p => p.status === 'Active').length;
+    
+    return {
+      totalPatients,
+      activePatients,
     };
-
-    fetchDashboardData();
-  }, []);
+  });
 
   // Don't render until authorized
   if (!isAuthorized) {
@@ -73,14 +52,7 @@ export default function DoctorDashboard() {
       <main className="ml-72 p-6">
         <Topbar />
         
-        {/* Dashboard Error Message */}
-        {dashboardError && (
-          <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
-            {dashboardError}
-          </div>
-        )}
-
-        {/* Dashboard Stats Cards (if available) */}
+        {/* Dashboard Stats Cards */}
         {patientsStats && !isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="bg-white rounded-lg shadow-sm p-4">
