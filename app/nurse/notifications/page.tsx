@@ -3,7 +3,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import Sidebar from '@/components/nurse/Sidebar';
 import Topbar from '@/components/nurse/Topbar';
-import { Bell, Calendar, CheckCircle2, XCircle, AlertCircle, Info, Search } from 'lucide-react';
+// Fixed: Remove unused CheckCircle2 import
+import { Bell, Calendar, XCircle, AlertCircle, Info, Search } from 'lucide-react';
 import {
   getMyNotifications,
   markAsRead,

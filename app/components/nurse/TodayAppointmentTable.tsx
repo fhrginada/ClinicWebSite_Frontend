@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Search, Filter, Download, CheckCircle2, XCircle, Clock } from 'lucide-react';
 
 interface Appointment {
@@ -82,7 +82,8 @@ export default function TodayAppointmentTable() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
-  const filteredAppointments = appointments.filter((appointment) => {
+  const filteredAppointments = useMemo(() => {
+    return appointments.filter((appointment) => {
     const matchesSearch = 
       appointment.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       appointment.patientId.includes(searchQuery);
@@ -90,12 +91,13 @@ export default function TodayAppointmentTable() {
     const matchesStatus = statusFilter === 'all' || appointment.status === statusFilter;
     
     return matchesSearch && matchesStatus;
-  });
+    });
+  }, [appointments, searchQuery, statusFilter]);
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Today's Appointments</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Today&apos;s Appointments</h2>
         
         {/* Search and Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-4">

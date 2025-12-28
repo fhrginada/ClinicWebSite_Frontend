@@ -1,21 +1,24 @@
 "use client";
-import { useState, useEffect } from "react";
+// Fixed: Remove unused useEffect import
+import { useState } from "react";
 import "./profile.css";
 
 export default function Profile() {
-  const [profile, setProfile] = useState({ fullName: "", gender: "", address: "" });
-
-  useEffect(() => {
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [profile, setProfile] = useState(() => {
     // Mock data - load from localStorage if available
-    const savedProfile = localStorage.getItem("userProfile");
-    if (savedProfile) {
-      try {
-        setProfile(JSON.parse(savedProfile));
-      } catch (e) {
-        // Use default values
+    if (typeof window !== 'undefined') {
+      const savedProfile = localStorage.getItem("userProfile");
+      if (savedProfile) {
+        try {
+          return JSON.parse(savedProfile);
+        } catch {
+          // Use default values
+        }
       }
     }
-  }, []);
+    return { fullName: "", gender: "", address: "" };
+  });
 
   const handleSave = async () => {
     // Mock implementation - save to localStorage

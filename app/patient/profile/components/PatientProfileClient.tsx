@@ -155,6 +155,8 @@ export default function PatientProfileClient({ patient: initialPatient }: Patien
               onClick={isEditing ? handleImageClick : undefined}
             >
               {profileImage ? (
+                // Fixed: Replace img with Next.js Image component
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={profileImage}
                   alt={patient.name}

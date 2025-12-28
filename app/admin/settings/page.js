@@ -1,25 +1,28 @@
 "use client";
-import { useState, useEffect } from "react";
+// Fixed: Remove unused useEffect import
+import { useState } from "react";
 import "../admin.css"; 
 
 export default function SystemSettings() {
-  const [settings, setSettings] = useState({
-    platformName: "",
-    timeZoneId: "Egypt Standard Time",
-    defaultConsultationDurationMinutes: 30
-  });
-
-  useEffect(() => {
-    // Mock data - load from localStorage if available
-    const savedSettings = localStorage.getItem("systemSettings");
-    if (savedSettings) {
-      try {
-        setSettings(JSON.parse(savedSettings));
-      } catch {
-        // Use default values
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [settings, setSettings] = useState(() => {
+    // Initialize from localStorage if available
+    if (typeof window !== 'undefined') {
+      const savedSettings = localStorage.getItem("systemSettings");
+      if (savedSettings) {
+        try {
+          return JSON.parse(savedSettings);
+        } catch {
+          // Use default values
+        }
       }
     }
-  }, []);
+    return {
+      platformName: "",
+      timeZoneId: "Egypt Standard Time",
+      defaultConsultationDurationMinutes: 30
+    };
+  });
 
   const handleUpdate = async () => {
     // Mock implementation - save to localStorage

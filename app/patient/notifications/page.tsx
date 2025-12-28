@@ -4,7 +4,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
-import { Bell, Calendar, CheckCircle2, AlertCircle, Info, Search, Filter } from 'lucide-react';
+// Fixed: Remove unused Filter import (filter variable is used, but not the Filter icon)
+import { Bell, Calendar, CheckCircle2, AlertCircle, Info, Search } from 'lucide-react';
 import {
   getMyNotifications,
   markAsRead as markNotificationAsRead,
@@ -81,9 +82,11 @@ export default function NotificationsPage() {
         const data = await getMyNotifications();
         if (cancelled) return;
         setNotifications(data.map(toRow));
-      } catch (e: any) {
+      } catch (e: unknown) {
+        // Fixed: Replace any with unknown type
         if (cancelled) return;
-        setLoadError(e?.response?.data?.message ?? 'Failed to load notifications.');
+        const error = e as { response?: { data?: { message?: string } } };
+        setLoadError(error?.response?.data?.message ?? 'Failed to load notifications.');
       } finally {
         if (!cancelled) setLoading(false);
       }

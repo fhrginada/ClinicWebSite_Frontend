@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useParams } from "next/navigation";
-import "../admin.css";
+import "../../admin.css";
 
 export default function AssignRole() {
   const { id } = useParams();

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+// Fixed: Remove unused useEffect import
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export type ClinicRole = 'Admin' | 'Doctor' | 'Nurse' | 'Patient';
@@ -86,16 +87,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [token, setTokenState] = useState<string | null>(null);
-  const [roles, setRolesState] = useState<ClinicRole[]>([]);
-
-  useEffect(() => {
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [token, setTokenState] = useState<string | null>(() => {
     const stored = getStoredAuth();
-    if (stored) {
-      setTokenState(stored.token);
-      setRolesState(stored.roles);
-    }
-  }, []);
+    return stored?.token ?? null;
+  });
+  const [roles, setRolesState] = useState<ClinicRole[]>(() => {
+    const stored = getStoredAuth();
+    return stored?.roles ?? [];
+  });
 
   const state = useMemo(() => computeState(token, roles), [token, roles]);
 

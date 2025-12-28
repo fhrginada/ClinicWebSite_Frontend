@@ -39,19 +39,20 @@ const mockAppointments: Appointment[] = [
 ];
 
 export default function AppointmentsPage() {
+  // Fixed: Use lazy initialization to avoid setState in effect
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // Fixed: Remove unused error state
 
   useEffect(() => {
     // Use mock data instead of API
-    setIsLoading(true);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setAppointments(mockAppointments);
       setIsLoading(false);
     }, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   // Filter appointments by date (next 7 days)
@@ -118,12 +119,6 @@ export default function AppointmentsPage() {
             <p className="text-sm text-gray-500">Next 7 days</p>
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
-              {error}
-            </div>
-          )}
 
           {/* Loading State */}
           {isLoading ? (

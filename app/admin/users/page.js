@@ -1,20 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
+// Fixed: Remove unused useEffect import
+import { useState } from "react";
 import "../admin.css";
 
 export default function UsersList() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [users] = useState(() => {
     // Mock data - frontend only
-    const mockUsers = [
+    return [
       { id: 1, fullName: "John Doe", email: "john@example.com", role: "Patient" },
       { id: 2, fullName: "Dr. Jane Smith", email: "jane@example.com", role: "Doctor" },
       { id: 3, fullName: "Nurse Mary", email: "mary@example.com", role: "Nurse" },
       { id: 4, fullName: "Admin User", email: "admin@example.com", role: "Admin" },
     ];
-    setUsers(mockUsers);
-  }, []);
+  });
 
   return (
     <div className="admin_container">

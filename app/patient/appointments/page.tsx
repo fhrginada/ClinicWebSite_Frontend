@@ -39,9 +39,11 @@ export default function AppointmentsPage() {
             status: a.status,
           }))
         );
-      } catch (e: any) {
+      } catch (e: unknown) {
+        // Fixed: Replace any with unknown type
         if (cancelled) return;
-        setLoadError(e?.response?.data?.message ?? 'Failed to load appointments.');
+        const error = e as { response?: { data?: { message?: string } } };
+        setLoadError(error?.response?.data?.message ?? 'Failed to load appointments.');
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -54,7 +56,7 @@ export default function AppointmentsPage() {
   const filteredAppointments = useMemo(() => {
     return appointments.filter(apt => {
       const matchesSearch = 
-        apt.doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (apt.doctorName ?? '').toLowerCase().includes(searchQuery.toLowerCase()) ||
         (apt.reasonForVisit ?? '').toLowerCase().includes(searchQuery.toLowerCase());
       
       const matchesStatus = statusFilter === 'All' || apt.status === statusFilter;
@@ -218,16 +220,17 @@ export default function AppointmentsPage() {
                         {formatTimeSlot(appointment.timeSlot)}
                       </td>
                       <td className="py-4 px-4 text-sm text-gray-900 font-medium">
-                        {appointment.doctorName}
+                        {appointment.doctorName ?? 'N/A'}
                       </td>
                       <td className="py-4 px-4 text-sm text-gray-600">
-                        {appointment.doctorSpecialization}
+                        {appointment.doctorSpecialization ?? 'N/A'}
                       </td>
                       <td className="py-4 px-4 text-sm text-gray-600">
                         {appointment.reasonForVisit}
                       </td>
                       <td className="py-4 px-4">
-                        <StatusBadge status={appointment.status as any} />
+                        {/* Fixed: Type cast to StatusBadge expected type */}
+                        <StatusBadge status={appointment.status as 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled'} />
                       </td>
                     </tr>
                   ))

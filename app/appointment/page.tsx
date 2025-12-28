@@ -43,7 +43,7 @@ export default function AppointmentPage() {
   }, [searchParams]);
 
   // Home page doctors (hardcoded from LeadPractitioner component)
-  const homePageDoctors: Doctor[] = [
+  const homePageDoctors = useMemo<Doctor[]>(() => [
     {
       id: 0, // Placeholder ID - will be replaced if found in API
       name: 'Dr. Evelyn Reed',
@@ -68,10 +68,11 @@ export default function AppointmentPage() {
       email: '',
       specialization: 'Internal Medicine',
     },
-  ];
+  ], []);
 
   // Load doctors list from API and merge with home page doctors
   useEffect(() => {
+    // Fixed: Use let for cancelled flag (needed for reassignment in cleanup)
     let cancelled = false;
     (async () => {
       try {
@@ -112,10 +113,11 @@ export default function AppointmentPage() {
       }
     })();
     return () => { cancelled = true; };
-  }, []);
+  }, [homePageDoctors]);
 
   // Load availability when doctor and date are selected
   useEffect(() => {
+    // Fixed: Use let for cancelled flag (needed for reassignment in cleanup)
     let cancelled = false;
     (async () => {
       if (!formData.doctorId || !selectedDate) {
@@ -156,7 +158,7 @@ export default function AppointmentPage() {
     const match = time24.match(/(\d{1,2}):(\d{2})/);
     if (!match) return time24;
     
-    let hour = parseInt(match[1]);
+    const hour = parseInt(match[1]);
     const minutes = match[2];
     
     if (hour === 0) return `12:${minutes} AM`;
@@ -168,7 +170,7 @@ export default function AppointmentPage() {
   // Helper function to normalize time for comparison
   const normalizeTimeForComparison = (time: string): string => {
     // Remove AM/PM and spaces, keep only numbers and colon
-    let normalized = time.replace(/ AM| PM/gi, '').replace(/\s/g, '').trim();
+    const normalized = time.replace(/ AM| PM/gi, '').replace(/\s/g, '').trim();
     // Ensure format is H:MM or HH:MM
     const parts = normalized.split(':');
     if (parts.length === 2) {
@@ -179,11 +181,11 @@ export default function AppointmentPage() {
     return normalized;
   };
 
-  // Predefined time slots
-  const timeSlots = [
+  // Fixed: Memoize timeSlots to avoid dependency warning
+  const timeSlots = useMemo(() => [
     '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
     '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM'
-  ];
+  ], []);
 
   // Get available time slots for selected date
   const availableSlots = useMemo(() => {
@@ -204,7 +206,7 @@ export default function AppointmentPage() {
         return key === selectedKey && s.isAvailable;
       })
       .map((s) => convertTo12Hour(s.startTime));
-  }, [availability, selectedDate, formData.doctorId]);
+  }, [availability, selectedDate, formData.doctorId, timeSlots]);
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);

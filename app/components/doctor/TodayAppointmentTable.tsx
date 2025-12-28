@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Search, Filter, Download, CheckCircle2, XCircle, Clock } from 'lucide-react';
 
 interface Appointment {
@@ -40,44 +40,33 @@ const statusConfig = {
 };
 
 export default function TodayAppointmentTable() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [appointments] = useState<Appointment[]>(() => [
+    {
+      id: 1,
+      time: '09:00 AM',
+      patientName: 'John Smith',
+      patientId: '1',
+      status: 'upcoming',
+    },
+    {
+      id: 2,
+      time: '10:30 AM',
+      patientName: 'Sarah Johnson',
+      patientId: '2',
+      status: 'pending',
+    },
+    {
+      id: 3,
+      time: '02:00 PM',
+      patientName: 'Michael Chen',
+      patientId: '3',
+      status: 'upcoming',
+    },
+  ]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Mock appointments data
-    const mockAppointments: Appointment[] = [
-      {
-        id: 1,
-        time: '09:00 AM',
-        patientName: 'John Smith',
-        patientId: '1',
-        status: 'upcoming',
-      },
-      {
-        id: 2,
-        time: '10:30 AM',
-        patientName: 'Sarah Johnson',
-        patientId: '2',
-        status: 'pending',
-      },
-      {
-        id: 3,
-        time: '02:00 PM',
-        patientName: 'Michael Chen',
-        patientId: '3',
-        status: 'upcoming',
-      },
-    ];
-
-    setIsLoading(true);
-    setTimeout(() => {
-      setAppointments(mockAppointments);
-      setIsLoading(false);
-    }, 500);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [isLoading] = useState(false);
 
   const filteredAppointments = appointments.filter((appointment) => {
     const matchesSearch = 
@@ -92,7 +81,7 @@ export default function TodayAppointmentTable() {
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Today's Appointments</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Today&apos;s Appointments</h2>
         
         {/* Search and Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-4">

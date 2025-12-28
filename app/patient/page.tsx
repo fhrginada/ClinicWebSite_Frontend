@@ -9,17 +9,18 @@ import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function PatientDashboard() {
   const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  // Auth guard - check role from localStorage
-  useEffect(() => {
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [isAuthorized] = useState(() => {
     const auth = getMockAuth();
-    if (!auth.isAuthenticated || auth.role !== 'Patient') {
+    return auth.isAuthenticated && auth.role === 'Patient';
+  });
+
+  // Auth guard - redirect if not authorized
+  useEffect(() => {
+    if (!isAuthorized) {
       router.replace('/login');
-      return;
     }
-    setIsAuthorized(true);
-  }, [router]);
+  }, [isAuthorized, router]);
 
   // Mock data
   const upcomingAppointments = 3;
@@ -43,7 +44,7 @@ export default function PatientDashboard() {
           <div className="bg-white rounded-xl shadow-sm p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back, Alex!</h2>
             <p className="text-gray-600">
-              Here's an overview of your health information and upcoming activities.
+              Here&apos;s an overview of your health information and upcoming activities.
             </p>
           </div>
         </div>
@@ -59,7 +60,7 @@ export default function PatientDashboard() {
               <span className="text-2xl font-bold text-gray-900">{upcomingAppointments}</span>
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-1">Upcoming Appointments</h3>
-            <p className="text-sm text-gray-600">You have {upcomingAppointments} scheduled visits</p>
+            <p className="text-sm text-gray-600">You have {upcomingAppointments} scheduled visit{Number(upcomingAppointments) !== 1 ? 's' : ''}</p>
           </div>
 
           {/* Active Consultations Card */}

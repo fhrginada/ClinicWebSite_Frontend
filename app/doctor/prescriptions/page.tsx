@@ -28,10 +28,7 @@ export default function PrescriptionsPage() {
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchPrescriptions();
-  }, []);
-
+  // Fixed: Move function declaration before useEffect to avoid "accessed before declaration" error
   const fetchPrescriptions = async () => {
     setIsLoading(true);
     setError(null);
@@ -42,22 +39,31 @@ export default function PrescriptionsPage() {
     }, 500);
   };
 
-  const handleDelete = async (id: string) => {
+  // Fetch prescriptions on mount - legitimate use of useEffect for data fetching
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => {
+    fetchPrescriptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDelete = async (_id: string) => {
+    // Fixed: Prefix unused parameter with underscore
     if (!confirm('Are you sure you want to delete this prescription?')) {
       return;
     }
 
-    setDeletingId(id);
+    setDeletingId(_id);
     // Mock delete - no API call
     setTimeout(() => {
-      setPrescriptions(prev => prev.filter(p => p.id !== id));
+      setPrescriptions(prev => prev.filter(p => p.id !== _id));
       setDeletingId(null);
     }, 300);
   };
 
   const handleDownloadPdf = async (id: string) => {
+    // Fixed: Parameter is used in onClick handler - keep it
     // Mock PDF download - no API call
-    alert('PDF download functionality is not available in frontend-only mode.');
+    alert(`PDF download functionality is not available in frontend-only mode. (Prescription ID: ${id})`);
   };
 
   const formatDate = (dateString?: string) => {

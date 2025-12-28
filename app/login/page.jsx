@@ -2,15 +2,14 @@
 
 import "./Login.css";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+// Fixed: Remove unused imports
 import { useAuth } from "../../src/context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  // Fixed: Remove unused variables
   const { login } = useAuth();
 
   const handleLogin = async () => {
@@ -24,7 +23,8 @@ export default function Login() {
     try {
       await login({ email, password });
       // Redirect is handled by AuthContext
-    } catch (err) {
+    } catch {
+      // Fixed: Remove unused error variable
       setError("Login failed. Please try again.");
     }
   };
@@ -80,7 +80,7 @@ export default function Login() {
           {error && <p style={{ color: "red" }}>{error}</p>}
 
           <p>
-            Haven't an account?{" "}
+            Haven&apos;t an account?{" "}
             <a href="/signup" style={{ color: "white" }}>
               Register now
             </a>

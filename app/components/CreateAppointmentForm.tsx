@@ -38,7 +38,11 @@ export default function CreateAppointmentForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  
+  // Fixed: Sync doctorId prop to formData when it changes
+  // Using useEffect is necessary here to sync external prop changes to internal state
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFormData((prev) => ({ ...prev, doctorId: doctorId || 0 }));
   }, [doctorId]);
 

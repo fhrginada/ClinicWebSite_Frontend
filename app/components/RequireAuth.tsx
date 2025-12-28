@@ -2,8 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { ClinicRole } from '@/src/auth/jwt';
-import { useAuth } from '@/src/context/AuthContext';
+import { ClinicRole, useAuth } from '@/src/context/AuthContext';
 
 export default function RequireAuth({
   allowedRoles,

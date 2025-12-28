@@ -2,7 +2,8 @@
 
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
-import { Settings as SettingsIcon, Bell, Lock, Shield } from 'lucide-react';
+// Fixed: Remove unused SettingsIcon import
+import { Bell, Lock, Shield } from 'lucide-react';
 
 export default function SettingsPage() {
   return (

@@ -92,7 +92,7 @@ export default function NurseDashboard() {
             )}
           </div>
           <div className="bg-white rounded-lg shadow-sm p-4">
-            <h3 className="text-sm font-medium text-gray-500 mb-1">Today's Appointments</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-1">Today&apos;s Appointments</h3>
             {isLoading ? (
               <div className="h-8 w-16 bg-gray-200 animate-pulse rounded"></div>
             ) : (

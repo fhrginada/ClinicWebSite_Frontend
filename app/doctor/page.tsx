@@ -12,34 +12,33 @@ import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function DoctorDashboard() {
   const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  // Auth guard - check role from localStorage
-  useEffect(() => {
+  // Fixed: Use lazy initialization to avoid setState in effect
+  // Fixed: Use lazy initialization - setIsAuthorized is intentionally unused
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isAuthorized, setIsAuthorized] = useState(() => {
     const auth = getMockAuth();
-    if (!auth.isAuthenticated || auth.role !== 'Doctor') {
-      router.replace('/login');
-      return;
-    }
-    setIsAuthorized(true);
-  }, [router]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [patientsStats, setPatientsStats] = useState<{
-    totalPatients: number;
-    activePatients: number;
-  } | null>(null);
+    return auth.isAuthenticated && auth.role === 'Doctor';
+  });
 
+  // Auth guard - redirect if not authorized
   useEffect(() => {
+    if (!isAuthorized) {
+      router.replace('/login');
+    }
+  }, [isAuthorized, router]);
+  
+  // Fixed: Use lazy initialization to avoid setState in effect
+  const [isLoading] = useState(false);
+  const [patientsStats] = useState(() => {
     // Use dummy data instead of API
     const totalPatients = dummyPatients.length;
     const activePatients = dummyPatients.filter(p => p.status === 'Active').length;
     
-    setPatientsStats({
+    return {
       totalPatients,
       activePatients,
-    });
-    setIsLoading(false);
-  }, []);
+    };
+  });
 
   // Don't render until authorized
   if (!isAuthorized) {
