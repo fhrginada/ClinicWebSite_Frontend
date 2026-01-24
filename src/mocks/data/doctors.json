@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Emily Carter",
+    "email": "emily.carter@intelliclinic.com",
+    "password": "emily2024",
+    "role": "Doctor",
+    "specialization": "Cardiology",
+    "phone": "+1-555-0101",
+    "licenseNumber": "MD-CARD-12345",
+    "yearsOfExperience": 12,
+    "bio": "Expert in cardiovascular health with over 12 years of experience in treating heart conditions and preventive cardiology.",
+    "gender": "Female",
+    "dateOfBirth": "1980-03-15",
+    "address": "123 Medical Center Dr, Suite 200, Health City, HC 12345",
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Harvard Medical School",
+        "year": "2010"
+      },
+      {
+        "degree": "Residency in Cardiology",
+        "institution": "Johns Hopkins Hospital",
+        "year": "2013"
+      }
+    ],
+    "languages": ["English", "Spanish"],
+    "availableTimes": ["09:00", "10:30", "11:00", "13:00", "14:00", "15:00"]
+  },
+  {
+    "id": 2,
+    "name": "Dr. John Smith",
+    "email": "john.smith@intelliclinic.com",
+    "password": "john2024",
+    "role": "Doctor",
+    "specialization": "Dermatology",
+    "phone": "+1-555-0102",
+    "licenseNumber": "MD-DERM-23456",
+    "yearsOfExperience": 8,
+    "bio": "Specialized in skin care and dermatology with expertise in cosmetic and medical dermatology.",
+    "gender": "Male",
+    "dateOfBirth": "1985-07-22",
+    "address": "456 Skin Care Ave, Suite 150, Health City, HC 12345",
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Stanford University School of Medicine",
+        "year": "2014"
+      },
+      {
+        "degree": "Residency in Dermatology",
+        "institution": "Mayo Clinic",
+        "year": "2017"
+      }
+    ],
+    "languages": ["English"],
+    "availableTimes": ["10:00", "12:00", "14:30", "15:30"]
+  },
+  {
+    "id": 3,
+    "name": "Dr. Evelyn Reed",
+    "email": "evelyn.reed@intelliclinic.com",
+    "password": "evelyn2024",
+    "role": "Doctor",
+    "specialization": "Family Medicine",
+    "phone": "+1-555-0103",
+    "licenseNumber": "MD-FAM-34567",
+    "yearsOfExperience": 15,
+    "bio": "Over 15 years of experience in comprehensive healthcare, providing primary care for all ages.",
+    "gender": "Female",
+    "dateOfBirth": "1978-11-08",
+    "address": "789 Family Health Blvd, Suite 100, Health City, HC 12345",
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Yale School of Medicine",
+        "year": "2007"
+      },
+      {
+        "degree": "Residency in Family Medicine",
+        "institution": "Cleveland Clinic",
+        "year": "2010"
+      }
+    ],
+    "languages": ["English", "French"],
+    "availableTimes": ["09:00", "10:00", "11:00", "13:00", "14:00"]
+  },
+  {
+    "id": 4,
+    "name": "Dr. Michael Chen",
+    "email": "michael.chen@intelliclinic.com",
+    "password": "michael2024",
+    "role": "Doctor",
+    "specialization": "Cardiology",
+    "phone": "+1-555-0104",
+    "licenseNumber": "MD-CARD-45678",
+    "yearsOfExperience": 10,
+    "bio": "Specialized in heart health and cardiovascular disease prevention with expertise in interventional cardiology.",
+    "gender": "Male",
+    "dateOfBirth": "1982-05-30",
+    "address": "321 Heart Center Way, Suite 300, Health City, HC 12345",
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "UCLA School of Medicine",
+        "year": "2012"
+      },
+      {
+        "degree": "Fellowship in Interventional Cardiology",
+        "institution": "Cedars-Sinai Medical Center",
+        "year": "2015"
+      }
+    ],
+    "languages": ["English", "Mandarin"],
+    "availableTimes": ["09:30", "10:30", "11:30", "13:30", "14:30"]
+  },
+  {
+    "id": 5,
+    "name": "Dr. Sarah Johnson",
+    "email": "sarah.johnson@intelliclinic.com",
+    "password": "sarah2024",
+    "role": "Doctor",
+    "specialization": "Pediatrics",
+    "phone": "+1-555-0105",
+    "licenseNumber": "MD-PED-56789",
+    "yearsOfExperience": 7,
+    "bio": "Dedicated to providing compassionate care for children from infancy through adolescence.",
+    "gender": "Female",
+    "dateOfBirth": "1987-09-12",
+    "address": "654 Children's Health Dr, Suite 250, Health City, HC 12345",
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Boston University School of Medicine",
+        "year": "2015"
+      },
+      {
+        "degree": "Residency in Pediatrics",
+        "institution": "Children's Hospital of Philadelphia",
+        "year": "2018"
+      }
+    ],
+    "languages": ["English"],
+    "availableTimes": ["09:00", "10:00", "11:00", "13:00"]
+  },
+  {
+    "id": 6,
+    "name": "Dr. James Wilson",
+    "email": "james.wilson@intelliclinic.com",
+    "password": "james2024",
+    "role": "Doctor",
+    "specialization": "Internal Medicine",
+    "phone": "+1-555-0106",
+    "licenseNumber": "MD-INT-67890",
+    "yearsOfExperience": 11,
+    "bio": "Expert in diagnosing and treating complex medical conditions in adults.",
+    "gender": "Male",
+    "dateOfBirth": "1981-02-18",
+    "address": "987 Internal Medicine Plaza, Suite 180, Health City, HC 12345",
+    "education": [
+      {
+        "degree": "MD",
+        "institution": "Duke University School of Medicine",
+        "year": "2011"
+      },
+      {
+        "degree": "Residency in Internal Medicine",
+        "institution": "Massachusetts General Hospital",
+        "year": "2014"
+      }
+    ],
+    "languages": ["English", "German"],
+    "availableTimes": ["10:00", "11:00", "14:00", "15:00"]
+  }
+]
+

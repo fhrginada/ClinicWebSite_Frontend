@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "HealthClinic",
-    template: "%s | HealthClinic",
+    default: "IntellClinic",
+    template: "%s | IntellClinic",
   },
   description: "Compassionate & Comprehensive Healthcare For You",
 };

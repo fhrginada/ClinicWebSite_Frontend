@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { 
   Home, 
   Calendar, 
@@ -14,19 +14,52 @@ import {
   LogOut,
   User
 } from 'lucide-react';
+import { getMockAuth, clearMockAuth } from '@/src/auth/mockAuth';
+import { getDoctorById } from '@/src/mocks/dataLoader';
 
-const navigationItems = [
-  { icon: Home, label: 'Dashboard', href: '/doctor' },
-  { icon: Calendar, label: 'My Appointments', href: '/doctor/appointments' },
-  { icon: Users, label: 'Patients', href: '/doctor/patients' },
-  { icon: FileText, label: 'Prescriptions', href: '/doctor/prescriptions' },
-  { icon: User, label: 'Profile', href: '/doctor/profile' },
-  { icon: Settings, label: 'Settings', href: '/doctor/settings' },
-];
+// Helper function to get initials from name
+function getInitials(name: string): string {
+  if (!name) return 'U';
+  // Remove "Dr. " prefix if present
+  const cleanName = name.replace(/^Dr\.\s*/i, '').trim();
+  const parts = cleanName.split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return cleanName.substring(0, 2).toUpperCase();
+}
 
-export default function Sidebar() {
+export default function Sidebar({ doctorId }: { doctorId?: number }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(true);
+  const auth = getMockAuth();
+  const [doctorName, setDoctorName] = useState<string>(auth.userName || 'Doctor');
+  const [specialization, setSpecialization] = useState<string>('Doctor');
+  
+  useEffect(() => {
+    const currentDoctorId = doctorId || auth.userId;
+    if (currentDoctorId) {
+      const doctor = getDoctorById(currentDoctorId);
+      if (doctor) {
+        setDoctorName(doctor.name);
+        setSpecialization(doctor.specialization || 'Doctor');
+      }
+    }
+  }, [doctorId, auth.userId]);
+  
+  const dashboardPath = doctorId ? `/doctor/${doctorId}/dashboard` : '/doctor';
+  const patientsPath = doctorId ? `/doctor/${doctorId}/patients` : '/doctor/patients';
+  const navigationItems = [
+    { icon: Home, label: 'Dashboard', href: dashboardPath },
+    { icon: Calendar, label: 'My Appointments', href: '/doctor/appointments' },
+    { icon: Users, label: 'Patients', href: patientsPath },
+    { icon: FileText, label: 'Prescriptions', href: '/doctor/prescriptions' },
+    { icon: User, label: 'Profile', href: '/doctor/profile' },
+    { icon: Settings, label: 'Settings', href: '/doctor/settings' },
+  ];
+
+  const initials = getInitials(doctorName);
 
   return (
     <aside 
@@ -86,7 +119,7 @@ export default function Sidebar() {
       <nav className="flex-1 flex flex-col gap-2 px-4 py-4">
         {navigationItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href || (item.href === '/doctor' && pathname === '/doctor');
+          const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
           
           return (
             <Link
@@ -122,28 +155,35 @@ export default function Sidebar() {
             <div className="flex justify-center mb-3">
               <div className="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
                 <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-semibold">
-                  AN
+                  {initials}
                 </div>
               </div>
             </div>
             
             {/* Name and Role */}
             <div className="text-center mb-4">
-              <h3 className="text-white font-semibold text-base mb-1">Dr. Ahmed Nabel</h3>
-              <p className="text-gray-400 text-xs">Super Admin</p>
+              <h3 className="text-white font-semibold text-base mb-1">{doctorName}</h3>
+              <p className="text-gray-400 text-xs">{specialization}</p>
             </div>
             
             {/* Action Buttons */}
             <div className="flex justify-center gap-2">
               <button
+                onClick={() => router.push('/doctor/settings')}
                 className="w-10 h-10 rounded-lg bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white transition-colors"
                 aria-label="Settings"
+                title="Settings"
               >
                 <Settings size={18} className="text-white" />
               </button>
               <button
+                onClick={() => {
+                  clearMockAuth();
+                  router.push('/login');
+                }}
                 className="w-10 h-10 rounded-lg bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-white transition-colors"
                 aria-label="Logout"
+                title="Logout"
               >
                 <LogOut size={18} className="text-white" />
               </button>
@@ -157,7 +197,7 @@ export default function Sidebar() {
         <div className="px-4 pb-6">
           <div className="w-12 h-12 rounded-full bg-gray-600 flex items-center justify-center mx-auto overflow-hidden">
             <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-sm font-semibold">
-              AN
+              {initials}
             </div>
           </div>
         </div>

@@ -25,7 +25,7 @@ const initialTasks: Task[] = [
   },
 ];
 
-export default function TaskList() {
+export default function TaskList({ doctorId }: { doctorId?: number }) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
   const toggleTask = (id: string) => {

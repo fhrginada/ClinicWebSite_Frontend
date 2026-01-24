@@ -1,0 +1,128 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import Sidebar from '@/components/doctor/Sidebar';
+import Topbar from '@/components/doctor/Topbar';
+import PrescriptionCard from '@/components/doctor/PrescriptionCard';
+import TaskList from '@/components/doctor/TaskList';
+import TodayAppointmentTable from '@/components/doctor/TodayAppointmentTable';
+import { getPatientsDashboard } from '@/src/services/patient.service';
+import { getMockAuth } from '@/src/auth/mockAuth';
+
+export default function DoctorDashboard() {
+  const router = useRouter();
+  const params = useParams();
+  const doctorId = params?.doctorId ? parseInt(params.doctorId as string, 10) : null;
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // Auth guard - check role and user ID
+  useEffect(() => {
+    const auth = getMockAuth();
+    if (!auth.isAuthenticated || auth.role !== 'Doctor') {
+      router.replace('/login');
+      return;
+    }
+    
+    // Verify the doctor ID matches the logged-in user
+    if (doctorId && auth.userId !== doctorId) {
+      router.replace(`/doctor/${auth.userId}/dashboard`);
+      return;
+    }
+    
+    if (!doctorId && auth.userId) {
+      router.replace(`/doctor/${auth.userId}/dashboard`);
+      return;
+    }
+    
+    setIsAuthorized(true);
+  }, [router, doctorId]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [dashboardError, setDashboardError] = useState<string | null>(null);
+  const [patientsStats, setPatientsStats] = useState<{
+    totalPatients: number;
+    activePatients: number;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!isAuthorized || !doctorId) return;
+
+    const fetchDashboardData = async () => {
+      setIsLoading(true);
+      setDashboardError(null);
+
+      try {
+        // Fetch patients dashboard data filtered by doctor ID
+        try {
+          const patientsDashboard = await getPatientsDashboard(doctorId);
+          setPatientsStats({
+            totalPatients: patientsDashboard.totalPatients || 0,
+            activePatients: patientsDashboard.activePatients || 0,
+          });
+        } catch (error) {
+          console.error('Error fetching patients dashboard:', error);
+          // Continue with other data even if this fails
+        }
+
+        // Note: Appointments are fetched by TodayAppointmentTable component
+        // This allows the dashboard to render even if one API fails
+      } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        setDashboardError('Some dashboard data could not be loaded. Please refresh the page.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, [isAuthorized, doctorId]);
+
+  // Don't render until authorized
+  if (!isAuthorized || !doctorId) {
+    return null;
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Sidebar doctorId={doctorId} />
+      
+      <main className="ml-72 p-6">
+        <Topbar />
+        
+        {/* Dashboard Error Message */}
+        {dashboardError && (
+          <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
+            {dashboardError}
+          </div>
+        )}
+
+        {/* Dashboard Stats Cards (if available) */}
+        {patientsStats && !isLoading && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="bg-white rounded-lg shadow-sm p-4">
+              <h3 className="text-sm font-medium text-gray-500 mb-1">Total Patients</h3>
+              <p className="text-2xl font-bold text-gray-900">{patientsStats.totalPatients}</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm p-4">
+              <h3 className="text-sm font-medium text-gray-500 mb-1">Active Patients</h3>
+              <p className="text-2xl font-bold text-blue-600">{patientsStats.activePatients}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          {/* Prescription Card */}
+          <PrescriptionCard doctorId={doctorId} />
+          
+          {/* Tasks Card */}
+          <TaskList doctorId={doctorId} />
+        </div>
+        
+        {/* Appointments Table */}
+        <TodayAppointmentTable doctorId={doctorId} />
+      </main>
+    </div>
+  );
+}
+

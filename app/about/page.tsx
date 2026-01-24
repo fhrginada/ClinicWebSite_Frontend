@@ -34,7 +34,7 @@ export default function AboutUs() {
                 <h4 className="text-2xl font-bold text-gray-900 mb-2">Clinic Founded</h4>
                 <span className="text-blue-600 font-semibold text-lg block mb-4">2005</span>
                 <p className="text-gray-700 leading-relaxed">
-                  HealthClinic was established with a mission to provide accessible,
+                  IntellClinic was established with a mission to provide accessible,
                   high-quality healthcare to the local community.
                 </p>
               </div>

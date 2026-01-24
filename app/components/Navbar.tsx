@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { FaUser } from 'react-icons/fa';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,9 +16,9 @@ export default function Navbar() {
             <Link href="/">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">HC</span>
+                  <span className="text-white font-bold text-xl">IC</span>
                 </div>
-                <span className="text-xl font-bold text-gray-900 hidden md:block">HealthClinic</span>
+                <span className="text-xl font-bold text-gray-900 hidden md:block">IntellClinic</span>
               </div>
             </Link>
           </div>
@@ -30,13 +31,22 @@ export default function Navbar() {
             <Link href="/contact" className="text-gray-800 hover:text-blue-600 font-medium">Contact</Link>
           </nav>
 
-          {/* Book Appointment Button */}
+          {/* Book Appointment Button & Login Icon */}
           <div className="flex items-center space-x-4">
             <Link
               href="/appointment"
               className="bg-blue-600 px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition-all shadow-md"
             >
               <span className="text-white">Book Appointment</span>
+            </Link>
+
+            {/* Login Icon */}
+            <Link
+              href="/login"
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer group"
+              aria-label="Login"
+            >
+              <FaUser className="w-6 h-6 text-gray-800 group-hover:text-blue-600 transition-colors" />
             </Link>
 
             {/* Mobile Menu Button */}
@@ -61,6 +71,10 @@ export default function Navbar() {
               <Link href="/contact" className="text-gray-800 hover:text-blue-600 font-medium">Contact</Link>
               <Link href="/appointment" className="bg-blue-600 px-6 py-3 rounded-full font-bold text-center block">
                 <span className="text-white">Book Appointment</span>
+              </Link>
+              <Link href="/login" className="flex items-center justify-center space-x-2 text-gray-800 hover:text-blue-600 font-medium">
+                <FaUser className="w-5 h-5" />
+                <span>Login</span>
               </Link>
             </nav>
           </div>

@@ -20,20 +20,22 @@ export default function Login() {
     setError("");
 
     // TEMPORARY MOCK AUTHENTICATION - Frontend only
-    const role = validateMockCredentials(email, password);
+    const authResult = validateMockCredentials(email, password);
 
-    if (role) {
+    if (authResult) {
       // Set mock auth state in localStorage
-      setMockAuth(role);
+      setMockAuth(authResult.role, authResult.userId, authResult.userName);
+      
+      const role = authResult.role;
 
-      // Redirect based on role
+      // Redirect based on role and user ID
       let redirectPath = "/";
-      if (role === "Doctor") {
-        redirectPath = "/doctor";
-      } else if (role === "Nurse") {
-        redirectPath = "/nurse";
-      } else if (role === "Patient") {
-        redirectPath = "/patient";
+      if (role === "Doctor" && authResult.userId) {
+        redirectPath = `/doctor/${authResult.userId}/dashboard`;
+      } else if (role === "Nurse" && authResult.userId) {
+        redirectPath = `/nurse/${authResult.userId}/dashboard`;
+      } else if (role === "Patient" && authResult.userId) {
+        redirectPath = `/patient/${authResult.userId}/dashboard`;
       }
 
       // Check if there's a redirect query parameter
@@ -45,7 +47,7 @@ export default function Login() {
       // Use push instead of replace for better navigation
       router.push(redirectPath);
     } else {
-      setError("Invalid credentials. Use password: doctor123, nurse123, or patient123");
+      setError("Invalid email or password. Please check your credentials and try again.");
     }
   };
 

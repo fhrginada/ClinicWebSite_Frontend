@@ -1,0 +1,263 @@
+[
+  {
+    "recordId": "REC-001",
+    "patientId": 1,
+    "patientName": "Sara Ahmed",
+    "doctorId": 1,
+    "doctorName": "Dr. Emily Carter",
+    "visitDate": "2024-12-15T10:00:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Patient reports occasional chest discomfort and shortness of breath during exercise. Blood pressure readings at home have been slightly elevated.",
+    "diagnosis": "Hypertension - Well controlled with current medication. Mild exercise-induced symptoms likely related to deconditioning.",
+    "notes": "Patient is compliant with medication regimen. Blood pressure: 128/82 mmHg. Heart rate: 72 bpm. ECG shows normal sinus rhythm. Recommended lifestyle modifications including regular exercise program. Follow-up in 3 months.",
+    "followUpDate": "2025-03-15",
+    "vitalSigns": {
+      "bloodPressure": "128/82",
+      "heartRate": 72,
+      "temperature": "98.6°F",
+      "weight": "145 lbs",
+      "height": "5'6\""
+    }
+  },
+  {
+    "recordId": "REC-002",
+    "patientId": 1,
+    "patientName": "Sara Ahmed",
+    "doctorId": 1,
+    "doctorName": "Dr. Emily Carter",
+    "visitDate": "2024-09-10T14:30:00Z",
+    "visitType": "Checkup",
+    "complaint": "Annual cardiovascular checkup. No specific complaints.",
+    "diagnosis": "Healthy cardiovascular status. Hypertension well managed.",
+    "notes": "Routine annual examination. All cardiovascular markers within normal limits. Patient advised to continue current medication and maintain healthy lifestyle. Blood work results reviewed - all values normal.",
+    "followUpDate": "2024-12-10",
+    "vitalSigns": {
+      "bloodPressure": "125/80",
+      "heartRate": 68,
+      "temperature": "98.4°F",
+      "weight": "143 lbs",
+      "height": "5'6\""
+    }
+  },
+  {
+    "recordId": "REC-003",
+    "patientId": 2,
+    "patientName": "Omar Hassan",
+    "doctorId": 2,
+    "doctorName": "Dr. John Smith",
+    "visitDate": "2024-12-20T11:00:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Psoriasis flare-up on elbows and knees. Increased itching and redness over the past 2 weeks.",
+    "diagnosis": "Psoriasis exacerbation - Moderate severity. Likely triggered by stress and cold weather.",
+    "notes": "Physical examination shows erythematous, scaly plaques on bilateral elbows and knees covering approximately 5% body surface area. Prescribed topical corticosteroid and moisturizer. Patient educated on trigger management. PASI score: 8.5.",
+    "followUpDate": "2025-01-20",
+    "vitalSigns": {
+      "bloodPressure": "130/85",
+      "heartRate": 75,
+      "temperature": "98.7°F",
+      "weight": "180 lbs",
+      "height": "6'0\""
+    }
+  },
+  {
+    "recordId": "REC-004",
+    "patientId": 2,
+    "patientName": "Omar Hassan",
+    "doctorId": 2,
+    "doctorName": "Dr. John Smith",
+    "visitDate": "2024-10-05T09:30:00Z",
+    "visitType": "Checkup",
+    "complaint": "Routine dermatology checkup. Skin condition stable.",
+    "diagnosis": "Psoriasis - Stable. Eczema - Well controlled.",
+    "notes": "Annual skin examination. Psoriasis lesions minimal and well-controlled with current treatment. Eczema on hands improved. No new lesions noted. Patient doing well with skincare routine.",
+    "followUpDate": "2024-12-05",
+    "vitalSigns": {
+      "bloodPressure": "128/82",
+      "heartRate": 72,
+      "temperature": "98.5°F",
+      "weight": "178 lbs",
+      "height": "6'0\""
+    }
+  },
+  {
+    "recordId": "REC-005",
+    "patientId": 3,
+    "patientName": "Fatima Ali",
+    "doctorId": 3,
+    "doctorName": "Dr. Evelyn Reed",
+    "visitDate": "2024-12-18T10:00:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Diabetes management follow-up. Recent HbA1c results to be reviewed. Some fatigue reported.",
+    "diagnosis": "Type 2 Diabetes - Well controlled. HbA1c: 6.8% (target <7%). High cholesterol - Improved with statin therapy.",
+    "notes": "HbA1c improved from 7.2% to 6.8%. Fasting glucose: 112 mg/dL. Lipid panel shows improvement: Total cholesterol 185 mg/dL, LDL 110 mg/dL. Patient reports good medication compliance. Dietary counseling provided. Continue current medications.",
+    "followUpDate": "2025-03-18",
+    "vitalSigns": {
+      "bloodPressure": "132/84",
+      "heartRate": 78,
+      "temperature": "98.6°F",
+      "weight": "165 lbs",
+      "height": "5'4\""
+    }
+  },
+  {
+    "recordId": "REC-006",
+    "patientId": 3,
+    "patientName": "Fatima Ali",
+    "doctorId": 3,
+    "doctorName": "Dr. Evelyn Reed",
+    "visitDate": "2024-09-25T13:00:00Z",
+    "visitType": "Checkup",
+    "complaint": "Annual physical examination and diabetes review.",
+    "diagnosis": "Type 2 Diabetes - Controlled. High Cholesterol - Treated.",
+    "notes": "Comprehensive annual examination. Diabetes management reviewed. Eye exam and foot exam performed - both normal. Lab work ordered. Patient counseled on diet and exercise. All systems reviewed.",
+    "followUpDate": "2024-12-25",
+    "vitalSigns": {
+      "bloodPressure": "135/88",
+      "heartRate": 80,
+      "temperature": "98.8°F",
+      "weight": "168 lbs",
+      "height": "5'4\""
+    }
+  },
+  {
+    "recordId": "REC-007",
+    "patientId": 4,
+    "patientName": "Ahmed Mohamed",
+    "doctorId": 1,
+    "doctorName": "Dr. Emily Carter",
+    "visitDate": "2024-12-10T14:00:00Z",
+    "visitType": "Emergency",
+    "complaint": "Sudden onset of rapid heartbeat and palpitations while at rest. Feeling lightheaded.",
+    "diagnosis": "Atrial Fibrillation - Paroxysmal episode. Converted to normal sinus rhythm.",
+    "notes": "Patient presented with acute onset of palpitations. ECG showed atrial fibrillation with rapid ventricular response (HR 140 bpm). After observation and medication, converted to normal sinus rhythm. Holter monitor ordered for 48-hour monitoring. Patient stable for discharge with follow-up instructions.",
+    "followUpDate": "2024-12-17",
+    "vitalSigns": {
+      "bloodPressure": "118/75",
+      "heartRate": 140,
+      "temperature": "98.5°F",
+      "weight": "175 lbs",
+      "height": "5'10\""
+    }
+  },
+  {
+    "recordId": "REC-008",
+    "patientId": 5,
+    "patientName": "Layla Ibrahim",
+    "doctorId": 4,
+    "doctorName": "Dr. Michael Chen",
+    "visitDate": "2024-12-22T09:00:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Cardiac follow-up after recent cardiac catheterization. Reviewing results and medication adjustments.",
+    "diagnosis": "Coronary Artery Disease - Stable. Hypertension - Well controlled. Post-catheterization follow-up.",
+    "notes": "Cardiac catheterization showed 70% stenosis in LAD, successfully stented. Patient recovering well. Echocardiogram shows EF 55%. Blood pressure well controlled. Continue dual antiplatelet therapy and statin. Cardiac rehabilitation program recommended.",
+    "followUpDate": "2025-01-22",
+    "vitalSigns": {
+      "bloodPressure": "125/78",
+      "heartRate": 70,
+      "temperature": "98.6°F",
+      "weight": "160 lbs",
+      "height": "5'5\""
+    }
+  },
+  {
+    "recordId": "REC-009",
+    "patientId": 6,
+    "patientName": "Yusuf Hassan",
+    "doctorId": 5,
+    "doctorName": "Dr. Sarah Johnson",
+    "visitDate": "2024-12-19T10:30:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Asthma follow-up. Recent increase in wheezing episodes, especially at night.",
+    "diagnosis": "Asthma - Moderate persistent. Exacerbation likely due to seasonal allergies and cold weather.",
+    "notes": "Physical examination reveals mild wheezing on auscultation. Peak flow: 75% of personal best. Spacer technique reviewed with patient and parent. Inhaler technique demonstrated. Prescribed increased frequency of controller medication during winter months. Action plan updated.",
+    "followUpDate": "2025-01-19",
+    "vitalSigns": {
+      "bloodPressure": "100/65",
+      "heartRate": 95,
+      "temperature": "98.4°F",
+      "weight": "65 lbs",
+      "height": "4'2\""
+    }
+  },
+  {
+    "recordId": "REC-010",
+    "patientId": 7,
+    "patientName": "Mariam Ali",
+    "doctorId": 3,
+    "doctorName": "Dr. Evelyn Reed",
+    "visitDate": "2024-12-12T11:00:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Hypothyroidism follow-up. Reviewing recent thyroid function tests. Some fatigue and weight gain concerns.",
+    "diagnosis": "Hypothyroidism - Well controlled on current medication. TSH within normal range.",
+    "notes": "TSH: 2.5 mIU/L (normal range 0.4-4.0). Free T4: 1.2 ng/dL (normal). Patient reports some fatigue but overall doing well. Weight stable. Continue current levothyroxine dose. Recheck in 6 months.",
+    "followUpDate": "2025-06-12",
+    "vitalSigns": {
+      "bloodPressure": "120/78",
+      "heartRate": 72,
+      "temperature": "98.5°F",
+      "weight": "140 lbs",
+      "height": "5'6\""
+    }
+  },
+  {
+    "recordId": "REC-011",
+    "patientId": 8,
+    "patientName": "Khalid Mohamed",
+    "doctorId": 6,
+    "doctorName": "Dr. James Wilson",
+    "visitDate": "2024-12-16T14:00:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Diabetes and kidney disease management. Reviewing recent lab work and adjusting medications.",
+    "diagnosis": "Type 2 Diabetes - Controlled. Chronic Kidney Disease Stage 3 - Stable.",
+    "notes": "HbA1c: 7.1%. Creatinine: 1.8 mg/dL (stable). eGFR: 45 mL/min/1.73m². Blood pressure controlled. Medication adjustments made to protect kidney function. Referred to nephrologist for co-management. Dietary counseling provided.",
+    "followUpDate": "2025-03-16",
+    "vitalSigns": {
+      "bloodPressure": "128/82",
+      "heartRate": 74,
+      "temperature": "98.6°F",
+      "weight": "190 lbs",
+      "height": "5'11\""
+    }
+  },
+  {
+    "recordId": "REC-012",
+    "patientId": 9,
+    "patientName": "Amina Hassan",
+    "doctorId": 2,
+    "doctorName": "Dr. John Smith",
+    "visitDate": "2024-12-14T10:00:00Z",
+    "visitType": "Checkup",
+    "complaint": "Acne treatment follow-up. Reviewing progress with current treatment regimen.",
+    "diagnosis": "Acne - Moderate. Improving with current treatment.",
+    "notes": "Facial examination shows improvement in inflammatory lesions. Some residual post-inflammatory hyperpigmentation. Patient reports good compliance with topical treatment. Continue current regimen. Added gentle exfoliation recommendations.",
+    "followUpDate": "2025-01-14",
+    "vitalSigns": {
+      "bloodPressure": "110/70",
+      "heartRate": 82,
+      "temperature": "98.5°F",
+      "weight": "125 lbs",
+      "height": "5'4\""
+    }
+  },
+  {
+    "recordId": "REC-013",
+    "patientId": 10,
+    "patientName": "Hassan Ibrahim",
+    "doctorId": 4,
+    "doctorName": "Dr. Michael Chen",
+    "visitDate": "2024-12-11T13:30:00Z",
+    "visitType": "Follow-up",
+    "complaint": "Atrial fibrillation monitoring. Reviewing Holter monitor results and medication effectiveness.",
+    "diagnosis": "Atrial Fibrillation - Paroxysmal. Well controlled with current medication.",
+    "notes": "Holter monitor showed 2 brief episodes of AFib over 48 hours, both self-terminating. Average heart rate: 68 bpm. Patient reports no symptoms during episodes. Current medication regimen effective. Continue anticoagulation and rate control. Annual follow-up recommended.",
+    "followUpDate": "2025-12-11",
+    "vitalSigns": {
+      "bloodPressure": "122/76",
+      "heartRate": 68,
+      "temperature": "98.6°F",
+      "weight": "185 lbs",
+      "height": "6'1\""
+    }
+  }
+]
+

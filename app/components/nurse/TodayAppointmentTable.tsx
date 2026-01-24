@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Filter, Download, CheckCircle2, XCircle, Clock } from 'lucide-react';
 
 interface Appointment {
@@ -77,10 +77,60 @@ const statusConfig = {
   },
 };
 
-export default function TodayAppointmentTable() {
-  const [appointments] = useState<Appointment[]>(mockAppointments);
+export default function TodayAppointmentTable({ 
+  nurseId, 
+  assignedDoctorId 
+}: { 
+  nurseId?: number; 
+  assignedDoctorId?: number | null;
+}) {
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!assignedDoctorId) {
+      setAppointments([]);
+      setIsLoading(false);
+      return;
+    }
+
+    const fetchAppointments = async () => {
+      setIsLoading(true);
+      try {
+        const { getAllAppointments } = await import('@/src/services/appointment.service');
+        const { getPatientsByDoctor } = await import('@/src/mocks/dataLoader');
+        
+        // Get all appointments
+        const allAppointments = await getAllAppointments();
+        
+        // Get patients assigned to the nurse's doctor
+        const assignedPatients = getPatientsByDoctor(assignedDoctorId);
+        const assignedPatientIds = assignedPatients.map(p => p.id);
+        
+        // Filter appointments to only show those for assigned patients
+        const filteredAppointments = allAppointments
+          .filter(apt => apt.patientId && assignedPatientIds.includes(apt.patientId))
+          .map(apt => ({
+            id: String(apt.id),
+            time: apt.timeSlot || '09:00 AM',
+            patientName: apt.patientName,
+            patientId: `PAT${apt.patientId.toString().padStart(3, '0')}`,
+            status: apt.status.toLowerCase() as 'completed' | 'cancelled' | 'pending' | 'upcoming',
+          }));
+        
+        setAppointments(filteredAppointments);
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+        setAppointments([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAppointments();
+  }, [assignedDoctorId]);
 
   const filteredAppointments = appointments.filter((appointment) => {
     const matchesSearch = 
@@ -134,8 +184,14 @@ export default function TodayAppointmentTable() {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
+      {/* Loading State */}
+      {isLoading ? (
+        <div className="flex items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        </div>
+      ) : (
+        /* Table */
+        <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="border-b border-gray-200">
@@ -177,6 +233,7 @@ export default function TodayAppointmentTable() {
           </tbody>
         </table>
       </div>
+      )}
     </div>
   );
 }
