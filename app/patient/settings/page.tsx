@@ -1,13 +1,32 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
 import { Settings as SettingsIcon, Bell, Lock, Shield } from 'lucide-react';
+import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function SettingsPage() {
+  const router = useRouter();
+  const [patientId, setPatientId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const auth = getMockAuth();
+    if (!auth.isAuthenticated || auth.role !== 'Patient') {
+      router.replace('/login');
+      return;
+    }
+    setPatientId(auth.userId || null);
+  }, [router]);
+
+  if (!patientId) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Sidebar />
+      <Sidebar patientId={patientId} />
       
       <main className="ml-72 p-6">
         <Topbar />

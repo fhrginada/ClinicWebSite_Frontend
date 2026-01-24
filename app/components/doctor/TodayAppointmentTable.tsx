@@ -72,7 +72,7 @@ const statusConfig = {
   },
 };
 
-export default function TodayAppointmentTable() {
+export default function TodayAppointmentTable({ doctorId }: { doctorId?: number }) {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -80,11 +80,13 @@ export default function TodayAppointmentTable() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!doctorId) return;
+    
     const fetchTodayAppointments = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        const allAppointments = await getMyDoctorAppointments();
+        const allAppointments = await getMyDoctorAppointments(doctorId);
         const today = new Date().toISOString().split('T')[0];
         
         // Filter appointments for today and transform to component format
@@ -110,7 +112,7 @@ export default function TodayAppointmentTable() {
     };
 
     fetchTodayAppointments();
-  }, []);
+  }, [doctorId]);
 
   const filteredAppointments = appointments.filter((appointment) => {
     const matchesSearch = 

@@ -1,10 +1,13 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
 import { Calendar, User, FileText, Filter, Search } from 'lucide-react';
 import { getMyMedicalHistory, type MedicalHistory } from '@/src/services/medical-history.service';
+import { getMockAuth } from '@/src/auth/mockAuth';
+import { medicalRecords, prescriptions, getDoctorById } from '@/src/mocks/dataLoader';
 
 interface MedicalRecord {
   id: number;
@@ -24,17 +27,49 @@ interface MedicalRecord {
 }
 
 const toMedicalRecord = (m: MedicalHistory): MedicalRecord => {
-  const visitType: MedicalRecord['visitType'] = m.followUpDate ? 'Follow-up' : 'Checkup';
-  const doctorName = m.doctorId ? `Doctor #${m.doctorId}` : '—';
+  // Find the corresponding medical record from mock data
+  const record = medicalRecords.find(r => 
+    r.patientId === m.patientId && 
+    r.visitDate === m.dateRecorded
+  );
+  
+  const visitType: MedicalRecord['visitType'] = record?.visitType || (m.followUpDate ? 'Follow-up' : 'Checkup');
+  
+  // Get doctor name and specialization
+  let doctorName = '—';
+  let doctorSpecialization = '';
+  if (m.doctorId) {
+    const doctor = getDoctorById(m.doctorId);
+    if (doctor) {
+      doctorName = doctor.name;
+      doctorSpecialization = doctor.specialization || '';
+    } else {
+      doctorName = `Doctor #${m.doctorId}`;
+    }
+  }
+  
+  // Get prescription data
+  let prescriptionMedications: Array<{ name: string; dosage: string; frequency: string }> = [];
+  if (record) {
+    const recordPrescriptions = prescriptions.filter(p => p.recordId === record.recordId);
+    if (recordPrescriptions.length > 0) {
+      prescriptionMedications = recordPrescriptions[0].medications.map(med => ({
+        name: med.name,
+        dosage: med.dosage,
+        frequency: med.frequency,
+      }));
+    }
+  }
+  
   return {
     id: m.id,
     visitDate: m.dateRecorded,
     visitType,
-    diagnosis: m.diagnosis ?? '—',
-    notes: m.treatment ?? '—',
+    diagnosis: record?.diagnosis || m.diagnosis || '—',
+    notes: record?.notes || m.treatment || '—',
     doctorName,
-    doctorSpecialization: '',
-    prescription: { medications: [] },
+    doctorSpecialization,
+    prescription: { medications: prescriptionMedications },
   };
 };
 
@@ -52,6 +87,12 @@ const getVisitTypeBadgeClass = (type: string) => {
 };
 
 export default function MedicalHistoryPage() {
+  const router = useRouter();
+  const params = useParams();
+  const patientIdFromRoute = params?.patientId ? parseInt(params.patientId as string, 10) : null;
+  const auth = getMockAuth();
+  const patientId = patientIdFromRoute || auth.userId || null;
+  
   const [records, setRecords] = useState<MedicalRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -62,13 +103,23 @@ export default function MedicalHistoryPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 6;
 
+  // Auth guard - check role
   useEffect(() => {
+    if (!auth.isAuthenticated || auth.role !== 'Patient') {
+      router.replace('/login');
+      return;
+    }
+  }, [auth, router]);
+
+  useEffect(() => {
+    if (!patientId) return;
+    
     let cancelled = false;
     (async () => {
       try {
         setLoading(true);
         setLoadError(null);
-        const response = await getMyMedicalHistory(1, 500);
+        const response = await getMyMedicalHistory(patientId, 1, 500);
         if (cancelled) return;
         setRecords(response.items.map(toMedicalRecord));
       } catch (e: any) {
@@ -81,7 +132,7 @@ export default function MedicalHistoryPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [patientId]);
 
   const filteredRecords = useMemo(() => {
     let filtered = [...records];
@@ -137,9 +188,23 @@ export default function MedicalHistoryPage() {
     });
   };
 
+  if (!patientId) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Sidebar />
+        <main className="ml-72 p-6">
+          <Topbar />
+          <div className="text-center py-12">
+            <p className="text-gray-600">Loading...</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Sidebar />
+      <Sidebar patientId={patientId} />
       
       <main className="ml-72 p-6">
         <Topbar />

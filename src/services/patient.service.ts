@@ -38,10 +38,18 @@ export interface PatientDashboard {
 
 /**
  * Get all patients - MOCK
+ * @param doctorId - Optional: filter patients by assigned doctor ID
  */
-export async function getAllPatients(): Promise<Patient[]> {
+export async function getAllPatients(doctorId?: number): Promise<Patient[]> {
   await new Promise(resolve => setTimeout(resolve, 200));
-  return mockPatients.map(p => ({
+  const { patients } = await import('@/src/mocks/dataLoader');
+  
+  let filteredPatients = patients;
+  if (doctorId) {
+    filteredPatients = patients.filter(p => p.assignedDoctorId === doctorId);
+  }
+  
+  return filteredPatients.map(p => ({
     id: p.id.toString(),
     name: p.name,
     age: p.age,
@@ -50,10 +58,10 @@ export async function getAllPatients(): Promise<Patient[]> {
     status: 'Active' as const,
     phone: p.phone || '+1-555-0000',
     email: p.email || 'patient@email.com',
-    medicalId: `MED-${p.id}`,
-    conditions: [],
-    allergies: [],
-    assignedDoctor: 'Dr. Emily Carter',
+    medicalId: p.medicalId || `MED-${p.id}`,
+    conditions: p.conditions || [],
+    allergies: p.allergies || [],
+    assignedDoctor: p.assignedDoctor || 'Unknown',
   }));
 }
 
@@ -70,7 +78,8 @@ export async function getPatients(params?: Record<string, any>): Promise<Patient
  */
 export async function getPatientById(id: string): Promise<Patient> {
   await new Promise(resolve => setTimeout(resolve, 150));
-  const patient = mockPatients.find(p => p.id.toString() === id);
+  const { patients } = await import('@/src/mocks/dataLoader');
+  const patient = patients.find(p => p.id.toString() === id);
   if (!patient) {
     throw new Error(`Patient with ID ${id} not found`);
   }
@@ -83,19 +92,20 @@ export async function getPatientById(id: string): Promise<Patient> {
     status: 'Active' as const,
     phone: patient.phone || '+1-555-0000',
     email: patient.email || 'patient@email.com',
-    medicalId: `MED-${patient.id}`,
-    conditions: [],
-    allergies: [],
-    assignedDoctor: 'Dr. Emily Carter',
+    medicalId: patient.medicalId || `MED-${patient.id}`,
+    conditions: patient.conditions || [],
+    allergies: patient.allergies || [],
+    assignedDoctor: patient.assignedDoctor || 'Unknown',
   };
 }
 
 /**
  * Get patients dashboard - MOCK
+ * @param doctorId - Doctor ID to filter patients
  */
-export async function getPatientsDashboard(): Promise<PatientsDashboard> {
+export async function getPatientsDashboard(doctorId?: number): Promise<PatientsDashboard> {
   await new Promise(resolve => setTimeout(resolve, 200));
-  const patients = await getAllPatients();
+  const patients = await getAllPatients(doctorId);
   return {
     totalPatients: patients.length,
     activePatients: patients.length,

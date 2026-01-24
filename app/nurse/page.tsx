@@ -1,29 +1,28 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Sidebar from '@/components/nurse/Sidebar';
-import Topbar from '@/components/nurse/Topbar';
-import TodayAppointmentTable from '@/components/nurse/TodayAppointmentTable';
-import { getAllAppointments, AppointmentResponse } from '@/src/services/appointment.service';
 import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function NurseDashboard() {
   const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const [appointments, setAppointments] = useState<AppointmentResponse[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  // Auth guard - check role from localStorage
+  // Redirect to user-ID based dashboard
   useEffect(() => {
     const auth = getMockAuth();
     if (!auth.isAuthenticated || auth.role !== 'Nurse') {
       router.replace('/login');
       return;
     }
-    setIsAuthorized(true);
+    
+    if (auth.userId) {
+      router.replace(`/nurse/${auth.userId}/dashboard`);
+    } else {
+      router.replace('/login');
+    }
   }, [router]);
+  
+  return null;
 
   useEffect(() => {
     if (!isAuthorized) return;

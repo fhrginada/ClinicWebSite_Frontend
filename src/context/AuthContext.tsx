@@ -67,15 +67,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const existing = getToken();
     setTokenState(existing);
 
-    // TEMPORARY: Listen for storage changes to detect mock auth updates
+    // Check for existing mock auth on mount
+    const mockAuth = getMockAuth();
+    if (mockAuth.isAuthenticated) {
+      setRefreshKey((prev) => prev + 1); // Force state recomputation to pick up mock auth
+    }
+
+    // TEMPORARY: Listen for storage changes to detect mock auth updates (from other tabs)
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'clinic.mockAuth' || e.key === 'clinic.mockRole') {
         setRefreshKey((prev) => prev + 1); // Force state recomputation
       }
     };
 
+    // Listen for custom event to detect mock auth updates in the same window
+    const handleMockAuthChanged = () => {
+      setRefreshKey((prev) => prev + 1); // Force state recomputation
+    };
+
     window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener('mockAuthChanged', handleMockAuthChanged);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('mockAuthChanged', handleMockAuthChanged);
+    };
   }, []);
 
   const state = useMemo(() => computeState(token), [token, refreshKey]);

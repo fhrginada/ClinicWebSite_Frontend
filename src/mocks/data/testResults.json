@@ -1,0 +1,344 @@
+[
+  {
+    "testResultId": "TEST-001",
+    "recordId": "REC-001",
+    "patientId": 1,
+    "patientName": "Sara Ahmed",
+    "testDate": "2024-12-15T10:00:00Z",
+    "testName": "Complete Blood Count (CBC)",
+    "result": "All values within normal limits",
+    "normalRange": "See individual components",
+    "status": "Normal",
+    "details": {
+      "WBC": "6.2 x 10^3/μL",
+      "RBC": "4.5 x 10^6/μL",
+      "Hemoglobin": "13.8 g/dL",
+      "Hematocrit": "41%",
+      "Platelets": "250 x 10^3/μL"
+    },
+    "orderedBy": "Dr. Emily Carter"
+  },
+  {
+    "testResultId": "TEST-002",
+    "recordId": "REC-001",
+    "patientId": 1,
+    "patientName": "Sara Ahmed",
+    "testDate": "2024-12-15T10:00:00Z",
+    "testName": "Electrocardiogram (ECG)",
+    "result": "Normal sinus rhythm, rate 72 bpm",
+    "normalRange": "Normal sinus rhythm",
+    "status": "Normal",
+    "details": {
+      "Heart Rate": "72 bpm",
+      "Rhythm": "Normal sinus rhythm",
+      "PR Interval": "160 ms",
+      "QRS Duration": "90 ms",
+      "QT Interval": "400 ms"
+    },
+    "orderedBy": "Dr. Emily Carter"
+  },
+  {
+    "testResultId": "TEST-003",
+    "recordId": "REC-002",
+    "patientId": 1,
+    "patientName": "Sara Ahmed",
+    "testDate": "2024-09-10T14:30:00Z",
+    "testName": "Lipid Panel",
+    "result": "All values within normal limits",
+    "normalRange": "See individual components",
+    "status": "Normal",
+    "details": {
+      "Total Cholesterol": "185 mg/dL",
+      "LDL Cholesterol": "110 mg/dL",
+      "HDL Cholesterol": "55 mg/dL",
+      "Triglycerides": "120 mg/dL"
+    },
+    "orderedBy": "Dr. Emily Carter"
+  },
+  {
+    "testResultId": "TEST-004",
+    "recordId": "REC-003",
+    "patientId": 2,
+    "patientName": "Omar Hassan",
+    "testDate": "2024-12-20T11:00:00Z",
+    "testName": "Skin Biopsy",
+    "result": "Psoriasis - Confirmed",
+    "normalRange": "No psoriatic changes",
+    "status": "Abnormal",
+    "details": {
+      "Histology": "Hyperkeratosis, parakeratosis, acanthosis",
+      "Diagnosis": "Psoriasis vulgaris",
+      "Severity": "Moderate"
+    },
+    "orderedBy": "Dr. John Smith"
+  },
+  {
+    "testResultId": "TEST-005",
+    "recordId": "REC-005",
+    "patientId": 3,
+    "patientName": "Fatima Ali",
+    "testDate": "2024-12-18T10:00:00Z",
+    "testName": "Hemoglobin A1c (HbA1c)",
+    "result": "6.8%",
+    "normalRange": "< 5.7% (Normal), 5.7-6.4% (Prediabetes), ≥ 6.5% (Diabetes)",
+    "status": "Controlled",
+    "details": {
+      "HbA1c": "6.8%",
+      "Average Glucose": "154 mg/dL",
+      "Previous HbA1c": "7.2% (3 months ago)",
+      "Trend": "Improving"
+    },
+    "orderedBy": "Dr. Evelyn Reed"
+  },
+  {
+    "testResultId": "TEST-006",
+    "recordId": "REC-005",
+    "patientId": 3,
+    "patientName": "Fatima Ali",
+    "testDate": "2024-12-18T10:00:00Z",
+    "testName": "Fasting Blood Glucose",
+    "result": "112 mg/dL",
+    "normalRange": "70-100 mg/dL (Normal), 100-125 mg/dL (Prediabetes), ≥ 126 mg/dL (Diabetes)",
+    "status": "Slightly Elevated",
+    "details": {
+      "Fasting Glucose": "112 mg/dL",
+      "Time": "8:00 AM",
+      "Status": "Well controlled with medication"
+    },
+    "orderedBy": "Dr. Evelyn Reed"
+  },
+  {
+    "testResultId": "TEST-007",
+    "recordId": "REC-005",
+    "patientId": 3,
+    "patientName": "Fatima Ali",
+    "testDate": "2024-12-18T10:00:00Z",
+    "testName": "Lipid Panel",
+    "result": "Improved from previous",
+    "normalRange": "See individual components",
+    "status": "Improved",
+    "details": {
+      "Total Cholesterol": "185 mg/dL",
+      "LDL Cholesterol": "110 mg/dL",
+      "HDL Cholesterol": "48 mg/dL",
+      "Triglycerides": "135 mg/dL",
+      "Previous LDL": "145 mg/dL (3 months ago)"
+    },
+    "orderedBy": "Dr. Evelyn Reed"
+  },
+  {
+    "testResultId": "TEST-008",
+    "recordId": "REC-007",
+    "patientId": 4,
+    "patientName": "Ahmed Mohamed",
+    "testDate": "2024-12-10T14:00:00Z",
+    "testName": "Electrocardiogram (ECG)",
+    "result": "Atrial Fibrillation with rapid ventricular response",
+    "normalRange": "Normal sinus rhythm",
+    "status": "Abnormal",
+    "details": {
+      "Heart Rate": "140 bpm",
+      "Rhythm": "Atrial Fibrillation",
+      "PR Interval": "Not measurable",
+      "QRS Duration": "90 ms",
+      "Status": "Converted to normal sinus rhythm after treatment"
+    },
+    "orderedBy": "Dr. Emily Carter"
+  },
+  {
+    "testResultId": "TEST-009",
+    "recordId": "REC-007",
+    "patientId": 4,
+    "patientName": "Ahmed Mohamed",
+    "testDate": "2024-12-10T14:00:00Z",
+    "testName": "Holter Monitor (48-hour)",
+    "result": "2 brief episodes of paroxysmal atrial fibrillation",
+    "normalRange": "No arrhythmias",
+    "status": "Abnormal",
+    "details": {
+      "Duration": "48 hours",
+      "Episodes": "2 brief episodes of AFib",
+      "Average Heart Rate": "68 bpm",
+      "Maximum Heart Rate": "140 bpm",
+      "Minimum Heart Rate": "52 bpm",
+      "Episodes Duration": "Both self-terminated within 30 minutes"
+    },
+    "orderedBy": "Dr. Emily Carter"
+  },
+  {
+    "testResultId": "TEST-010",
+    "recordId": "REC-008",
+    "patientId": 5,
+    "patientName": "Layla Ibrahim",
+    "testDate": "2024-12-22T09:00:00Z",
+    "testName": "Echocardiogram",
+    "result": "Normal left ventricular function, EF 55%",
+    "normalRange": "EF > 50%",
+    "status": "Normal",
+    "details": {
+      "Ejection Fraction": "55%",
+      "Left Ventricular Size": "Normal",
+      "Wall Motion": "Normal",
+      "Valvular Function": "Normal",
+      "Previous EF": "50% (pre-stent)"
+    },
+    "orderedBy": "Dr. Michael Chen"
+  },
+  {
+    "testResultId": "TEST-011",
+    "recordId": "REC-008",
+    "patientId": 5,
+    "patientName": "Layla Ibrahim",
+    "testDate": "2024-12-22T09:00:00Z",
+    "testName": "Cardiac Catheterization Report",
+    "result": "70% LAD stenosis, successfully stented",
+    "normalRange": "No significant stenosis",
+    "status": "Treated",
+    "details": {
+      "Procedure": "PCI with drug-eluting stent",
+      "Location": "Left Anterior Descending (LAD) artery",
+      "Stenosis": "70% (pre-stent)",
+      "Post-Stent": "0% residual stenosis",
+      "Stent Type": "Drug-eluting stent",
+      "Complications": "None"
+    },
+    "orderedBy": "Dr. Michael Chen"
+  },
+  {
+    "testResultId": "TEST-012",
+    "recordId": "REC-009",
+    "patientId": 6,
+    "patientName": "Yusuf Hassan",
+    "testDate": "2024-12-19T10:30:00Z",
+    "testName": "Peak Flow Measurement",
+    "result": "75% of personal best",
+    "normalRange": "80-100% of personal best",
+    "status": "Mild Reduction",
+    "details": {
+      "Peak Flow": "240 L/min",
+      "Personal Best": "320 L/min",
+      "Percentage": "75%",
+      "Zone": "Yellow Zone - Caution",
+      "Recommendation": "Increase controller medication frequency"
+    },
+    "orderedBy": "Dr. Sarah Johnson"
+  },
+  {
+    "testResultId": "TEST-013",
+    "recordId": "REC-009",
+    "patientId": 6,
+    "patientName": "Yusuf Hassan",
+    "testDate": "2024-12-19T10:30:00Z",
+    "testName": "Chest X-Ray",
+    "result": "Mild hyperinflation, no acute findings",
+    "normalRange": "Normal lung fields",
+    "status": "Mild Abnormality",
+    "details": {
+      "Lung Fields": "Mild hyperinflation consistent with asthma",
+      "Heart Size": "Normal",
+      "Mediastinum": "Normal",
+      "Bones": "Normal",
+      "Impression": "Chronic asthma changes, no acute process"
+    },
+    "orderedBy": "Dr. Sarah Johnson"
+  },
+  {
+    "testResultId": "TEST-014",
+    "recordId": "REC-010",
+    "patientId": 7,
+    "patientName": "Mariam Ali",
+    "testDate": "2024-12-12T11:00:00Z",
+    "testName": "Thyroid Function Panel",
+    "result": "TSH and Free T4 within normal range",
+    "normalRange": "TSH: 0.4-4.0 mIU/L, Free T4: 0.8-1.8 ng/dL",
+    "status": "Normal",
+    "details": {
+      "TSH": "2.5 mIU/L",
+      "Free T4": "1.2 ng/dL",
+      "Free T3": "3.1 pg/mL",
+      "Thyroid Antibodies": "Negative",
+      "Status": "Well controlled on current medication"
+    },
+    "orderedBy": "Dr. Evelyn Reed"
+  },
+  {
+    "testResultId": "TEST-015",
+    "recordId": "REC-011",
+    "patientId": 8,
+    "patientName": "Khalid Mohamed",
+    "testDate": "2024-12-16T14:00:00Z",
+    "testName": "Comprehensive Metabolic Panel",
+    "result": "Kidney function stable, diabetes controlled",
+    "normalRange": "See individual components",
+    "status": "Stable",
+    "details": {
+      "Glucose": "125 mg/dL",
+      "Creatinine": "1.8 mg/dL",
+      "eGFR": "45 mL/min/1.73m²",
+      "BUN": "28 mg/dL",
+      "Sodium": "140 mEq/L",
+      "Potassium": "4.2 mEq/L",
+      "Status": "CKD Stage 3, stable"
+    },
+    "orderedBy": "Dr. James Wilson"
+  },
+  {
+    "testResultId": "TEST-016",
+    "recordId": "REC-011",
+    "patientId": 8,
+    "patientName": "Khalid Mohamed",
+    "testDate": "2024-12-16T14:00:00Z",
+    "testName": "Hemoglobin A1c (HbA1c)",
+    "result": "7.1%",
+    "normalRange": "< 5.7% (Normal), 5.7-6.4% (Prediabetes), ≥ 6.5% (Diabetes)",
+    "status": "Controlled",
+    "details": {
+      "HbA1c": "7.1%",
+      "Average Glucose": "158 mg/dL",
+      "Previous HbA1c": "7.3% (3 months ago)",
+      "Trend": "Slightly improved"
+    },
+    "orderedBy": "Dr. James Wilson"
+  },
+  {
+    "testResultId": "TEST-017",
+    "recordId": "REC-013",
+    "patientId": 10,
+    "patientName": "Hassan Ibrahim",
+    "testDate": "2024-12-11T13:30:00Z",
+    "testName": "Holter Monitor (48-hour)",
+    "result": "2 brief episodes of paroxysmal atrial fibrillation",
+    "normalRange": "No arrhythmias",
+    "status": "Abnormal - Well Controlled",
+    "details": {
+      "Duration": "48 hours",
+      "Episodes": "2 brief episodes of AFib",
+      "Average Heart Rate": "68 bpm",
+      "Maximum Heart Rate": "125 bpm",
+      "Minimum Heart Rate": "55 bpm",
+      "Episodes Duration": "Both self-terminated within 15 minutes",
+      "Status": "Well controlled with current medication"
+    },
+    "orderedBy": "Dr. Michael Chen"
+  },
+  {
+    "testResultId": "TEST-018",
+    "recordId": "REC-013",
+    "patientId": 10,
+    "patientName": "Hassan Ibrahim",
+    "testDate": "2024-12-11T13:30:00Z",
+    "testName": "Echocardiogram",
+    "result": "Normal left ventricular function, EF 60%",
+    "normalRange": "EF > 50%",
+    "status": "Normal",
+    "details": {
+      "Ejection Fraction": "60%",
+      "Left Ventricular Size": "Normal",
+      "Wall Motion": "Normal",
+      "Valvular Function": "Normal",
+      "Atrial Size": "Mildly enlarged left atrium (common in AFib)"
+    },
+    "orderedBy": "Dr. Michael Chen"
+  }
+]
+

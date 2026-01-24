@@ -3,7 +3,7 @@
 import { CheckCircle2, XCircle, Clock, Calendar } from 'lucide-react';
 
 interface StatusBadgeProps {
-  status: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled';
+  status: string;
 }
 
 const statusConfig = {
@@ -34,7 +34,12 @@ const statusConfig = {
 };
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
-  const config = statusConfig[status];
+  // Normalize status: capitalize first letter and handle case variations
+  const normalizedStatus = status 
+    ? (status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()) as keyof typeof statusConfig
+    : 'Pending';
+  
+  const config = statusConfig[normalizedStatus] || statusConfig.Pending;
   const Icon = config.icon;
 
   return (

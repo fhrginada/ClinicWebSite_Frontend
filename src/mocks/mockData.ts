@@ -1,7 +1,12 @@
 /**
  * MOCK DATA - TEMPORARY
  * Frontend-only mock data for testing when backend is unavailable
+ * 
+ * This file now imports comprehensive mock data from JSON files
+ * while maintaining backward compatibility with existing interfaces
  */
+
+import { doctors, patients, nurses, medicalRecords, prescriptions, testResults } from './dataLoader';
 
 export interface MockDoctor {
   id: number;
@@ -53,109 +58,33 @@ export interface MockNotification {
   createdAt?: string;
 }
 
-export const mockDoctors: MockDoctor[] = [
-  {
-    id: 1,
-    name: "Dr. Emily Carter",
-    specialty: "Cardiology",
-    specialization: "Cardiology",
-    email: "emily.carter@intelliclinic.com",
-    phone: "+1-555-0101",
-    availableTimes: ["09:00", "10:30", "11:00", "13:00", "14:00", "15:00"],
-    yearsOfExperience: 12,
-    bio: "Expert in cardiovascular health",
-  },
-  {
-    id: 2,
-    name: "Dr. John Smith",
-    specialty: "Dermatology",
-    specialization: "Dermatology",
-    email: "john.smith@intelliclinic.com",
-    phone: "+1-555-0102",
-    availableTimes: ["10:00", "12:00", "14:30", "15:30"],
-    yearsOfExperience: 8,
-    bio: "Specialized in skin care and dermatology",
-  },
-  {
-    id: 3,
-    name: "Dr. Evelyn Reed",
-    specialty: "Family Medicine",
-    specialization: "Family Medicine",
-    email: "evelyn.reed@intelliclinic.com",
-    phone: "+1-555-0103",
-    availableTimes: ["09:00", "10:00", "11:00", "13:00", "14:00"],
-    yearsOfExperience: 15,
-    bio: "Over 15 years of experience in comprehensive healthcare",
-  },
-  {
-    id: 4,
-    name: "Dr. Michael Chen",
-    specialty: "Cardiology",
-    specialization: "Cardiology",
-    email: "michael.chen@intelliclinic.com",
-    phone: "+1-555-0104",
-    availableTimes: ["09:30", "10:30", "11:30", "13:30", "14:30"],
-    yearsOfExperience: 10,
-    bio: "Specialized in heart health and cardiovascular disease prevention",
-  },
-  {
-    id: 5,
-    name: "Dr. Sarah Johnson",
-    specialty: "Pediatrics",
-    specialization: "Pediatrics",
-    email: "sarah.johnson@intelliclinic.com",
-    phone: "+1-555-0105",
-    availableTimes: ["09:00", "10:00", "11:00", "13:00"],
-    yearsOfExperience: 7,
-    bio: "Dedicated to providing compassionate care for children",
-  },
-  {
-    id: 6,
-    name: "Dr. James Wilson",
-    specialty: "Internal Medicine",
-    specialization: "Internal Medicine",
-    email: "james.wilson@intelliclinic.com",
-    phone: "+1-555-0106",
-    availableTimes: ["10:00", "11:00", "14:00", "15:00"],
-    yearsOfExperience: 11,
-    bio: "Expert in diagnosing and treating complex medical conditions",
-  },
-];
+// Export comprehensive data from JSON files
+export const mockDoctors: MockDoctor[] = doctors.map(d => ({
+  id: d.id,
+  name: d.name,
+  specialty: d.specialization,
+  specialization: d.specialization,
+  email: d.email,
+  phone: d.phone,
+  availableTimes: d.availableTimes,
+  licenseNumber: d.licenseNumber,
+  bio: d.bio,
+  address: d.address,
+  dateOfBirth: d.dateOfBirth,
+  gender: d.gender,
+  yearsOfExperience: d.yearsOfExperience,
+  education: d.education,
+  languages: d.languages,
+}));
 
-export const mockPatients: MockPatient[] = [
-  {
-    id: 1,
-    name: "Sara Ahmed",
-    age: 27,
-    gender: "Female",
-    email: "sara.ahmed@email.com",
-    phone: "+1-555-0201",
-  },
-  {
-    id: 2,
-    name: "Omar Hassan",
-    age: 35,
-    gender: "Male",
-    email: "omar.hassan@email.com",
-    phone: "+1-555-0202",
-  },
-  {
-    id: 3,
-    name: "Fatima Ali",
-    age: 42,
-    gender: "Female",
-    email: "fatima.ali@email.com",
-    phone: "+1-555-0203",
-  },
-  {
-    id: 4,
-    name: "Ahmed Mohamed",
-    age: 29,
-    gender: "Male",
-    email: "ahmed.mohamed@email.com",
-    phone: "+1-555-0204",
-  },
-];
+export const mockPatients: MockPatient[] = patients.map(p => ({
+  id: p.id,
+  name: p.name,
+  age: p.age,
+  gender: p.gender,
+  email: p.email,
+  phone: p.phone,
+}));
 
 export const mockAppointments: MockAppointment[] = [
   {
@@ -272,4 +201,8 @@ export function generateMockAvailability(
 
   return slots;
 }
+
+// Export comprehensive data for direct access
+export { doctors, patients, nurses, medicalRecords, prescriptions, testResults } from './dataLoader';
+export * from './dataLoader';
 

@@ -17,11 +17,15 @@ import {
   Save,
   X,
 } from 'lucide-react';
-import { getNurseById, updateNurse, Nurse } from '@/src/services/nurse.service';
-import { getCurrentNurseId } from '@/src/utils/nurse';
+import { useRouter } from 'next/navigation';
+import { getNurseById } from '@/src/mocks/dataLoader';
+import { getMockAuth } from '@/src/auth/mockAuth';
+import { updateNurse, Nurse } from '@/src/services/nurse.service';
 
 export default function NurseProfilePage() {
+  const router = useRouter();
   const [nurse, setNurse] = useState<Nurse | null>(null);
+  const [nurseId, setNurseId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -29,24 +33,52 @@ export default function NurseProfilePage() {
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    const fetchNurseData = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const nurseId = getCurrentNurseId();
-        const data = await getNurseById(nurseId);
-        setNurse(data);
-        setEditedData(data);
-      } catch (err) {
-        console.error('Error loading nurse data:', err);
-        setError('Failed to load nurse information. Please try again later.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    const auth = getMockAuth();
+    if (!auth.isAuthenticated || auth.role !== 'Nurse') {
+      router.replace('/login');
+      return;
+    }
 
-    fetchNurseData();
-  }, []);
+    if (!auth.userId) {
+      setError('Unable to determine nurse ID');
+      setIsLoading(false);
+      return;
+    }
+
+    setNurseId(auth.userId);
+    try {
+      const nurseData = getNurseById(auth.userId);
+      if (!nurseData) {
+        setError('Nurse profile not found');
+        setIsLoading(false);
+        return;
+      }
+
+      // Transform data from JSON to match Nurse interface
+      const transformedNurse: Nurse = {
+        id: nurseData.id,
+        name: nurseData.name,
+        email: nurseData.email,
+        phone: nurseData.phone || '',
+        specialization: nurseData.specialization || '',
+        licenseNumber: nurseData.licenseNumber || '',
+        bio: nurseData.bio || '',
+        address: nurseData.address || '',
+        dateOfBirth: nurseData.dateOfBirth || '',
+        gender: nurseData.gender || '',
+        yearsOfExperience: nurseData.yearsOfExperience || 0,
+        profilePicture: null,
+      };
+
+      setNurse(transformedNurse);
+      setEditedData(transformedNurse);
+      setIsLoading(false);
+    } catch (err) {
+      console.error('Error loading nurse data:', err);
+      setError('Failed to load nurse information. Please try again later.');
+      setIsLoading(false);
+    }
+  }, [router]);
 
   const handleEdit = () => {
     if (nurse) {
@@ -65,10 +97,15 @@ export default function NurseProfilePage() {
   const handleSave = async () => {
     if (!nurse) return;
     
+    const auth = getMockAuth();
+    if (!auth.userId) {
+      alert('Unable to determine nurse ID');
+      return;
+    }
+    
     setIsSaving(true);
     try {
-      const nurseId = getCurrentNurseId();
-      const updated = await updateNurse(nurseId, editedData);
+      const updated = await updateNurse(auth.userId, editedData);
       setNurse(updated);
       setIsEditing(false);
     } catch (err) {
@@ -86,7 +123,7 @@ export default function NurseProfilePage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Sidebar />
+        <Sidebar nurseId={nurseId || undefined} />
         <main className="ml-72 p-6">
           <Topbar />
           <div className="text-center py-12">
@@ -101,7 +138,7 @@ export default function NurseProfilePage() {
   if (error || !nurse) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Sidebar />
+        <Sidebar nurseId={nurseId || undefined} />
         <main className="ml-72 p-6">
           <Topbar />
           <div className="text-center py-12">
@@ -129,7 +166,7 @@ export default function NurseProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Sidebar />
+      <Sidebar nurseId={nurseId || undefined} />
       <main className="ml-72 p-6">
         <Topbar />
         <div className="space-y-6">

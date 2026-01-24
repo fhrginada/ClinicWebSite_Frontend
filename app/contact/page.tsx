@@ -31,7 +31,7 @@ export default function Contact() {
             </div>
             <div className="flex items-center gap-4">
               <Mail className="w-8 h-8 text-blue-600" />
-              <span className="text-gray-800 font-medium">contact@clinicname.com</span>
+              <span className="text-gray-800 font-medium">contact@intellclinic.com</span>
             </div>
           </div>
 

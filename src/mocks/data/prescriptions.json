@@ -1,0 +1,294 @@
+[
+  {
+    "prescriptionId": "PRES-001",
+    "recordId": "REC-001",
+    "patientId": 1,
+    "patientName": "Sara Ahmed",
+    "doctorId": 1,
+    "doctorName": "Dr. Emily Carter",
+    "issuedDate": "2024-12-15T10:00:00Z",
+    "medications": [
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg",
+        "frequency": "Once daily",
+        "duration": "90 days",
+        "instructions": "Take in the morning with or without food"
+      },
+      {
+        "name": "Aspirin",
+        "dosage": "81mg",
+        "frequency": "Once daily",
+        "duration": "Ongoing",
+        "instructions": "Take with food to prevent stomach upset"
+      }
+    ],
+    "instructions": "Continue current medication regimen. Monitor blood pressure at home twice weekly. Return for follow-up in 3 months or if symptoms worsen.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-002",
+    "recordId": "REC-003",
+    "patientId": 2,
+    "patientName": "Omar Hassan",
+    "doctorId": 2,
+    "doctorName": "Dr. John Smith",
+    "issuedDate": "2024-12-20T11:00:00Z",
+    "medications": [
+      {
+        "name": "Clobetasol Propionate",
+        "dosage": "0.05%",
+        "frequency": "Twice daily",
+        "duration": "14 days",
+        "instructions": "Apply thin layer to affected areas, avoid face and sensitive areas"
+      },
+      {
+        "name": "Cetaphil Moisturizing Lotion",
+        "dosage": "N/A",
+        "frequency": "As needed",
+        "duration": "Ongoing",
+        "instructions": "Apply liberally to affected areas after showering and as needed"
+      }
+    ],
+    "instructions": "Apply topical medication to affected areas. Use moisturizer regularly to prevent dryness. Avoid known triggers. Follow up in 4 weeks.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-003",
+    "recordId": "REC-005",
+    "patientId": 3,
+    "patientName": "Fatima Ali",
+    "doctorId": 3,
+    "doctorName": "Dr. Evelyn Reed",
+    "issuedDate": "2024-12-18T10:00:00Z",
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "1000mg",
+        "frequency": "Twice daily",
+        "duration": "90 days",
+        "instructions": "Take with meals to reduce gastrointestinal side effects"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "20mg",
+        "frequency": "Once daily",
+        "duration": "90 days",
+        "instructions": "Take in the evening, can be taken with or without food"
+      },
+      {
+        "name": "Glipizide",
+        "dosage": "5mg",
+        "frequency": "Twice daily",
+        "duration": "90 days",
+        "instructions": "Take 30 minutes before meals"
+      }
+    ],
+    "instructions": "Continue diabetes medications as prescribed. Monitor blood glucose levels. Follow diabetic diet. Return for HbA1c check in 3 months.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-004",
+    "recordId": "REC-007",
+    "patientId": 4,
+    "patientName": "Ahmed Mohamed",
+    "doctorId": 1,
+    "doctorName": "Dr. Emily Carter",
+    "issuedDate": "2024-12-10T14:00:00Z",
+    "medications": [
+      {
+        "name": "Metoprolol",
+        "dosage": "50mg",
+        "frequency": "Twice daily",
+        "duration": "30 days",
+        "instructions": "Take with food. Do not stop suddenly."
+      },
+      {
+        "name": "Apixaban",
+        "dosage": "5mg",
+        "frequency": "Twice daily",
+        "duration": "30 days",
+        "instructions": "Take at the same times each day, with or without food"
+      }
+    ],
+    "instructions": "Start medications as prescribed. Wear Holter monitor for 48 hours. Return for follow-up in 1 week. Seek immediate medical attention if chest pain, severe dizziness, or fainting occurs.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-005",
+    "recordId": "REC-008",
+    "patientId": 5,
+    "patientName": "Layla Ibrahim",
+    "doctorId": 4,
+    "doctorName": "Dr. Michael Chen",
+    "issuedDate": "2024-12-22T09:00:00Z",
+    "medications": [
+      {
+        "name": "Clopidogrel",
+        "dosage": "75mg",
+        "frequency": "Once daily",
+        "duration": "12 months",
+        "instructions": "Take with or without food. Important: Do not miss doses."
+      },
+      {
+        "name": "Aspirin",
+        "dosage": "81mg",
+        "frequency": "Once daily",
+        "duration": "Lifetime",
+        "instructions": "Take with food"
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "40mg",
+        "frequency": "Once daily",
+        "duration": "90 days",
+        "instructions": "Take in the evening"
+      },
+      {
+        "name": "Lisinopril",
+        "dosage": "10mg",
+        "frequency": "Once daily",
+        "duration": "90 days",
+        "instructions": "Take in the morning"
+      }
+    ],
+    "instructions": "Dual antiplatelet therapy is critical - do not stop without doctor approval. Continue all cardiac medications. Enroll in cardiac rehabilitation program. Follow-up in 1 month.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-006",
+    "recordId": "REC-009",
+    "patientId": 6,
+    "patientName": "Yusuf Hassan",
+    "doctorId": 5,
+    "doctorName": "Dr. Sarah Johnson",
+    "issuedDate": "2024-12-19T10:30:00Z",
+    "medications": [
+      {
+        "name": "Fluticasone Propionate",
+        "dosage": "110mcg",
+        "frequency": "Twice daily",
+        "duration": "60 days",
+        "instructions": "Use spacer device. Rinse mouth after each use to prevent thrush"
+      },
+      {
+        "name": "Albuterol",
+        "dosage": "90mcg",
+        "frequency": "As needed",
+        "duration": "60 days",
+        "instructions": "Use 2 puffs 15-20 minutes before exercise or when experiencing symptoms. Maximum 4 times per day."
+      }
+    ],
+    "instructions": "Use controller medication daily even when feeling well. Keep rescue inhaler available at all times. Update asthma action plan. Follow up in 1 month or sooner if symptoms worsen.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-007",
+    "recordId": "REC-010",
+    "patientId": 7,
+    "patientName": "Mariam Ali",
+    "doctorId": 3,
+    "doctorName": "Dr. Evelyn Reed",
+    "issuedDate": "2024-12-12T11:00:00Z",
+    "medications": [
+      {
+        "name": "Levothyroxine",
+        "dosage": "75mcg",
+        "frequency": "Once daily",
+        "duration": "90 days",
+        "instructions": "Take on empty stomach, 30-60 minutes before breakfast. Do not take with calcium or iron supplements."
+      }
+    ],
+    "instructions": "Continue current dose. Take medication consistently at the same time each day. Return for thyroid function test in 6 months.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-008",
+    "recordId": "REC-011",
+    "patientId": 8,
+    "patientName": "Khalid Mohamed",
+    "doctorId": 6,
+    "doctorName": "Dr. James Wilson",
+    "issuedDate": "2024-12-16T14:00:00Z",
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg",
+        "frequency": "Twice daily",
+        "duration": "90 days",
+        "instructions": "Take with meals. Monitor kidney function."
+      },
+      {
+        "name": "Glipizide",
+        "dosage": "5mg",
+        "frequency": "Once daily",
+        "duration": "90 days",
+        "instructions": "Take 30 minutes before breakfast"
+      },
+      {
+        "name": "Losartan",
+        "dosage": "50mg",
+        "frequency": "Once daily",
+        "duration": "90 days",
+        "instructions": "Take in the morning. Helps protect kidney function."
+      }
+    ],
+    "instructions": "Diabetes medications adjusted for kidney function. Follow diabetic and kidney-friendly diet. Limit protein intake. Monitor blood glucose and blood pressure. Follow up with nephrologist. Return in 3 months.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-009",
+    "recordId": "REC-012",
+    "patientId": 9,
+    "patientName": "Amina Hassan",
+    "doctorId": 2,
+    "doctorName": "Dr. John Smith",
+    "issuedDate": "2024-12-14T10:00:00Z",
+    "medications": [
+      {
+        "name": "Adapalene",
+        "dosage": "0.1%",
+        "frequency": "Once daily",
+        "duration": "60 days",
+        "instructions": "Apply thin layer to affected areas in the evening. Start with every other day if skin becomes too dry."
+      },
+      {
+        "name": "Benzoyl Peroxide",
+        "dosage": "2.5%",
+        "frequency": "Once daily",
+        "duration": "60 days",
+        "instructions": "Apply in the morning. Avoid contact with eyes and mouth. May bleach fabrics."
+      }
+    ],
+    "instructions": "Apply medications as directed. Use gentle, non-comedogenic moisturizer. Avoid picking or squeezing lesions. Use sunscreen daily. Follow up in 4 weeks.",
+    "status": "Active"
+  },
+  {
+    "prescriptionId": "PRES-010",
+    "recordId": "REC-013",
+    "patientId": 10,
+    "patientName": "Hassan Ibrahim",
+    "doctorId": 4,
+    "doctorName": "Dr. Michael Chen",
+    "issuedDate": "2024-12-11T13:30:00Z",
+    "medications": [
+      {
+        "name": "Metoprolol",
+        "dosage": "100mg",
+        "frequency": "Twice daily",
+        "duration": "90 days",
+        "instructions": "Take with food. Do not stop suddenly."
+      },
+      {
+        "name": "Apixaban",
+        "dosage": "5mg",
+        "frequency": "Twice daily",
+        "duration": "90 days",
+        "instructions": "Take at the same times each day to maintain consistent blood levels"
+      }
+    ],
+    "instructions": "Continue medications as prescribed. Medications are working well to control heart rhythm and prevent stroke. Annual follow-up recommended. Seek immediate care if experiencing prolonged palpitations or signs of stroke.",
+    "status": "Active"
+  }
+]
+

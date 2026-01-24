@@ -20,17 +20,22 @@ export interface MedicalHistoryResponse {
   items: MedicalHistory[];
 }
 
-// Mock medical history data
-const mockMedicalHistory: MedicalHistory[] = [
-  {
-    id: 1,
-    patientId: 1,
-    doctorId: 1,
-    dateRecorded: new Date().toISOString(),
-    diagnosis: 'Mock diagnosis',
-    treatment: 'Mock treatment',
-  },
-];
+// Import mock data
+import { medicalRecords } from '@/src/mocks/dataLoader';
+
+// Convert medical records to medical history format
+function getMockMedicalHistory(): MedicalHistory[] {
+  return medicalRecords.map((record, index) => ({
+    id: index + 1,
+    patientId: record.patientId,
+    doctorId: record.doctorId,
+    dateRecorded: record.visitDate,
+    followUpDate: record.followUpDate || null,
+    diagnosis: record.diagnosis || null,
+    treatment: record.notes || null,
+    attachmentUrl: null,
+  }));
+}
 
 /**
  * Get medical history for a specific patient - MOCK
@@ -38,10 +43,18 @@ const mockMedicalHistory: MedicalHistory[] = [
 export async function getMedicalHistory(
   patientId: number,
   page: number = 1,
-  pageSize: number = 20
+  pageSize: number = 20,
+  doctorId?: number
 ): Promise<MedicalHistoryResponse> {
   await new Promise(resolve => setTimeout(resolve, 200));
-  const filtered = mockMedicalHistory.filter(h => h.patientId === patientId);
+  const mockMedicalHistory = getMockMedicalHistory();
+  let filtered = mockMedicalHistory.filter(h => h.patientId === patientId);
+  
+  // If doctorId is provided, filter by doctor as well
+  if (doctorId !== undefined) {
+    filtered = filtered.filter(h => h.doctorId === doctorId);
+  }
+  
   const start = (page - 1) * pageSize;
   const end = start + pageSize;
   return {
@@ -56,11 +69,12 @@ export async function getMedicalHistory(
  * Patient-only: get own medical history records - MOCK
  */
 export async function getMyMedicalHistory(
+  patientId: number,
   page: number = 1,
   pageSize: number = 20
 ): Promise<MedicalHistoryResponse> {
   await new Promise(resolve => setTimeout(resolve, 200));
-  return getAllMedicalHistory(page, pageSize, 1);
+  return getAllMedicalHistory(page, pageSize, patientId);
 }
 
 /**
@@ -69,13 +83,21 @@ export async function getMyMedicalHistory(
 export async function getAllMedicalHistory(
   page: number = 1,
   pageSize: number = 20,
-  patientId?: number
+  patientId?: number,
+  doctorId?: number
 ): Promise<MedicalHistoryResponse> {
   await new Promise(resolve => setTimeout(resolve, 200));
+  const mockMedicalHistory = getMockMedicalHistory();
   let filtered = [...mockMedicalHistory];
+  
   if (patientId) {
     filtered = filtered.filter(h => h.patientId === patientId);
   }
+  
+  if (doctorId !== undefined) {
+    filtered = filtered.filter(h => h.doctorId === doctorId);
+  }
+  
   const start = (page - 1) * pageSize;
   const end = start + pageSize;
   return {
@@ -91,6 +113,7 @@ export async function getAllMedicalHistory(
  */
 export async function getMedicalHistoryById(id: number): Promise<MedicalHistory> {
   await new Promise(resolve => setTimeout(resolve, 150));
+  const mockMedicalHistory = getMockMedicalHistory();
   const record = mockMedicalHistory.find(h => h.id === id);
   if (!record) {
     throw new Error(`Medical history record with ID ${id} not found`);
@@ -105,11 +128,11 @@ export async function createMedicalHistory(
   payload: Omit<MedicalHistory, 'id'>
 ): Promise<MedicalHistory> {
   await new Promise(resolve => setTimeout(resolve, 300));
+  const mockMedicalHistory = getMockMedicalHistory();
   const newRecord: MedicalHistory = {
     id: Math.max(...mockMedicalHistory.map(h => h.id), 0) + 1,
     ...payload,
   };
-  mockMedicalHistory.push(newRecord);
   console.log('📋 MOCK: Medical history created:', newRecord);
   return newRecord;
 }
@@ -122,13 +145,14 @@ export async function updateMedicalHistory(
   payload: Partial<MedicalHistory>
 ): Promise<MedicalHistory> {
   await new Promise(resolve => setTimeout(resolve, 200));
+  const mockMedicalHistory = getMockMedicalHistory();
   const record = mockMedicalHistory.find(h => h.id === id);
   if (!record) {
     throw new Error(`Medical history record with ID ${id} not found`);
   }
-  Object.assign(record, payload);
+  const updated = { ...record, ...payload };
   console.log('📋 MOCK: Medical history updated:', id);
-  return record;
+  return updated;
 }
 
 /**
@@ -136,9 +160,6 @@ export async function updateMedicalHistory(
  */
 export async function deleteMedicalHistory(id: number): Promise<void> {
   await new Promise(resolve => setTimeout(resolve, 150));
-  const index = mockMedicalHistory.findIndex(h => h.id === id);
-  if (index !== -1) {
-    mockMedicalHistory.splice(index, 1);
-    console.log('📋 MOCK: Medical history deleted:', id);
-  }
+  console.log('📋 MOCK: Medical history deleted:', id);
+  // Note: In a real implementation, this would delete from the database
 }

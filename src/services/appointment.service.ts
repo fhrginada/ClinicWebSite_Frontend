@@ -70,10 +70,16 @@ export async function getMyAppointments(): Promise<AppointmentResponse[]> {
   return getAllAppointments();
 }
 
-export async function getMyDoctorAppointments(): Promise<AppointmentResponse[]> {
+export async function getMyDoctorAppointments(doctorId?: number): Promise<AppointmentResponse[]> {
   await new Promise(resolve => setTimeout(resolve, 200));
-  // Return appointments for current doctor (mock: return all)
-  return getAllAppointments();
+  const allAppointments = await getAllAppointments();
+  
+  // Filter by doctor ID if provided
+  if (doctorId) {
+    return allAppointments.filter(apt => apt.doctorId === doctorId);
+  }
+  
+  return allAppointments;
 }
 
 /**
