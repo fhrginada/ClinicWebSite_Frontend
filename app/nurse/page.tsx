@@ -1,25 +1,34 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMockAuth } from '@/src/auth/mockAuth';
 
 export default function NurseDashboard() {
   const router = useRouter();
+  const [isChecking, setIsChecking] = useState(true);
 
   // Redirect to user-ID based dashboard
   useEffect(() => {
-    const auth = getMockAuth();
-    if (!auth.isAuthenticated || auth.role !== 'Nurse') {
-      router.replace('/login');
-      return;
-    }
-    
-    if (auth.userId) {
-      router.replace(`/nurse/${auth.userId}/dashboard`);
-    } else {
-      router.replace('/login');
-    }
+    // Add a small delay to ensure localStorage is ready
+    const timer = setTimeout(() => {
+      const auth = getMockAuth();
+      console.log('Nurse page auth check:', auth);
+      
+      if (!auth.isAuthenticated || auth.role !== 'Nurse') {
+        router.replace('/login');
+        return;
+      }
+      
+      if (auth.userId) {
+        router.replace(`/nurse/${auth.userId}/dashboard`);
+      } else {
+        router.replace('/login');
+      }
+      setIsChecking(false);
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [router]);
   
   return null;

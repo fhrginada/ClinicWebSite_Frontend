@@ -24,8 +24,18 @@ export default function Login() {
 
     if (authResult) {
       // Set mock auth state in localStorage
+      console.log('✅ Login successful:', authResult);
+      
       setMockAuth(authResult.role, authResult.userId, authResult.userName);
       
+      // Verify data was saved
+      if (typeof window !== 'undefined') {
+        console.log('After setMockAuth:');
+        console.log('  clinic.mockAuth:', window.localStorage.getItem('clinic.mockAuth'));
+        console.log('  clinic.mockRole:', window.localStorage.getItem('clinic.mockRole'));
+        console.log('  clinic.mockUserId:', window.localStorage.getItem('clinic.mockUserId'));
+        console.log('  clinic.mockUserName:', window.localStorage.getItem('clinic.mockUserName'));
+      }
       const role = authResult.role;
 
       // Redirect based on role and user ID
@@ -44,8 +54,11 @@ export default function Login() {
         redirectPath = decodeURIComponent(redirectParam);
       }
 
-      // Use push instead of replace for better navigation
-      router.push(redirectPath);
+      // Use small timeout to ensure localStorage is persisted before navigation
+      setTimeout(() => {
+        console.log('🔀 Navigating to dashboard:', redirectPath);
+        router.push(redirectPath);
+      }, 50);
     } else {
       setError("Invalid email or password. Please check your credentials and try again.");
     }

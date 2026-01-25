@@ -75,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // TEMPORARY: Listen for storage changes to detect mock auth updates (from other tabs)
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'clinic.mockAuth' || e.key === 'clinic.mockRole') {
+      if (e.key === 'clinic.mockAuth' || e.key === 'clinic.mockRole' || e.key === 'clinic.mockUserId' || e.key === 'clinic.mockUserName') {
         setRefreshKey((prev) => prev + 1); // Force state recomputation
       }
     };

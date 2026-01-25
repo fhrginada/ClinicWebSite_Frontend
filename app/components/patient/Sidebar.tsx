@@ -32,18 +32,23 @@ export default function Sidebar({ patientId }: { patientId?: number }) {
   const pathname = usePathname();
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(true);
-  const auth = getMockAuth();
-  const [patientName, setPatientName] = useState<string>(auth.userName || 'Patient');
+  const [isMounted, setIsMounted] = useState(false);
+  const [patientName, setPatientName] = useState<string>('Patient');
   
   useEffect(() => {
+    setIsMounted(true);
+    const auth = getMockAuth();
     const currentPatientId = patientId || auth.userId;
+    
     if (currentPatientId) {
       const patient = getPatientById(currentPatientId);
       if (patient) {
         setPatientName(patient.name);
       }
+    } else if (auth.userName) {
+      setPatientName(auth.userName);
     }
-  }, [patientId, auth.userId]);
+  }, [patientId]);
   
   const dashboardPath = patientId ? `/patient/${patientId}/dashboard` : '/patient';
   const navigationItems = [
@@ -56,7 +61,7 @@ export default function Sidebar({ patientId }: { patientId?: number }) {
     { icon: Settings, label: 'Settings', href: '/patient/settings' },
   ];
 
-  const initials = getInitials(patientName);
+  const initials = isMounted ? getInitials(patientName) : 'PA';
 
   return (
     <aside 
@@ -159,7 +164,9 @@ export default function Sidebar({ patientId }: { patientId?: number }) {
             
             {/* Name and Role */}
             <div className="text-center mb-4">
-              <h3 className="text-white font-semibold text-base mb-1">{patientName}</h3>
+              <h3 className="text-white font-semibold text-base mb-1">
+                {isMounted ? patientName : 'Patient'}
+              </h3>
               <p className="text-gray-400 text-xs">Patient</p>
             </div>
             
