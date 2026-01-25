@@ -5,11 +5,12 @@ import { useEffect, useMemo, useState } from 'react';
 import Sidebar from '@/components/patient/Sidebar';
 import Topbar from '@/components/patient/Topbar';
 import { Bell, Calendar, CheckCircle2, AlertCircle, Info, Search, Filter } from 'lucide-react';
-import {
-  getMyNotifications,
-  markAsRead as markNotificationAsRead,
-  type Notification as ApiNotification,
-} from '@/src/services/notification.service';
+import { 
+  getNotifications, 
+  markNotificationAsRead, 
+  markAllNotificationsAsRead,
+  type DynamicNotification 
+} from '@/src/utils/notificationManager';
 
 type NotificationType = 'appointment' | 'prescription' | 'reminder' | 'general';
 
@@ -22,21 +23,21 @@ interface NotificationRow {
   read: boolean;
 }
 
-const inferType = (title: string): NotificationType => {
-  const t = title.toLowerCase();
-  if (t.includes('appointment')) return 'appointment';
-  if (t.includes('prescription')) return 'prescription';
-  if (t.includes('reminder') || t.includes('medication')) return 'reminder';
+const inferType = (message: string): NotificationType => {
+  const m = message.toLowerCase();
+  if (m.includes('appointment')) return 'appointment';
+  if (m.includes('prescription')) return 'prescription';
+  if (m.includes('reminder') || m.includes('medication') || m.includes('tomorrow')) return 'reminder';
   return 'general';
 };
 
-const toRow = (n: ApiNotification): NotificationRow => ({
-  id: n.notificationId,
-  title: n.title,
+const toRow = (n: DynamicNotification): NotificationRow => ({
+  id: n.id,
+  title: 'Notification',
   message: n.message,
-  type: inferType(n.title),
+  type: inferType(n.message),
   date: n.createdAt,
-  read: n.isRead,
+  read: n.read,
 });
 
 const getNotificationIcon = (type: string) => {
@@ -72,24 +73,31 @@ export default function NotificationsPage() {
   const [filter, setFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const loadNotifications = () => {
+    try {
+      setLoading(true);
+      setLoadError(null);
+      const data = getNotifications();
+      setNotifications(data.map(toRow));
+    } catch (e: any) {
+      setLoadError('Failed to load notifications.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        setLoading(true);
-        setLoadError(null);
-        const data = await getMyNotifications();
-        if (cancelled) return;
-        setNotifications(data.map(toRow));
-      } catch (e: any) {
-        if (cancelled) return;
-        setLoadError(e?.response?.data?.message ?? 'Failed to load notifications.');
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
+    loadNotifications();
+    
+    // Listen for notification changes
+    const handleNotificationsChanged = () => {
+      loadNotifications();
+    };
+    
+    window.addEventListener('notificationsChanged', handleNotificationsChanged);
+    
     return () => {
-      cancelled = true;
+      window.removeEventListener('notificationsChanged', handleNotificationsChanged);
     };
   }, []);
 
@@ -113,20 +121,15 @@ export default function NotificationsPage() {
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const markAsRead = async (id: number) => {
-    try {
-      await markNotificationAsRead(id);
-      setNotifications((prev) =>
-        prev.map((notif) => (notif.id === id ? { ...notif, read: true } : notif))
-      );
-    } catch {
-      // no-op
-    }
+  const markAsRead = (id: number) => {
+    markNotificationAsRead(id);
+    setNotifications((prev) =>
+      prev.map((notif) => (notif.id === id ? { ...notif, read: true } : notif))
+    );
   };
 
-  const markAllAsRead = async () => {
-    const unread = notifications.filter((n) => !n.read);
-    await Promise.all(unread.map((n) => markNotificationAsRead(n.id).catch(() => undefined)));
+  const markAllAsRead = () => {
+    markAllNotificationsAsRead();
     setNotifications((prev) => prev.map((notif) => ({ ...notif, read: true })));
   };
 

@@ -1,4 +1,29 @@
-[
+[ 
+  {
+    "id": 11,
+    "name": "Nada Hossam",
+    "email": "nodyhossam.1@gmail.com",
+    "password": "123456",
+    "role": "Patient",
+    "age": 29,
+    "gender": "Female",
+    "phone": "+1-555-0211",
+    "medicalId": "MED-011",
+    "assignedDoctorId": 1,
+    "assignedDoctor": "Dr. Emily Carter",
+    "conditions": ["Hypertension"],
+    "allergies": ["None"],
+    "bloodType": "A+",
+    "address": "221B Health Street, Wellness City, HC 12345",
+    "dateOfBirth": "1996-05-12",
+    "emergencyContact": {
+      "name": "Ahmed Hossam",
+      "relationship": "Brother",
+      "phone": "+1-555-0211-EXT"
+    },
+    "insuranceProvider": "Aetna",
+    "insurancePolicyNumber": "AET-123123123"
+  },
   {
     "id": 1,
     "name": "Sara Ahmed",

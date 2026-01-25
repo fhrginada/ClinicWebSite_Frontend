@@ -13,6 +13,7 @@ import { getDoctorAvailability, getAllDoctors, type DoctorAvailability, type Doc
 import Calendar from '../components/Calendar';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { addNotification } from '@/src/utils/notificationManager';
 
 export default function AppointmentPage() {
   const searchParams = useSearchParams();
@@ -263,6 +264,13 @@ export default function AppointmentPage() {
         timeSlot: timeSlot,
         reasonForVisit: formData.reasonForVisit || undefined,
       });
+      
+      // Add notification for new appointment
+      const selectedDoctor = doctors.find(d => d.id === formData.doctorId);
+      const doctorName = selectedDoctor?.name || 'Doctor';
+      const formattedDate = selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      addNotification(`New appointment booked with ${doctorName} on ${formattedDate} at ${selectedTime}`);
+      
       setSuccess(true);
       
       // Reset form
